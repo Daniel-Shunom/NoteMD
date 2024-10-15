@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
+import { IconHome, IconFile, IconUser, IconUserBolt, IconSettings, IconLogout } from "@tabler/icons-react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,12 +25,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const links = [
+    { label: "Home", href: "/home", icon: <IconHome /> },
+    { label: "Profile", href: "/profile", icon: <IconUserBolt /> },
+    { label: "Settings", href: "/settings", icon: <IconSettings /> },
+    { label: "Logout", href: "/page3", icon: <IconLogout />}
+  ];
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="flex h-screen overflow-hidden">
+          {/* Sidebar component */}
+          <Sidebar>
+            <SidebarBody>
+              {links.map((link, index) => (
+                <SidebarLink key={index} link={link} />
+              ))}
+            </SidebarBody>
+          </Sidebar>
+          {/* Main content */}
+          <div className="flex-grow p-6">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );
