@@ -8,7 +8,7 @@ import React from "react"
 export default function Home () {
     return (
         <div className="space-x-4">
-            <div className="fixed bottom-4 w-[90%] max-w-2xl left-1/2 transform -translate-x-1/2 p-4 bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow-lg">
+            <div className="fixed bottom-0 w-[90%] max-w-2xl left-1/2 transform -translate-x-1/2 p-4 bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow-lg">
                 <ChatBox />
             </div>
 
