@@ -1,6 +1,9 @@
 "use client";
 
+import { ChevronUp } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export function ChatBox() {
   const placeholders = [
@@ -28,3 +31,50 @@ export function ChatBox() {
 }
 
 
+
+
+const HideableChatbox = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+
+  return (
+    <div className="fixed bottom-0 w-full flex justify-center items-center">
+      {/* Chatbox Tab */}
+      {!isChatOpen && (
+        <div
+          onClick={toggleChat}
+          className="bg-red-500 text-white p-2 rounded-t-lg shadow-lg cursor-pointer flex justify-center items-center"
+        >
+          <ChevronUp size={24} />
+          <span className="ml-2">Chat</span>
+        </div>
+      )}
+
+      {/* Chatbox Popup */}
+      {isChatOpen && (
+        <motion.div
+          className="absolute bottom-0 w-[90%] left-0 right-0 mx-auto max-w-2xl left-1/2 transform -translate-x-1/2 p-4 bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow-lg"
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold">Chat</h2>
+            <button onClick={toggleChat} className="text-red-500">
+              Close
+            </button>
+          </div>
+          {/* Chatbox Component */}
+          <div>
+            <ChatBox />
+          </div>
+        </motion.div>
+      )}
+    </div>
+  );
+};
+
+export default HideableChatbox;
