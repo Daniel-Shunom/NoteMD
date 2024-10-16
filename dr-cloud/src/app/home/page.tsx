@@ -8,7 +8,7 @@ import React from "react"
 export default function Home () {
     return (
         <div className="space-x-4">
-            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full">
+            <div className="fixed bottom-0 w-full">
                 < HideableChatbox />
             </div>
             

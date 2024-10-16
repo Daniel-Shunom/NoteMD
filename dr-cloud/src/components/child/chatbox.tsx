@@ -41,7 +41,7 @@ const HideableChatbox = () => {
   };
 
   return (
-    <div className="fixed bottom-0 w-full flex justify-center items-center">
+    <div className="fixed bottom-0 left-0 right-0 mx-auto w-full flex justify-center items-center">
       {/* Chatbox Tab */}
       {!isChatOpen && (
         <div
@@ -56,7 +56,7 @@ const HideableChatbox = () => {
       {/* Chatbox Popup */}
       {isChatOpen && (
         <motion.div
-          className="absolute bottom-0 w-[90%] left-0 right-0 mx-auto max-w-2xl left-1/2 transform -translate-x-1/2 p-4 bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow-lg"
+          className="relative bottom-0 w-full max-w-2xl left-0 right-0 mx-auto p-4 bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow-lg"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
