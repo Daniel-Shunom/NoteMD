@@ -47,7 +47,7 @@ export default function RootLayout({
             </SidebarBody>
           </Sidebar>
           {/* Main content */}
-          <div className="flex-grow p-6">
+          <div className="flex-grow p-6 h-full overflow-y-auto">
             {children}
           </div>
         </div>
