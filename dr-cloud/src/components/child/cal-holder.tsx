@@ -4,7 +4,7 @@ import { cn } from "@/app/lib/utils";
 
 export function CalHolder() {
   return (
-    <div className="h-[40rem] flex items-center justify-center w-full">
+    <div className="h-[40rem] flex items-center justify-center w-full z-0">
       <CardStack items={CARDS} />
     </div>
   );
@@ -21,7 +21,7 @@ export const Highlight = ({
   return (
     <span
       className={cn(
-        "font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-700/[0.2] dark:text-emerald-500 px-1 py-0.5",
+        "font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-700/[0.2] dark:text-emerald-500 px-1 py-0.5 z-0",
         className
       )}
     >
