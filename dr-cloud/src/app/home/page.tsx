@@ -12,8 +12,7 @@ export default function Home () {
 
             <div className="flex flex-row space-x-4 justify center scroll-auto">
                 < HomeBento />
-                <div className="z-0">
-                    < CalHolder />
+                <div className="z-[-1]">
                     < CalHolder />
                 </div>
             </div>
