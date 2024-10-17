@@ -56,12 +56,12 @@ const HideableChatbox = () => {
       {/* Chatbox Popup */}
       {isChatOpen && (
         <motion.div
-          className="relative bottom-0 w-full max-w-2xl left-0 right-0 mx-auto p-4 bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow-lg"
+          className="relative bottom-0 w-full max-w-2xl left-0 right-0 mx-auto p-1 bg-white bg-opacity-99 backdrop-blur-md rounded-t-xl shadow-lg"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold">Chat</h2>
             <button onClick={toggleChat} className="text-red-500">
               Close

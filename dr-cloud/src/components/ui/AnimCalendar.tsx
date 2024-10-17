@@ -62,7 +62,7 @@ const AnimatedCalendar: React.FC = () => {
 
   return (
     <motion.div
-      className="bg-gray-100 p-6 rounded-3xl shadow-lg max-w-md mx-auto"
+      className="bg-gray-100 p-6 rounded-3xl shadow-lg w-full h-full"
       initial="hidden"
       animate="visible"
       exit="exit"
