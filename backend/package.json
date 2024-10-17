@@ -11,8 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.7",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "openai": "^4.67.3",
+    "processenv": "^3.0.9"
   }
 }
