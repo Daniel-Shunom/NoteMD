@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronUp } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function ChatBox() {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
@@ -82,7 +82,7 @@ export function ChatBox() {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col max-h-80">
       <div className="flex-grow overflow-y-auto p-4">
         {messages.map((message, index) => (
           <div key={index} className={`mb-4 ${message.role === "user" ? "text-right" : "text-left"}`}>
@@ -116,39 +116,68 @@ const HideableChatbox = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 mx-auto w-full flex justify-center items-center">
-      {/* Chatbox Tab */}
-      {!isChatOpen && (
-        <div
-          onClick={toggleChat}
-          className="bg-red-500 text-white p-2 rounded-t-lg shadow-lg cursor-pointer flex justify-center items-center"
-        >
-          <ChevronUp size={24} />
-          <span className="ml-2">Chat</span>
-        </div>
-      )}
+    <>
+      {/* Blurred Backdrop */}
+      <AnimatePresence>
+        {isChatOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={toggleChat}
+          />
+        )}
+      </AnimatePresence>
 
-      {/* Chatbox Popup */}
-      {isChatOpen && (
-        <motion.div
-          className="relative bottom-0 w-full max-w-2xl left-0 right-0 mx-auto p-1 bg-white bg-opacity-99 backdrop-blur-md rounded-t-xl shadow-lg"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold">Chat</h2>
-            <button onClick={toggleChat} className="text-red-500">
-              Close
-            </button>
-          </div>
-          {/* Chatbox Component */}
-          <div>
-            <ChatBox />
-          </div>
-        </motion.div>
-      )}
-    </div>
+      {/* Fixed container for both button and chatbox */}
+      <div className="fixed bottom-0 left-0 right-0 flex justify-center items-end z-50">
+        <div className="relative w-full max-w-2xl">
+          {/* Chatbox Tab */}
+          <AnimatePresence>
+            {!isChatOpen && (
+              <motion.div
+                onClick={toggleChat}
+                className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-2 rounded-t-lg shadow-lg cursor-pointer flex justify-center items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronUp size={24} />
+                <span className="ml-2">Chat</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Chatbox Popup */}
+          <AnimatePresence>
+            {isChatOpen && (
+              <motion.div
+                className="w-full bg-white rounded-t-xl shadow-lg overflow-hidden"
+                initial={{ height: 0 }}
+                animate={{ height: 'auto' }}
+                exit={{ height: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="p-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg font-semibold">Chat</h2>
+                    <button onClick={toggleChat} className="text-red-500 hover:text-red-700 transition-colors">
+                      Close
+                    </button>
+                  </div>
+                  {/* Chatbox Component */}
+                  <div>
+                    <ChatBox />
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </>
   );
 };
 
