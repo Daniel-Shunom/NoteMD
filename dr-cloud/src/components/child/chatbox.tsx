@@ -31,7 +31,7 @@ export function ChatBox() {
     setStreaming(true);
 
     try {
-      const response = await fetch('http://localhost:5000/GPT_calls/chatroute', {
+      const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
