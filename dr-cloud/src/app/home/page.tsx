@@ -1,6 +1,5 @@
 "use client"
 import axios from "axios"
-import { CalHolder } from "@/components/child/cal-holder"
 import HideableChatbox, { ChatBox } from "@/components/child/chatbox"
 import { HomeBento } from "@/components/child/home-bento"
 import AnimatedCalendar from "@/components/ui/AnimCalendar"
