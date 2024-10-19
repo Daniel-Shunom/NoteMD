@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronUp } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
@@ -11,11 +11,11 @@ export function ChatBox() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const placeholders = [
-    "What's the first rule of Fight Club?",
-    "Who is Tyler Durden?",
-    "Where is Andrew Laeddis Hiding?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
+    "Schedule a doctor's appointment",
+    "Who is a doctor?",
+    "Where is my doctor?",
+    "Write a note to my doctor",
+    "What to do when sick?",
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,11 +25,11 @@ export function ChatBox() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!currentMessage.trim()) return;
-
+  
     setMessages((prev) => [...prev, { role: "user", content: currentMessage }]);
     setCurrentMessage("");
     setStreaming(true);
-
+  
     try {
       const response = await fetch('http://localhost:5000', {
         method: 'POST',
@@ -38,34 +38,50 @@ export function ChatBox() {
         },
         body: JSON.stringify({ message: currentMessage }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
-
+  
       if (reader) {
+        let assistantMessage = '';
         setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+  
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
           const chunk = decoder.decode(value);
-          const lines = chunk.split('\n\n');
+          console.log("Chunk received from backend:", chunk);
+  
+          const lines = chunk.split('\n');
+  
           for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              const data = JSON.parse(line.slice(6));
-              if (data === '[DONE]') {
+            const trimmedLine = line.trim();
+            if (trimmedLine === '') continue;
+  
+            if (trimmedLine.startsWith('data: ')) {
+              const dataStr = trimmedLine.slice('data: '.length);
+              if (dataStr === '[DONE]') {
                 setStreaming(false);
                 break;
-              }
-              if (data.token) {
-                setMessages((prev) => {
-                  const newMessages = [...prev];
-                  newMessages[newMessages.length - 1].content += data.token;
-                  return newMessages;
-                });
+              } else {
+                try {
+                  const data = JSON.parse(dataStr);
+                  const content = data.choices[0].delta.content;
+                  if (content) {
+                    assistantMessage += content;
+                    setMessages((prev) => {
+                      const newMessages = [...prev];
+                      newMessages[newMessages.length - 1].content = assistantMessage;
+                      return newMessages;
+                    });
+                  }
+                } catch (err) {
+                  console.error('Error parsing JSON:', err);
+                }
               }
             }
           }
@@ -76,6 +92,7 @@ export function ChatBox() {
       setStreaming(false);
     }
   };
+  
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -105,6 +122,7 @@ export function ChatBox() {
     </div>
   );
 }
+
 
 
 
