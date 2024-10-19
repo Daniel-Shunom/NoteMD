@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { IconHome, IconFile, IconUser, IconUserBolt, IconSettings, IconLogout } from "@tabler/icons-react";
+import {
+  IconHome,
+  IconUserBolt,
+  IconSettings,
+  IconLogout,
+} from "@tabler/icons-react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,14 +27,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   const links = [
     { label: "Home", href: "/home", icon: <IconHome /> },
     { label: "Profile", href: "/profile", icon: <IconUserBolt /> },
     { label: "Settings", href: "/settings", icon: <IconSettings /> },
-    { label: "Logout", href: "/page3", icon: <IconLogout />}
+    { label: "Logout", href: "/logout", icon: <IconLogout /> },
   ];
 
   return (
@@ -37,7 +42,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex h-screen overflow-hidden">
+        <div className="flex flex-col md:flex-row h-screen overflow-hidden">
           {/* Sidebar component */}
           <Sidebar>
             <SidebarBody>
@@ -47,7 +52,7 @@ export default function RootLayout({
             </SidebarBody>
           </Sidebar>
           {/* Main content */}
-          <div className="flex-grow p-6 h-full overflow-y-auto">
+          <div className="flex-1 p-4 md:p-6 h-full overflow-y-auto">
             {children}
           </div>
         </div>
