@@ -10,6 +10,10 @@ export function ChatBox() {
   const [currentMessage, setCurrentMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Speech recognition variables (from previous integration)
+  const [recognitionActive, setRecognitionActive] = useState(false);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+
   const placeholders = [
     "Schedule a doctor's appointment",
     "Who is a doctor?",
@@ -22,50 +26,70 @@ export function ChatBox() {
     setCurrentMessage(e.target.value);
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!currentMessage.trim()) return;
-  
-    setMessages((prev) => [...prev, { role: "user", content: currentMessage }]);
+  const speakText = (text: string) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // Cancel any ongoing speech
+      const utterance = new SpeechSynthesisUtterance(text);
+      // Set voice properties if needed
+      // utterance.lang = 'en-US';
+      window.speechSynthesis.speak(utterance);
+    } else {
+      console.warn('Text-to-speech not supported in this browser.');
+    }
+  };
+
+  const onSubmit = async (e?: React.FormEvent<HTMLFormElement>, messageContent?: string) => {
+    if (e) e.preventDefault();
+    const messageToSend = messageContent || currentMessage;
+    if (!messageToSend.trim()) return;
+
+    setMessages((prev) => [...prev, { role: "user", content: messageToSend }]);
     setCurrentMessage("");
     setStreaming(true);
-  
+
     try {
       const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: currentMessage }),
+        body: JSON.stringify({ message: messageToSend }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
-  
+
       if (reader) {
         let assistantMessage = '';
         setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
-  
+
         while (true) {
           const { done, value } = await reader.read();
-          if (done) break;
+          if (done) {
+            setStreaming(false);
+            // Speak the assistant's message once it's fully received
+            speakText(assistantMessage);
+            break;
+          }
           const chunk = decoder.decode(value);
           console.log("Chunk received from backend:", chunk);
-  
+
           const lines = chunk.split('\n');
-  
+
           for (const line of lines) {
             const trimmedLine = line.trim();
             if (trimmedLine === '') continue;
-  
+
             if (trimmedLine.startsWith('data: ')) {
               const dataStr = trimmedLine.slice('data: '.length);
               if (dataStr === '[DONE]') {
                 setStreaming(false);
+                // Speak the assistant's message once it's fully received
+                speakText(assistantMessage);
                 break;
               } else {
                 try {
@@ -92,11 +116,56 @@ export function ChatBox() {
       setStreaming(false);
     }
   };
-  
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Initialize Speech Recognition (from previous integration)
+  useEffect(() => {
+    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+    } else {
+      console.warn("Speech Recognition API not supported in this browser.");
+    }
+  }, []);
+
+  // Handle Speech Recognition Events (from previous integration)
+  useEffect(() => {
+    if (recognitionRef.current) {
+      recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
+        const transcript = Array.from(event.results)
+          .map(result => result[0].transcript)
+          .join('');
+
+        // Automatically submit the message
+        onSubmit(undefined, transcript);
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error', event);
+        setRecognitionActive(false);
+      };
+
+      recognitionRef.current.onend = () => {
+        setRecognitionActive(false);
+      };
+    }
+  }, [recognitionRef.current]);
+
+  const toggleRecognition = () => {
+    if (recognitionActive) {
+      recognitionRef.current?.stop();
+      setRecognitionActive(false);
+    } else {
+      recognitionRef.current?.start();
+      setRecognitionActive(true);
+    }
+  };
 
   return (
     <div className="flex flex-col max-h-80">
@@ -118,10 +187,21 @@ export function ChatBox() {
           _value={currentMessage}
           disabled={streaming}
         />
+
+        {/* Microphone Button */}
+        <div className="flex justify-end mt-2">
+          <button
+            onClick={toggleRecognition}
+            className={`p-2 rounded-full ${recognitionActive ? 'bg-red-500' : 'bg-blue-500'} text-white`}
+          >
+            {recognitionActive ? 'Stop Recording' : '🎤'}
+          </button>
+        </div>
       </div>
     </div>
   );
 }
+
 
 
 const HideableChatbox = () => {
