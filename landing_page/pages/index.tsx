@@ -47,24 +47,24 @@ export default function Home() {
             href="/get-started"
             className="bg-white text-blue-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300"
           >
-            Get Started
+            Doctor login
           </a>
           <a
             href="/learn-more"
             className="bg-transparent border border-white text-white px-6 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-800 transition duration-300"
           >
-            Learn More
+            Patient login
           </a>
         </div>
       </div>
       
       {/* Illustration/Image */}
-      <div className="w-full lg:w-1/2 flex justify-center">
+      <div className="w-full lg:w-1/2 flex justify-center pt-[10vh]">
         <Image 
           src={image} 
           alt="Patient Management Illustration" 
-          width={400} 
-          height={400} 
+          width={500} 
+          height={500} 
           className="rounded-lg shadow-lg w-full max-w-sm" 
           priority
         />
