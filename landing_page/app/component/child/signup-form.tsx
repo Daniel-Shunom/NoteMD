@@ -1,13 +1,53 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
+import { form } from "framer-motion/client";
 
 export function SignupFormDemo() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [name, setName] = useState('')
+  const [lname, setLname] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [cpassword, setCpassword] = useState('')
+  const [error, setError] = useState('')
+
+  console.log("Name:", name)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
+    while (!name || !lname || !email || !password || !cpassword) {
+      setError('All fields are required')
+      return;
+    } if (password !== cpassword) {
+      setError('Passwords must match!')
+      return;
+    } else {
+      setError('')
+    }
+
+    try {
+      const res = await fetch('api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name, lname, email, password
+        })
+      })
+
+      if (res.ok) {
+        const form = e.target as HTMLFormElement
+        form.reset()
+      } else {
+        console.log('User rgistration failed')
+      }
+    } catch (error) {
+      console.log('Error:', error)
+    }
   };
 
   return (
@@ -29,6 +69,7 @@ export function SignupFormDemo() {
               placeholder="John"
               type="text"
               className="w-full"
+              onChange={(e) => setName(e.target.value)}
             />
           </LabelInputContainer>
           <LabelInputContainer>
@@ -38,17 +79,18 @@ export function SignupFormDemo() {
               placeholder="Doe"
               type="text"
               className="w-full"
+              onChange={(e) => setLname(e.target.value)}
             />
           </LabelInputContainer>
         </div>
 
         <LabelInputContainer className="mb-4 w-full">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="abc@xyz.com" type="email" className="w-full" />
+          <Input id="email" placeholder="abc@xyz.com" type="email" className="w-full" onChange={(e) => setEmail(e.target.value)}/>
         </LabelInputContainer>
         <LabelInputContainer className="mb-4 w-full">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" className="w-full" />
+          <Input id="password" placeholder="••••••••" type="password" className="w-full" onChange={(e) => setPassword(e.target.value)}/>
         </LabelInputContainer>
         <LabelInputContainer className="mb-8 w-full">
           <Label htmlFor="confirm-password">Confirm Password</Label>
@@ -57,6 +99,7 @@ export function SignupFormDemo() {
             placeholder="••••••••"
             type="password"
             className="w-full"
+            onChange={(e) => setCpassword(e.target.value)}
           />
         </LabelInputContainer>
 
@@ -67,6 +110,11 @@ export function SignupFormDemo() {
           Sign up &rarr;
           <BottomGradient />
         </button>
+        {error && (
+          <div className="">
+            {error}
+          </div>
+        )}
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-px w-full" />
       </form>
