@@ -65,29 +65,20 @@ export function ChatBox() {
         console.log("Message received from WebSocket:", event.data);
         try {
           const data = JSON.parse(event.data);
-          // Handle different event types
-          if (data.type === 'message') {
-            const content = data.content || "";
-            if (content) {
-              assistantMessageRef.current += content;
-              setMessages((prev) => {
-                const newMessages = [...prev];
-                const lastMessage = newMessages[newMessages.length - 1];
-                if (lastMessage && lastMessage.role === "assistant") {
-                  lastMessage.content += content;
-                } else {
-                  newMessages.push({ role: "assistant", content: content });
-                }
-                return newMessages;
-              });
-            }
-          } else if (data.type === 'end') {
-            console.log("Stream ended");
-            setStreaming(false);
-          } else if (data.type === 'error') {
-            console.error("Error:", data.message);
-            setMessages((prev) => [...prev, { role: "error", content: data.message }]);
-            setStreaming(false);
+          // Assuming the data contains the assistant's message content
+          const content = data.choices?.[0]?.delta?.content || "";
+          if (content) {
+            assistantMessageRef.current += content;
+            setMessages((prev) => {
+              const newMessages = [...prev];
+              const lastMessage = newMessages[newMessages.length - 1];
+              if (lastMessage && lastMessage.role === "assistant") {
+                lastMessage.content += content;
+              } else {
+                newMessages.push({ role: "assistant", content: content });
+              }
+              return newMessages;
+            });
           }
         } catch (err) {
           console.error("Error parsing WebSocket message:", err);
@@ -135,18 +126,12 @@ export function ChatBox() {
     assistantMessageRef.current = "";
 
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-      // Update the message type to a supported one
-      const message = {
-        type: "conversation.item.create", // Changed from 'user_message' to 'conversation.item.create'
-        payload: { content: messageToSend }
-      };
       wsRef.current.send(
-        JSON.stringify(message)
+        JSON.stringify({ type: "user_message", payload: {content: messageToSend} })
       );
     } else {
       console.error("WebSocket is not connected");
       setStreaming(false);
-      setMessages((prev) => [...prev, { role: "error", content: "WebSocket is not connected." }]);
     }
   };
 
@@ -233,8 +218,6 @@ export function ChatBox() {
               className={`inline-block p-2 rounded-lg ${
                 message.role === "user"
                   ? "bg-blue-500 text-white"
-                  : message.role === "error"
-                  ? "bg-red-500 text-white"
                   : "bg-gray-200 text-black"
               }`}
             >
@@ -245,23 +228,13 @@ export function ChatBox() {
         <div ref={messagesEndRef} />
       </div>
       <div className="p-4">
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            value={currentMessage}
-            onChange={handleChange}
-            placeholder="Type your message here..."
-            disabled={streaming}
-            className="w-full p-2 border rounded"
-          />
-          <button
-            type="submit"
-            disabled={!currentMessage.trim() || streaming}
-            className="mt-2 w-full p-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
-          >
-            Send
-          </button>
-        </form>
+        <PlaceholdersAndVanishInput
+          placeholders={placeholders}
+          onChange={handleChange}
+          onSubmit={onSubmit} // Pass the onSubmit prop here
+          _value={currentMessage}
+          disabled={streaming}
+        />
 
         {/* Microphone Button and Streaming Indicator */}
         <div className="flex justify-end mt-2 items-center">
