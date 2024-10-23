@@ -38,12 +38,11 @@ export function SignupFormDemo() {
           name, lname, email, password
         })
       })
-
-      if (res.ok) {
-        const form = e.target as HTMLFormElement
-        form.reset()
-      } else {
+      const form = e.target as HTMLFormElement
+      if (!res.ok || form == null) {
         console.log('User rgistration failed')
+      } else {
+        form.reset()
       }
     } catch (error) {
       console.log('Error:', error)

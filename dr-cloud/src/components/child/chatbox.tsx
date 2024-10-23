@@ -1,18 +1,27 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, FormEvent } from "react";
 import { ChevronUp } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
 import { AnimatePresence, motion } from "framer-motion";
 
+type Message = {
+  role: string;
+  content: string;
+};
+
 export function ChatBox() {
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [streaming, setStreaming] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Speech recognition variables (from previous integration)
+  // Speech recognition variables
   const [recognitionActive, setRecognitionActive] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+
+  // WebSocket reference
+  const wsRef = useRef<WebSocket | null>(null);
+  const assistantMessageRef = useRef<string>("");
 
   const placeholders = [
     "Schedule a doctor's appointment",
@@ -27,93 +36,117 @@ export function ChatBox() {
   };
 
   const speakText = (text: string) => {
-    if ('speechSynthesis' in window) {
+    if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel(); // Cancel any ongoing speech
       const utterance = new SpeechSynthesisUtterance(text);
       // Set voice properties if needed
       // utterance.lang = 'en-US';
       window.speechSynthesis.speak(utterance);
     } else {
-      console.warn('Text-to-speech not supported in this browser.');
+      console.warn("Text-to-speech not supported in this browser.");
     }
   };
 
-  const onSubmit = async (e?: React.FormEvent<HTMLFormElement>, messageContent?: string) => {
+  // Initialize WebSocket connection with reconnection logic
+  useEffect(() => {
+    let ws: WebSocket;
+    let reconnectInterval: NodeJS.Timeout;
+
+    const connectWebSocket = () => {
+      ws = new WebSocket("ws://localhost:5000/ws");
+      wsRef.current = ws;
+
+      ws.onopen = () => {
+        console.log("WebSocket connection established");
+        clearInterval(reconnectInterval);
+      };
+
+      ws.onmessage = (event) => {
+        console.log("Message received from WebSocket:", event.data);
+        try {
+          const data = JSON.parse(event.data);
+          // Handle different event types
+          if (data.type === 'message') {
+            const content = data.content || "";
+            if (content) {
+              assistantMessageRef.current += content;
+              setMessages((prev) => {
+                const newMessages = [...prev];
+                const lastMessage = newMessages[newMessages.length - 1];
+                if (lastMessage && lastMessage.role === "assistant") {
+                  lastMessage.content += content;
+                } else {
+                  newMessages.push({ role: "assistant", content: content });
+                }
+                return newMessages;
+              });
+            }
+          } else if (data.type === 'end') {
+            console.log("Stream ended");
+            setStreaming(false);
+          } else if (data.type === 'error') {
+            console.error("Error:", data.message);
+            setMessages((prev) => [...prev, { role: "error", content: data.message }]);
+            setStreaming(false);
+          }
+        } catch (err) {
+          console.error("Error parsing WebSocket message:", err);
+        }
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket connection closed, attempting to reconnect...");
+        setStreaming(false);
+        // Attempt to reconnect every 5 seconds
+        reconnectInterval = setInterval(() => {
+          console.log("Reconnecting WebSocket...");
+          connectWebSocket();
+        }, 5000);
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket error:", error);
+        ws.close();
+      };
+    };
+
+    connectWebSocket();
+
+    return () => {
+      ws.close();
+      clearInterval(reconnectInterval);
+    };
+  }, []);
+
+  const onSubmit = async (
+    e?: FormEvent<HTMLFormElement>,
+    messageContent?: string
+  ) => {
     if (e) e.preventDefault();
     const messageToSend = messageContent || currentMessage;
-    if (!messageToSend.trim()) return;
+    if (!messageToSend.trim()) {
+      alert("Please enter a message.");
+      return;
+    }
 
     setMessages((prev) => [...prev, { role: "user", content: messageToSend }]);
     setCurrentMessage("");
     setStreaming(true);
+    assistantMessageRef.current = "";
 
-    try {
-      const response = await fetch('http://localhost:5000', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: messageToSend }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-
-      if (reader) {
-        let assistantMessage = '';
-        setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            setStreaming(false);
-            // Speak the assistant's message once it's fully received
-            speakText(assistantMessage);
-            break;
-          }
-          const chunk = decoder.decode(value);
-          console.log("Chunk received from backend:", chunk);
-
-          const lines = chunk.split('\n');
-
-          for (const line of lines) {
-            const trimmedLine = line.trim();
-            if (trimmedLine === '') continue;
-
-            if (trimmedLine.startsWith('data: ')) {
-              const dataStr = trimmedLine.slice('data: '.length);
-              if (dataStr === '[DONE]') {
-                setStreaming(false);
-                // Speak the assistant's message once it's fully received
-                speakText(assistantMessage);
-                break;
-              } else {
-                try {
-                  const data = JSON.parse(dataStr);
-                  const content = data.choices[0].delta.content;
-                  if (content) {
-                    assistantMessage += content;
-                    setMessages((prev) => {
-                      const newMessages = [...prev];
-                      newMessages[newMessages.length - 1].content = assistantMessage;
-                      return newMessages;
-                    });
-                  }
-                } catch (err) {
-                  console.error('Error parsing JSON:', err);
-                }
-              }
-            }
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      // Update the message type to a supported one
+      const message = {
+        type: "conversation.item.create", // Changed from 'user_message' to 'conversation.item.create'
+        payload: { content: messageToSend }
+      };
+      wsRef.current.send(
+        JSON.stringify(message)
+      );
+    } else {
+      console.error("WebSocket is not connected");
       setStreaming(false);
+      setMessages((prev) => [...prev, { role: "error", content: "WebSocket is not connected." }]);
     }
   };
 
@@ -121,58 +154,90 @@ export function ChatBox() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Initialize Speech Recognition (from previous integration)
+  // Initialize Speech Recognition
   useEffect(() => {
-    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
-      recognitionRef.current.lang = 'en-US';
+    if (
+      "webkitSpeechRecognition" in window ||
+      "SpeechRecognition" in window
+    ) {
+      const SpeechRecognition =
+        (window as any).SpeechRecognition ||
+        (window as any).webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+      recognitionRef.current = recognition;
     } else {
       console.warn("Speech Recognition API not supported in this browser.");
     }
   }, []);
 
-  // Handle Speech Recognition Events (from previous integration)
+  // Handle Speech Recognition Events
   useEffect(() => {
-    if (recognitionRef.current) {
-      recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
+    const recognition = recognitionRef.current;
+    if (recognition) {
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = Array.from(event.results)
-          .map(result => result[0].transcript)
-          .join('');
+          .map((result) => result[0].transcript)
+          .join("");
 
         // Automatically submit the message
         onSubmit(undefined, transcript);
       };
 
-      recognitionRef.current.onerror = (event: any) => {
-        console.error('Speech recognition error', event);
+      recognition.onerror = (event: any) => {
+        console.error("Speech recognition error", event);
         setRecognitionActive(false);
       };
 
-      recognitionRef.current.onend = () => {
+      recognition.onend = () => {
         setRecognitionActive(false);
       };
     }
-  }, [recognitionRef.current]);
+  }, []);
 
   const toggleRecognition = () => {
-    if (recognitionActive) {
-      recognitionRef.current?.stop();
-      setRecognitionActive(false);
+    const recognition = recognitionRef.current;
+    if (recognition) {
+      if (recognitionActive) {
+        recognition.stop();
+        setRecognitionActive(false);
+      } else {
+        recognition.start();
+        setRecognitionActive(true);
+      }
     } else {
-      recognitionRef.current?.start();
-      setRecognitionActive(true);
+      console.warn("Speech Recognition is not initialized.");
     }
   };
+
+  // Speak the assistant's message once streaming ends
+  useEffect(() => {
+    if (!streaming && assistantMessageRef.current) {
+      speakText(assistantMessageRef.current);
+    }
+  }, [streaming]);
 
   return (
     <div className="flex flex-col max-h-80">
       <div className="flex-grow overflow-y-auto p-4">
         {messages.map((message, index) => (
-          <div key={index} className={`mb-4 ${message.role === "user" ? "text-right" : "text-left"}`}>
-            <div className={`inline-block p-2 rounded-lg ${message.role === "user" ? "bg-blue-500 text-white" : "bg-gray-200 text-black"}`}>
+          <div
+            key={index}
+            className={`mb-4 ${
+              message.role === "user" ? "text-right" : "text-left"
+            }`}
+          >
+            <div
+              className={`inline-block p-2 rounded-lg ${
+                message.role === "user"
+                  ? "bg-blue-500 text-white"
+                  : message.role === "error"
+                  ? "bg-red-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+            >
               {message.content}
             </div>
           </div>
@@ -180,22 +245,38 @@ export function ChatBox() {
         <div ref={messagesEndRef} />
       </div>
       <div className="p-4">
-        <PlaceholdersAndVanishInput
-          placeholders={placeholders}
-          onChange={handleChange}
-          onSubmit={onSubmit}
-          _value={currentMessage}
-          disabled={streaming}
-        />
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            value={currentMessage}
+            onChange={handleChange}
+            placeholder="Type your message here..."
+            disabled={streaming}
+            className="w-full p-2 border rounded"
+          />
+          <button
+            type="submit"
+            disabled={!currentMessage.trim() || streaming}
+            className="mt-2 w-full p-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+          >
+            Send
+          </button>
+        </form>
 
-        {/* Microphone Button */}
-        <div className="flex justify-end mt-2">
+        {/* Microphone Button and Streaming Indicator */}
+        <div className="flex justify-end mt-2 items-center">
           <button
             onClick={toggleRecognition}
-            className={`p-2 rounded-full ${recognitionActive ? 'bg-red-500' : 'bg-blue-500'} text-white`}
+            className={`p-2 rounded-full ${
+              recognitionActive ? "bg-red-500" : "bg-blue-500"
+            } text-white`}
+            aria-label={recognitionActive ? "Stop Recording" : "Start Recording"}
           >
-            {recognitionActive ? 'Stop Recording' : '🎤'}
+            {recognitionActive ? "Stop Recording" : "🎤"}
           </button>
+          {streaming && (
+            <span className="ml-2 text-sm text-gray-600">Streaming...</span>
+          )}
         </div>
       </div>
     </div>

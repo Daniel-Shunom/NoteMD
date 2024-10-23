@@ -11,14 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@openai/realtime-api-beta": "github:openai/openai-realtime-api-beta",
     "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mongoose": "^8.7.2",
     "node-fetch": "^3.3.2",
-    "openai": "^4.67.3",
+    "openai": "^4.68.2",
     "processenv": "^3.0.9",
     "ws": "^8.18.0"
   }
