@@ -9,7 +9,12 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        'fluid-heading': 'clamp(1.5rem, 2.5vw, 2.5rem)',
+        'fluid-base': 'clamp(1rem, 1.5vw, 1.25rem)',
+      },
+    },
   },
   plugins: [],
 };

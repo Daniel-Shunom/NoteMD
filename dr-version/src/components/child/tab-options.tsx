@@ -38,6 +38,17 @@ const ExampleUsage: React.FC = () => {
         </div>
       ),
     },
+    {
+        id: 'notifications',
+        label: 'nots',
+        content: (
+          <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
+            <div className="w-full flex items-center justify-center text-gray-500">
+              Detail Content Area
+            </div>
+          </div>
+        ),
+      },
   ];
 
   // Example of controlled Tabs
