@@ -1,15 +1,13 @@
-// backend/index.js
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { RealtimeRelay } from './GPT_calls/realtime.js'; // Ensure the path is correct
+import { RealtimeRelay } from './GPT_calls/realtime.js'; 
 import http from 'http';
 
 // Define configuration, ensuring PORT and OPENAI_API_KEY are set
 const config = {
-  port: process.env._PORT || 5000, // Correct environment variable
-  apiKey: process.env.OPENAI_API_KEY, // Ensure this is set in your .env
-  // ... other configurations as required by RealtimeRelay
+  port: process.env._PORT || 5000, 
+  apiKey: process.env.OPENAI_API_KEY, 
 };
 
 // Validate necessary configurations
