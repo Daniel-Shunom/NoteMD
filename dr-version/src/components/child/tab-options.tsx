@@ -6,8 +6,8 @@ import _Calendar from '../ui/calendar';
 const ExampleUsage: React.FC = () => {
   const tabs: Tab[] = [
     {
-      id: 'name',
-      label: 'Name',
+      id: 'notes',
+      label: 'Notes',
       content: (
         <div className="flex-1 p-2 sm:p-4 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
           <div className="w-full flex items-center justify-center text-gray-500 overflow-auto">
@@ -17,8 +17,8 @@ const ExampleUsage: React.FC = () => {
       ),
     },
     {
-      id: 'class',
-      label: 'Class',
+      id: 'meds',
+      label: 'Medication',
       content: (
         <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
           <div className="w-full flex items-center justify-center text-gray-500">
@@ -28,8 +28,8 @@ const ExampleUsage: React.FC = () => {
       ),
     },
     {
-      id: 'detail',
-      label: 'Detail',
+      id: 'visits',
+      label: 'Visits',
       content: (
         <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
           <div className="w-full flex items-center justify-center text-gray-500">
@@ -41,7 +41,7 @@ const ExampleUsage: React.FC = () => {
   ];
 
   // Example of controlled Tabs
-  const [activeTab, setActiveTab] = useState<string>('name');
+  const [activeTab, setActiveTab] = useState<string>('notes');
 
   return (
     <div className="w-full h-full flex flex-col">
