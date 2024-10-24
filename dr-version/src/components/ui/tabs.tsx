@@ -5,6 +5,8 @@ import React, {
   useEffect,
   useCallback,
   KeyboardEvent,
+  useRef,
+  useMemo,
 } from 'react';
 import { motion, AnimatePresence, MotionProps } from 'framer-motion';
 import classNames from 'classnames';
@@ -12,7 +14,7 @@ import classNames from 'classnames';
 /**
  * Interface for individual Tab
  */
-export interface Tab { // Exported interface
+export interface Tab {
   id: string;
   label: string;
   content: ReactNode;
@@ -32,7 +34,7 @@ interface TabsProps {
   activeTabClassName?: string;
   tabIndicatorClassName?: string;
   tabPanelClassName?: string;
-  animation?: Partial<MotionProps>; // Updated Typing
+  animation?: Partial<MotionProps>;
 }
 
 /**
@@ -84,33 +86,54 @@ const Tabs: React.FC<TabsProps> = React.memo(
     }, [defaultActiveTabId, isControlled]);
 
     /**
+     * Create refs for each tab button
+     */
+    const tabRefs = useMemo(
+      () => tabs.map(() => React.createRef<HTMLButtonElement>()),
+      [tabs]
+    );
+
+    /**
      * Handle keyboard navigation for accessibility
      */
     const handleKeyDown = useCallback(
       (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+        let newIndex = index;
         if (e.key === 'ArrowRight') {
           e.preventDefault();
-          const nextIndex = (index + 1) % tabs.length;
-          handleTabClick(tabs[nextIndex].id);
-          const nextTab = document.getElementById(`tab-${tabs[nextIndex].id}`);
-          nextTab?.focus();
+          newIndex = (index + 1) % tabs.length;
+          handleTabClick(tabs[newIndex].id);
+          tabRefs[newIndex].current?.focus();
         } else if (e.key === 'ArrowLeft') {
           e.preventDefault();
-          const prevIndex = (index - 1 + tabs.length) % tabs.length;
-          handleTabClick(tabs[prevIndex].id);
-          const prevTab = document.getElementById(`tab-${tabs[prevIndex].id}`);
-          prevTab?.focus();
+          newIndex = (index - 1 + tabs.length) % tabs.length;
+          handleTabClick(tabs[newIndex].id);
+          tabRefs[newIndex].current?.focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          newIndex = 0;
+          handleTabClick(tabs[newIndex].id);
+          tabRefs[newIndex].current?.focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          newIndex = tabs.length - 1;
+          handleTabClick(tabs[newIndex].id);
+          tabRefs[newIndex].current?.focus();
         }
       },
-      [handleTabClick, tabs]
+      [handleTabClick, tabs, tabRefs]
     );
+
+    if (tabs.length === 0) {
+      return null; // Or render a fallback UI
+    }
 
     return (
       <div className={classNames('w-full h-full flex flex-col', className)}>
-        {/* Tab List with Glassmorphism */}
+        {/* Tab List with Glassmorphism and Responsive Scrolling */}
         <div
           className={classNames(
-            'flex space-x-2 p-1 rounded-full bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-30 shadow-lg flex-none',
+            'flex space-x-2 p-1 sm:p-2 rounded-full bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-20 shadow-md flex-none overflow-x-auto no-scrollbar',
             tabListClassName
           )}
           role="tablist"
@@ -118,14 +141,15 @@ const Tabs: React.FC<TabsProps> = React.memo(
           {tabs.map((tab, index) => (
             <button
               key={tab.id}
+              ref={tabRefs[index]}
               onClick={() => handleTabClick(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               className={classNames(
-                'relative z-10 px-4 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
+                'relative z-10 px-2 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-full',
                 tabClassName,
                 {
                   'text-white': currentActiveTab === tab.id, // Active text color
-                  'text-gray-500 hover:text-gray-700':
+                  'text-gray-300 hover:text-gray-500':
                     currentActiveTab !== tab.id,
                 },
                 currentActiveTab === tab.id && activeTabClassName
@@ -142,7 +166,7 @@ const Tabs: React.FC<TabsProps> = React.memo(
                 {currentActiveTab === tab.id && (
                   <motion.span
                     className={classNames(
-                      'absolute inset-1 rounded-full bg-blue-600 bg-opacity-50 shadow-inner',
+                      'absolute inset-0 rounded-full bg-blue-600 bg-opacity-50 shadow-inner',
                       tabIndicatorClassName
                     )}
                     layoutId="active-pill"
@@ -161,8 +185,10 @@ const Tabs: React.FC<TabsProps> = React.memo(
           ))}
         </div>
 
+        <div className='h-3'></div>
+
         {/* Tab Panels with Glassmorphism */}
-        <div className="relative mt-6 flex-1 overflow-auto">
+        <div className="relative flex-1 overflow-hidden">
           <AnimatePresence mode="wait">
             {tabs.map(
               (tab) =>
@@ -173,12 +199,14 @@ const Tabs: React.FC<TabsProps> = React.memo(
                     role="tabpanel"
                     aria-labelledby={`tab-${tab.id}`}
                     className={classNames(
-                      'w-full p-2 rounded-lg bg-white bg-opacity-20 backdrop-blur-md border border-white border-opacity-20 shadow-inner',
+                      'w-full p-4 sm:p-6 rounded-lg bg-white bg-opacity-20 backdrop-blur-md border border-white border-opacity-20 shadow-inner flex items-end',
                       tabPanelClassName
                     )}
                     {...animation} // Spread Animation Props
                   >
-                    {tab.content}
+                    <div className="w-full h-full overflow-auto">
+                      {tab.content}
+                    </div>
                   </motion.div>
                 )
             )}

@@ -1,5 +1,5 @@
 "use client"
-import { ActivityContainer } from "@/components/child/activity_container";
+import ActivityContainer from "@/components/child/activity_container";
 import Image from "next/image";
 
 export default function Home() {
