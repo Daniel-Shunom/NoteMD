@@ -26,27 +26,39 @@ export function SignupFormDemo() {
       return;
     } else {
       setError('')
+      try {
+        const res = await fetch('http://localhost:5000/register', { // Update to your backend URL
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            lname,
+            email,
+            password
+          })
+        });
+  
+        const data = await res.json();
+  
+        if (!res.ok) {
+          console.log('User registration failed:', data.message);
+          setError(data.message || 'Registration failed');
+        } else {
+          console.log('User registered successfully:', data.message);
+          // Optionally, redirect the user or reset the form
+          e.currentTarget.reset();
+          // You can also redirect the user to a login page or dashboard
+          // router.push('/login'); // Example using Next.js router
+        }
+      } catch (error) {
+        console.log('Error:', error);
+        setError('An unexpected error occurred.');
+      }
     }
 
-    try {
-      const res = await fetch('api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name, lname, email, password
-        })
-      })
-      const form = e.target as HTMLFormElement
-      if (!res.ok || form == null) {
-        console.log('User rgistration failed')
-      } else {
-        form.reset()
-      }
-    } catch (error) {
-      console.log('Error:', error)
-    }
+    
   };
 
   return (
