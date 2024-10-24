@@ -12,6 +12,7 @@ import {
 } from "@tabler/icons-react";
 import _Calendar from "../ui/calendar";
 import UserProfile from "../ui/patientprofile";
+import SelectPatients from "../ui/select-patients";
 
 export function DrBento() {
   return (
@@ -36,7 +37,11 @@ const SkeletonOne = () => (
   </div>
 );
 const SkeletonTwo = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100">
+    <div className="left-0 right-0 mx-auto p-2">
+        <SelectPatients/>
+    </div>
+  </div>
 );
 
 const SkeletonThree = () => (
