@@ -13,6 +13,7 @@ import {
 import _Calendar from "../ui/calendar";
 import UserProfile from "../ui/patientprofile";
 import SelectPatients from "../ui/select-patients";
+import FileUploader from "../ui/upload-doc";
 
 export function DrBento() {
   return (
@@ -49,7 +50,9 @@ const SkeletonThree = () => (
 );
 
 const SkeletonFour = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100">
+    <FileUploader/>
+  </div>
 );
 
 
