@@ -1,83 +1,62 @@
+// routes/register.js
+
 import express from 'express';
-import bcrypt from 'bcrypt';
-import User from '../models/users.js';
-import authRoutes from '../auth/'
+import { body, validationResult } from 'express-validator';
+import User from '../models/user_model.js';
 
 const router = express.Router();
 
-// POST /register
-router.post('/register', async (req, res) => {
-  const { name, lname, email, password } = req.body;
+// POST /api/register
+router.post(
+  '/register',
+  [
+    body('name').notEmpty().withMessage('First name is required.'),
+    body('lname').notEmpty().withMessage('Last name is required.'),
+    body('email').isEmail().withMessage('Please provide a valid email address.'),
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long.'),
+    body('userType').isIn(['doctor', 'patient']).withMessage('Invalid user type.'),
+    body('licenseNumber').custom((value, { req }) => {
+      if (req.body.userType === 'doctor' && !value) {
+        throw new Error('License Number is required for doctors.');
+      }
+      return true;
+    }),
+  ],
+  async (req, res) => {
+    console.log('Received registration data:', req.body);
 
-  try {
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(409).json({ message: 'User already exists.' });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: 'error', errors: errors.array() });
     }
 
-    // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const { name, lname, email, password, userType, licenseNumber } = req.body;
 
-    // Create a new user
-    const newUser = new User({
-      name,
-      lname,
-      email,
-      password: hashedPassword
-    });
+    try {
+      // Check if user already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(422).json({ status: 'error', message: 'User already exists.' });
+      }
 
-    await newUser.save();
+      // Create new user
+      const newUser = new User({
+        name,
+        lname,
+        email,
+        password, // Will be hashed by pre-save middleware
+        role: userType,
+        ...(userType === 'doctor' && { licenseNumber }),
+      });
 
-    return res.status(201).json({ message: 'User registered successfully.' });
-  } catch (error) {
-    console.error('Error registering user:', error);
-    return res.status(500).json({ message: 'Server error. Please try again later.' });
+      await newUser.save();
+
+      res.status(201).json({ status: 'ok', message: 'User registered successfully.' });
+    } catch (error) {
+      console.error('Error during user registration:', error);
+      res.status(500).json({ status: 'error', message: 'Server error. Please try again later.' });
+    }
   }
-});
+);
 
 export default router;
-
-
-
-
-
-
-
-
-
-
-/*
-import MongoClient from "mongoose";
-import User from "../models/users";
-import bcrypt from "bcrypt"
-
-if (!process.env.MONGODB_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
-}
-
-const uri = process.env.MONGODB_URI;
-const options = { appName: "devrel.template.nextjs" };
-
-let client = null
-//: MongoClient || null = null;
-
-export const connectMongoDB = async () => {
-  try {
-    if (!client) {
-      // Initialize MongoClient only if it's not already initialized
-      client = new MongoClient(uri, options);
-    }
-    await connectMongoDB();
-    await User.create({ name, lname, email, password });
-    // Connect to the MongoDB server
-    await client.connect();
-    console.log('Connected to MongoDB');
-    
-    return client.json({message: 'User registered!'}, {status: 200}); // Return the client instance if needed
-  } catch (error) {
-    console.error('Failed to connect to MongoDB:', error);
-    throw new Error('Failed to connect to MongoDB');
-  }
-};*/

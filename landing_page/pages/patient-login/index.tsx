@@ -1,6 +1,6 @@
 "use client"
 
-import { SignupFormDemo } from "@/app/component/child/signup-form"
+import { SignupForm } from "@/app/component/child/signup-form"
 import React from 'react';
 
 export default function PatientLogin() {
@@ -22,7 +22,7 @@ export default function PatientLogin() {
       {/* Right Section */}
       <div className="bg-yellow-800 flex items-center justify-center w-full lg:w-1/2 p-4 lg:p-8">
         <div className="w-full max-w-md">
-          <SignupFormDemo />
+          <SignupForm userType='patient'/>
         </div>
       </div>
     </div>
