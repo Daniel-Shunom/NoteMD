@@ -26,6 +26,7 @@ mongoose
 
 
 app.post('/api/register', registerRoute);
+app.post('/api/login', registerRoute);
 
 // Define the port, defaulting to 5000 if not set
 const PORT = process.env.PORT

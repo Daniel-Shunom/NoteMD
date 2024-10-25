@@ -8,7 +8,7 @@ const router = express.Router();
 
 // POST /api/register
 router.post(
-  '/register',
+  '/api/register',
   [
     body('name').notEmpty().withMessage('First name is required.'),
     body('lname').notEmpty().withMessage('Last name is required.'),
