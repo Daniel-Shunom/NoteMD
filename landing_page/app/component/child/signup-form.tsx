@@ -3,62 +3,67 @@ import React, { useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
-import { form } from "framer-motion/client";
 
-export function SignupFormDemo() {
-  const [name, setName] = useState('')
-  const [lname, setLname] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [cpassword, setCpassword] = useState('')
-  const [error, setError] = useState('')
+export function SignupFormDemo() { // Removed 'async' keyword
+  const [name, setName] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [cpassword, setCpassword] = useState('');
+  const [error, setError] = useState('');
 
-  console.log("Name:", name)
+  console.log("Name:", name);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
-    while (!name || !lname || !email || !password || !cpassword) {
-      setError('All fields are required')
+
+    if (!name || !lname || !email || !password || !cpassword) {
+      setError('All fields are required');
       return;
-    } if (password !== cpassword) {
-      setError('Passwords must match!')
+    }
+    if (password !== cpassword) {
+      setError('Passwords must match!');
       return;
-    } else {
-      setError('')
-      try {
-        const res = await fetch('http://localhost:5000/register', { // Update to your backend URL
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name,
-            lname,
-            email,
-            password
-          })
-        });
-  
-        const data = await res.json();
-  
-        if (!res.ok) {
-          console.log('User registration failed:', data.message);
-          setError(data.message || 'Registration failed');
-        } else {
-          console.log('User registered successfully:', data.message);
-          // Optionally, redirect the user or reset the form
-          e.currentTarget.reset();
-          // You can also redirect the user to a login page or dashboard
-          // router.push('/login'); // Example using Next.js router
-        }
-      } catch (error) {
-        console.log('Error:', error);
-        setError('An unexpected error occurred.');
-      }
     }
 
-    
+    setError('');
+
+    try {
+      const res = await fetch('http://localhost:5000/api/register', { // Update to your backend URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name,
+          lname,
+          email,
+          password
+        })
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      if (!res.ok) {
+        console.log('User registration failed:', data.message);
+        setError(data.message || 'Registration failed');
+      } else {
+        console.log('User registered successfully:', data.message);
+        // Reset form fields by resetting state variables
+        setName('');
+        setLname('');
+        setEmail('');
+        setPassword('');
+        setCpassword('');
+        // Optionally, redirect the user
+        // router.push('/login');
+      }
+    } catch (error) {
+      console.log('Error:', error);
+      setError('An unexpected error occurred.');
+    }
   };
 
   return (
@@ -80,6 +85,7 @@ export function SignupFormDemo() {
               placeholder="John"
               type="text"
               className="w-full"
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </LabelInputContainer>
@@ -90,6 +96,7 @@ export function SignupFormDemo() {
               placeholder="Doe"
               type="text"
               className="w-full"
+              value={lname}
               onChange={(e) => setLname(e.target.value)}
             />
           </LabelInputContainer>
@@ -97,11 +104,25 @@ export function SignupFormDemo() {
 
         <LabelInputContainer className="mb-4 w-full">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="abc@xyz.com" type="email" className="w-full" onChange={(e) => setEmail(e.target.value)}/>
+          <Input 
+            id="email" 
+            placeholder="abc@xyz.com" 
+            type="email" 
+            className="w-full" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4 w-full">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" className="w-full" onChange={(e) => setPassword(e.target.value)}/>
+          <Input 
+            id="password" 
+            placeholder="••••••••" 
+            type="password" 
+            className="w-full" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-8 w-full">
           <Label htmlFor="confirm-password">Confirm Password</Label>
@@ -110,6 +131,7 @@ export function SignupFormDemo() {
             placeholder="••••••••"
             type="password"
             className="w-full"
+            value={cpassword}
             onChange={(e) => setCpassword(e.target.value)}
           />
         </LabelInputContainer>
@@ -122,7 +144,7 @@ export function SignupFormDemo() {
           <BottomGradient />
         </button>
         {error && (
-          <div className="">
+          <div className="mt-4 text-red-500">
             {error}
           </div>
         )}
