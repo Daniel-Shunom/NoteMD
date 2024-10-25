@@ -4,6 +4,7 @@ import express from 'express'
 import mongoose from 'mongoose';
 import registerRoute from './MongoDB/auth/signup.js'
 import loginRoute from './MongoDB/auth/login.js'
+import currentUserRoute from './MongoDB/auth/currentUser.js';
 
 dotenv.config();
 
@@ -25,9 +26,11 @@ mongoose
   }
 );
 
-
+app.use(registerRoute);
+app.use(loginRoute);
+app.use(currentUserRoute);
 app.post('/api/register', registerRoute);
-app.post('/api/login', registerRoute);
+app.post('/api/login', loginRoute);
 
 // Define the port, defaulting to 5000 if not set
 const PORT = process.env.PORT
