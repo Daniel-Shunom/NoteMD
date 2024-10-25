@@ -3,6 +3,7 @@ import cors from 'cors'
 import express from 'express'
 import mongoose from 'mongoose';
 import registerRoute from './MongoDB/auth/signup.js'
+import loginRoute from './MongoDB/auth/login.js'
 
 dotenv.config();
 

@@ -1,6 +1,7 @@
-"use client"
+// DrLogin.tsx
+"use client";
 
-import { SignupForm } from "@/app/component/child/signup-form"
+import { AuthContainer } from "@/app/component/ui/authcontainer";
 import React from 'react';
 
 export default function DrLogin() {
@@ -23,7 +24,7 @@ export default function DrLogin() {
       <div className="bg-blue-800 w-full lg:w-1/2 lg:h-screen overflow-y-auto">
         <div className="flex items-center justify-center min-h-full p-4 lg:p-8">
           <div className="w-full max-w-md">
-            <SignupForm userType='doctor'/>
+            <AuthContainer initialForm="signup" userType="doctor" />
           </div>
         </div>
       </div>

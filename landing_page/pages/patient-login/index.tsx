@@ -2,6 +2,7 @@
 
 import { LoginForm } from "@/app/component/child/login-form";
 import { SignupForm } from "@/app/component/child/signup-form"
+import { AuthContainer } from "@/app/component/ui/authcontainer";
 import React from 'react';
 
 export default function PatientLogin() {
@@ -23,7 +24,7 @@ export default function PatientLogin() {
       {/* Right Section */}
       <div className="bg-yellow-800 flex items-center justify-center w-full lg:w-1/2 p-4 lg:p-8">
         <div className="w-full max-w-md">
-          <LoginForm/>
+          <AuthContainer initialForm="signup" userType="patient" />
         </div>
       </div>
     </div>
