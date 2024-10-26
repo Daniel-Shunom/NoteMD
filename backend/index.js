@@ -1,40 +1,75 @@
-import dotenv from 'dotenv';
-import cors from 'cors'
-import express from 'express'
+// backend/index.js
+
+import express from 'express';
 import mongoose from 'mongoose';
-import registerRoute from './MongoDB/auth/signup.js'
-import loginRoute from './MongoDB/auth/login.js'
+import dotenv from 'dotenv';
+import registerRoute from './MongoDB/auth/signup.js';
+import loginRoute from './MongoDB/auth/login.js';
 import currentUserRoute from './MongoDB/auth/currentUser.js';
+//import logoutRoute from './MongoDB/auth/logout.js';
+import cors from 'cors';
+import cookieParser from 'cookie-parser'; // To parse cookies
+import helmet from 'helmet'; // For security headers
 
 dotenv.config();
 
+const app = express();
 
-const app = express()
+// Security Middleware
+app.use(helmet());
+
+// Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
 
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // useCreateIndex: true, // No longer necessary in Mongoose 6+
-  }
-).then(() => console.log('Connected to MongoDB.'))
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-    process.exit(1); // Exit process with failure
-  }
-);
+// Define allowed origins
+const allowedOrigins = [
+  'http://localhost:3000',      // AuthContainer (adjust if different)
+  'http://localhost:3001',      // Doctor Next.js App
+  'http://localhost:3002',      // Patient Next.js App
+  // Add other origins as needed
+];
 
+// CORS Configuration
+app.use(cors({
+  origin: function(origin, callback){
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true, // Allow cookies to be sent
+}));
+
+// Routes
 app.use(registerRoute);
 app.use(loginRoute);
 app.use(currentUserRoute);
-app.post('/api/register', registerRoute);
-app.post('/api/login', loginRoute);
+//app.use(logoutRoute);
 
-// Define the port, defaulting to 5000 if not set
-const PORT = process.env.PORT
+// Error Handling Middleware (Optional but Recommended)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ status: 'error', message: 'Something went wrong!' });
+});
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+// Connect to MongoDB and start the server
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGODB_URI;
+
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('Connected to MongoDB.');
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
+  });
+})
+.catch((error) => {
+  console.error('Error connecting to MongoDB:', error);
 });

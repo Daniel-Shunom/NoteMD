@@ -1,10 +1,13 @@
-// LoginForm.tsx
+// AuthContainer/components/LoginForm.tsx
+
 "use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Select } from "../ui/select";
 import { cn } from "@/lib/utils";
+import { useRouter } from 'next/router';
 
 interface LoginFormProps {
   onToggle: () => void;                // Function to toggle to Signup form
@@ -28,6 +31,7 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
   const [success, setSuccess] = useState("");
 
   const firstInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     firstInputRef.current?.focus();
@@ -67,6 +71,7 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include', // Include cookies
         body: JSON.stringify({
           email,
           password,
@@ -87,7 +92,14 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
           email: "",
           password: "",
         });
-        // Optionally, redirect the user based on role
+        // Redirect the user based on role
+        if (data.user.role === "doctor") {
+          //doctor port temp
+          window.location.href = 'http://localhost:3000';
+        } else if (data.user.role === "patient") {
+          //patient port temp
+          window.location.href = 'http://localhost:3001';
+        }
       }
     } catch (error) {
       console.log("Error:", error);

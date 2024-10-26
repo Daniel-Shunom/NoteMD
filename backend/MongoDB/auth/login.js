@@ -1,4 +1,4 @@
-// routes/login.js
+// backend/MongoDB/auth/login.js
 
 import express from 'express';
 import { body, validationResult } from 'express-validator';
@@ -51,7 +51,7 @@ router.post(
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Set to true in production
         sameSite: 'lax',
-        domain: '.example.com', // Replace with your main domain
+        domain: '.example.com', // Replace with your main domain, e.g., '.example.com'
         maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
       });
 
