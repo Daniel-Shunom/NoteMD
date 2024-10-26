@@ -8,6 +8,8 @@ import {
   IconSettings,
   IconLogout,
 } from "@tabler/icons-react";
+import { AuthContext, AuthProvider } from "../../context/Authcontext";
+import ClientAuthProvider from "./ClientAuthProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,10 +40,9 @@ export default function RootLayout({
   ];
 
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <AuthProvider>
+      <html lang="en">
+      <body>
         <div className="flex flex-col md:flex-row h-screen overflow-hidden">
           {/* Sidebar component */}
           <Sidebar>
@@ -53,10 +54,13 @@ export default function RootLayout({
           </Sidebar>
           {/* Main content */}
           <div className="flex-1 p-4 md:p-6 h-full overflow-y-auto">
-            {children}
+            {/* Wrap children with ClientAuthProvider */}
+            <ClientAuthProvider>{children}</ClientAuthProvider>
           </div>
         </div>
       </body>
     </html>
+    </AuthProvider>
+    
   );
 }

@@ -8,6 +8,8 @@ import {
   IconSettings,
   IconLogout,
 } from "@tabler/icons-react";
+import { AuthProvider } from "../../context/Authcontext";
+import ClientAuthProvider from "./ClientAuthProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,25 +40,29 @@ export default function RootLayout({
   ];
 
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex flex-col md:flex-row h-screen overflow-hidden">
-          {/* Sidebar component */}
-          <Sidebar>
-            <SidebarBody>
-              {links.map((link, index) => (
-                <SidebarLink key={index} link={link} />
-              ))}
-            </SidebarBody>
-          </Sidebar>
-          {/* Main content */}
-          <div className="flex-1 p-4 md:p-6 h-full overflow-y-auto">
-            {children}
+    <AuthProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <div className="flex flex-col md:flex-row h-screen overflow-hidden">
+            {/* Sidebar component */}
+            <Sidebar>
+              <SidebarBody>
+                {links.map((link, index) => (
+                  <SidebarLink key={index} link={link} />
+                ))}
+              </SidebarBody>
+            </Sidebar>
+            {/* Main content */}
+            <div className="flex-1 p-4 md:p-6 h-full overflow-y-auto">
+              <ClientAuthProvider>
+                {children}
+              </ClientAuthProvider>
+            </div>
           </div>
-        </div>
-      </body>
-    </html>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

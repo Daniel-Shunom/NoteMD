@@ -16,7 +16,7 @@ router.post(
     body('userType').isIn(['doctor', 'patient']).withMessage('Invalid user type.'),
   ],
   async (req, res) => {
-    //console.log('Received login data:', req.body);
+    console.log('Received login data:', req.body);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -47,13 +47,19 @@ router.post(
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
       // Set JWT as an httpOnly cookie
-      res.cookie('token', token, {
+      const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Set to true in production
         sameSite: 'lax',
-        domain: '.example.com', // Replace with your main domain, e.g., '.example.com'
         maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
-      });
+      };
+
+      // Only set the domain if in production
+      if (process.env.NODE_ENV === 'production') {
+        cookieOptions.domain = '.example.com'; // Replace with your main domain
+      }
+
+      res.cookie('token', token, cookieOptions);
 
       res.status(200).json({
         status: 'ok',

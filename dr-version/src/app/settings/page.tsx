@@ -1,9 +1,13 @@
 "use client"
 
+import ProtectedRoute from "@/components/ProtectedRoute"
+
 export default function Settings(){
     return(
-        <div>
-            Settings Dr.
-        </div>
+        <ProtectedRoute>
+            <div>
+                Settings Dr.
+            </div>
+        </ProtectedRoute>
     )
 }

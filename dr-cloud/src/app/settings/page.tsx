@@ -1,9 +1,14 @@
+"use client"
+import ProtectedRoute from "@/components/ProtectedRoute"
 import React from "react"
 
 export default function SettingsPage () {
     return (
-        <div>
-            Settings
-        </div>
+        <ProtectedRoute>
+            <div>
+                Settings
+            </div> 
+        </ProtectedRoute>
+        
     )
 }
