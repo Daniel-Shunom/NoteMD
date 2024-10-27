@@ -20,7 +20,7 @@ const SidebarWrapper: React.FC = () => {
   };
 
   const links = [
-    { label: "Home", href: "/home", icon: <IconHome /> },
+    { label: "Home", href: "/", icon: <IconHome /> },
     { label: "Profile", href: "/profile", icon: <IconUserBolt /> },
     { label: "Settings", href: "/settings", icon: <IconSettings /> },
     { label: "Logout", onClick: handleLogout, icon: <IconLogout /> },
