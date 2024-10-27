@@ -8,16 +8,26 @@ const getPatients = async (req, res) => {
   logger.debug(`Authenticated User: ${JSON.stringify(req.user)}`);
 
   try {
-    // Fetch patients who are not yet assigned to any doctor
-    const patients = await User.find({ role: 'patient', doctor: { $exists: false } }).select('-password');
+    const doctorId = req.user.userId; // Adjust based on your JWT payload structure
+
+    // Fetch patients who are either unassigned or assigned to the current doctor
+    const patients = await User.find({
+      role: 'patient',
+      $or: [
+        { doctor: { $exists: false } }, // Unassigned patients
+        { doctor: doctorId },            // Patients assigned to the current doctor
+      ],
+    }).select('-password');
 
     // Transform data to match the frontend's expected structure
     const transformedPatients = patients.map(patient => ({
       id: patient._id.toString(),
-      name: `${patient.name} ${patient.lname}`,
+      name: `${patient.name} ${patient.lname || ''}`, // Handle missing last names
       age: patient.age,
       condition: patient.condition, // Adjust based on your patient schema
       isAssigned: !!patient.doctor, // Boolean indicating if assigned
+      email: patient.email,          // Include email if necessary
+      lname: patient.lname,          // Include last name if necessary
     }));
 
     logger.info(`Fetched ${transformedPatients.length} patients`);

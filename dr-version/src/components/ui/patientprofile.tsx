@@ -1,36 +1,65 @@
-import React from 'react';
-import { User } from 'lucide-react';
+// components/patientprofile.tsx
 
-const UserProfile = () => {
+import React, { useContext } from 'react';
+import { User } from 'lucide-react';
+import { SelectedPatientContext } from '../../../context/SelectedPatientContext';
+
+const UserProfile: React.FC = () => {
+  const { selectedPatient } = useContext(SelectedPatientContext);
+
+  if (!selectedPatient) {
+    return (
+      <div className="w-full h-full p-2 bg-white/20 dark:bg-gray-800/20 rounded-lg backdrop-blur-md backdrop-filter border border-white/30 dark:border-gray-700/30 shadow-xl flex items-center justify-center">
+        <p className="text-gray-500 text-center text-sm">No patient selected. Please select a patient to view details.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full p-4 bg-white/20 dark:bg-gray-800/20 rounded-lg backdrop-blur-md backdrop-filter border border-white/30 dark:border-gray-700/30 shadow-xl">
-      <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+    <div className="w-full h-full p-2 bg-white/20 dark:bg-gray-800/20 rounded-lg backdrop-blur-md backdrop-filter border border-white/30 dark:border-gray-700/30 shadow-xl">
+      <div className="flex h-full">
         {/* User Icon Section */}
-        <div className="flex-shrink-0 w-full sm:w-auto">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-blue-100/30 dark:bg-blue-900/30 backdrop-blur-sm flex items-center justify-center border border-blue-200/50 dark:border-blue-800/50">
-            <User className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 dark:text-blue-300" />
-          </div>
+        <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-blue-100/30 dark:bg-blue-900/30 flex items-center justify-center border border-blue-200/50 dark:border-blue-800/50">
+          <User className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-300" />
         </div>
 
         {/* User Details Section */}
-        <div className="flex-1 min-w-0 bg-green-400/20 backdrop-blur-sm p-3 rounded-lg border border-green-200/50 dark:border-green-800/50">
-          <h2 className="text-[clamp(1.125rem,3vw,1.875rem)] font-semibold text-gray-900 dark:text-white truncate">
-            Sarah Anderson
-          </h2>
-          <dl className="mt-4 space-y-2 text-[clamp(0.875rem,2vw,1rem)]">
-            <div className="flex flex-wrap items-start text-gray-700 dark:text-gray-300">
-              <dt className="font-medium mr-2 flex-shrink-0">Gender:</dt>
-              <dd className="flex-1 min-w-0 break-all">Non-binary</dd>
-            </div>
-            <div className="flex flex-wrap items-start text-gray-700 dark:text-gray-300">
-              <dt className="font-medium mr-2 flex-shrink-0">Insurance:</dt>
-              <dd className="flex-1 min-w-0">UHG</dd>
-            </div>
-            <div className="flex flex-wrap items-start text-gray-700 dark:text-gray-300">
-              <dt className="font-medium mr-2 flex-shrink-0">ID:</dt>
-              <dd className="flex-1 min-w-0">002021682</dd>
-            </div>
-          </dl>
+        <div className="flex-1 min-w-0 ml-2">
+          <div className="bg-green-400/20 backdrop-blur-sm p-2 rounded-lg border border-green-200/50 dark:border-green-800/50 h-full flex flex-col justify-center">
+            {/* User Name */}
+            <h2 className="text-[clamp(0.9rem,1.8vw,1.2rem)] font-semibold text-gray-900 dark:text-white leading-tight truncate">
+              {selectedPatient.name} {selectedPatient.lname || ''}
+            </h2>
+            
+            {/* User Details List */}
+            <dl className="mt-1 space-y-0.5 text-[clamp(0.75rem,1.5vw,0.9rem)] leading-tight">
+              {/* Age */}
+              <div className="flex flex-wrap items-start text-gray-700 dark:text-gray-300">
+                <dt className="font-medium mr-1 flex-shrink-0">Age:</dt>
+                <dd className="flex-1 min-w-0 truncate">{selectedPatient.age}</dd>
+              </div>
+              {/* Condition */}
+              <div className="flex flex-wrap items-start text-gray-700 dark:text-gray-300">
+                <dt className="font-medium mr-1 flex-shrink-0">Condition:</dt>
+                <dd className="flex-1 min-w-0 truncate">{selectedPatient.condition}</dd>
+              </div>
+              {/* Email */}
+              {selectedPatient.email && (
+                <div className="flex flex-wrap items-start text-gray-700 dark:text-gray-300">
+                  <dt className="font-medium mr-1 flex-shrink-0">Email:</dt>
+                  <dd className="flex-1 min-w-0 truncate">{selectedPatient.email}</dd>
+                </div>
+              )}
+              {/* ID */}
+              {selectedPatient.id && (
+                <div className="flex flex-wrap items-start text-gray-700 dark:text-gray-300">
+                  <dt className="font-medium mr-1 flex-shrink-0">ID:</dt>
+                  <dd className="flex-1 min-w-0 truncate">{selectedPatient.id}</dd>
+                </div>
+              )}
+              {/* Add any additional fields here */}
+            </dl>
+          </div>
         </div>
       </div>
     </div>
