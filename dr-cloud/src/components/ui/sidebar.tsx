@@ -1,6 +1,7 @@
 "use client";
 import { cn } from "@/app/lib/utils";
 import Link, { LinkProps } from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
@@ -166,6 +167,12 @@ export const SidebarLink = ({
   props?: LinkProps;
 }) => {
   const { open, animate } = useSidebar();
+  const pathname = usePathname();
+  const isActive = link.href ? pathname === link.href : false;
+
+  const activeClass = isActive
+    ? 'relative before:absolute before:inset-0 before:bg-blue-500/15 before:border before:border-blue-500/30 before:rounded-lg text-blue-600 dark:text-blue-400 transition-colors duration-300 ease-in-out'
+    : 'text-neutral-700 dark:text-neutral-200 transition-colors duration-300 ease-in-out hover:text-blue-600 dark:hover:text-blue-400';
 
   if (link.onClick) {
     // Render a button for actions like logout
@@ -173,17 +180,17 @@ export const SidebarLink = ({
       <button
         onClick={link.onClick}
         className={cn(
-          "flex items-center justify-start gap-2 group/sidebar py-2",
+          `flex items-center justify-start gap-2 group/sidebar py-2 px-2 relative ${activeClass}`,
           className
         )}
       >
         {link.icon}
         <motion.span
           animate={{
-            display: animate ? (open ? "inline-block" : "none") : "inline-block",
+            display: animate ? (open ? 'inline-block' : 'none') : 'inline-block',
             opacity: animate ? (open ? 1 : 0) : 1,
           }}
-          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+          className="text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
         >
           {link.label}
         </motion.span>
@@ -195,7 +202,7 @@ export const SidebarLink = ({
       <Link
         href={link.href}
         className={cn(
-          "flex items-center justify-start gap-2 group/sidebar py-2",
+          `flex items-center justify-start gap-2 group/sidebar py-2 ${activeClass}`,
           className
         )}
         {...props}
@@ -203,10 +210,10 @@ export const SidebarLink = ({
         {link.icon}
         <motion.span
           animate={{
-            display: animate ? (open ? "inline-block" : "none") : "inline-block",
+            display: animate ? (open ? 'inline-block' : 'none') : 'inline-block',
             opacity: animate ? (open ? 1 : 0) : 1,
           }}
-          className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+          className="text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
         >
           {link.label}
         </motion.span>

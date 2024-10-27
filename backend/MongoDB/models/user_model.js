@@ -40,6 +40,20 @@ const userSchema = new mongoose.Schema(
       },
       trim: true,
     },
+    // **New Fields**
+    doctor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      /*required: function () {
+        return this.role === 'patient';
+      },*/
+    },
+    patients: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt fields
@@ -69,5 +83,10 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 
 // Prevent model recompilation in environments like serverless functions
 const User = mongoose.models.User || mongoose.model('User', userSchema);
+
+userSchema.index({ email: 1 });
+userSchema.index({ role: 1 });
+userSchema.index({ doctor: 1 }); // For patient queries
+userSchema.index({ patients: 1 });
 
 export default User;

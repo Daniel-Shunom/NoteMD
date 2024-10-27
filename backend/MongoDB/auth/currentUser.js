@@ -7,7 +7,11 @@ const router = express.Router();
 // GET /api/currentUser
 router.get('/api/currentUser', authenticateToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId).select('-password'); // Exclude password
+    const user = await User.findById(req.user.userId)
+      .select('-password') // Exclude password
+      .populate('patients', 'name lname email') // Populate patients if the user is a doctor
+      .populate('doctor', 'name lname email licenseNumber'); // Populate doctor if the user is a patient
+
     if (!user) {
       return res.status(404).json({ status: 'error', message: 'User not found.' });
     }

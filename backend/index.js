@@ -1,84 +1,82 @@
-// backend/index.js
+// server.js
 
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import registerRoute from './MongoDB/auth/signup.js';
+import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import path from 'path';
+
+// Import Routes
 import loginRoute from './MongoDB/auth/login.js';
+import registerRoute from './MongoDB/auth/signup.js';
+import assignPatientRoute from './MongoDB/Routes/assignPatient.js';
+import medicationRoute from './MongoDB/Routes/medicationRoute.js';
 import currentUserRoute from './MongoDB/auth/currentUser.js';
-//import logoutRoute from './MongoDB/auth/logout.js';
-import cors from 'cors';
-import cookieParser from 'cookie-parser'; // To parse cookies
-import helmet from 'helmet'; // For security headers
+//import logoutRoute from './routes/logout.js';
+
+// Import Logger
+import logger from './logger.js';
 
 dotenv.config();
 
 const app = express();
 
-// Security Middleware
-app.use(helmet());
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => logger.info('MongoDB Connected'))
+  .catch((err) => {
+    logger.error(`MongoDB connection error: ${err.message}`);
+    process.exit(1);
+  });
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(helmet());
 
-// Define allowed origins
-const allowedOrigins = [
-  'http://localhost:3002',      // AuthContainer (adjust if different)
-  'http://localhost:3000',      // Doctor Next.js App
-  'http://localhost:3001',      // Patient Next.js App
-  // Add other origins as needed
-];
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again after 15 minutes.',
+});
+app.use(limiter);
 
 // CORS Configuration
-app.use(cors({
-  origin: function(origin, callback){
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true, // Allow cookies to be sent
-}));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000', // Replace with your frontend URL
+      'http://localhost:3001',
+      'http://localhost:3002', // Add other allowed origins
+    ],
+    credentials: true, // Allow cookies to be sent
+  })
+);
 
-// Ensure CORS headers are set on all responses
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
-
-// Routes
-app.use(registerRoute);
+// Use Routes
 app.use(loginRoute);
-app.use(currentUserRoute);
+app.use(registerRoute);
+app.use(assignPatientRoute);
+app.use(medicationRoute);
+app.use(currentUserRoute); // Include currentUser route
 //app.use(logoutRoute);
 
-// Error Handling Middleware (Optional but Recommended)
+// Error Handling Middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ status: 'error', message: 'Something went wrong!' });
+  logger.error(`Unhandled Error: ${err.stack}`);
+  res.status(500).json({ status: 'error', message: 'Internal Server Error' });
 });
 
-// Connect to MongoDB and start the server
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGODB_URI;
 
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('Connected to MongoDB.');
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
-  });
-})
-.catch((error) => {
-  console.error('Error connecting to MongoDB:', error);
+app.listen(PORT, () => {
+  logger.info(`Server running on port ${PORT}`);
 });
