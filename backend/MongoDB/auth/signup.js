@@ -23,7 +23,7 @@ router.post(
     }),
   ],
   async (req, res) => {
-    console.log('Received registration data:', req.body);
+    //console.log('Received registration data:', req.body);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

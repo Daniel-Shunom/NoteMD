@@ -24,9 +24,9 @@ app.use(cookieParser());
 
 // Define allowed origins
 const allowedOrigins = [
-  'http://localhost:3000',      // AuthContainer (adjust if different)
-  'http://localhost:3001',      // Doctor Next.js App
-  'http://localhost:3002',      // Patient Next.js App
+  'http://localhost:3002',      // AuthContainer (adjust if different)
+  'http://localhost:3000',      // Doctor Next.js App
+  'http://localhost:3001',      // Patient Next.js App
   // Add other origins as needed
 ];
 
@@ -43,6 +43,15 @@ app.use(cors({
   },
   credentials: true, // Allow cookies to be sent
 }));
+
+// Ensure CORS headers are set on all responses
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 
 // Routes
 app.use(registerRoute);

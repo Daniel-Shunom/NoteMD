@@ -1,5 +1,3 @@
-// backend/MongoDB/auth/login.js
-
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import User from '../models/user_model.js';
@@ -49,14 +47,14 @@ router.post(
       // Set JWT as an httpOnly cookie
       const cookieOptions = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Set to true in production
+        secure: process.env.NODE_ENV === 'production', // Should be false in development
         sameSite: 'lax',
-        maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
+        maxAge: 60 * 60 * 1000, // 1 hour
       };
 
       // Only set the domain if in production
       if (process.env.NODE_ENV === 'production') {
-        cookieOptions.domain = '.example.com'; // Replace with your main domain
+        cookieOptions.domain = '.yourdomain.com'; // Replace with your main domain
       }
 
       res.cookie('token', token, cookieOptions);

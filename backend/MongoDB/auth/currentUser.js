@@ -1,7 +1,5 @@
-// ./MongoDB/auth/currentUser.js
-
 import express from 'express';
-import { authenticateToken } from '../../middleware/auth.js';
+import { authenticateToken } from '../middleware/auth.js';
 import User from '../models/user_model.js';
 
 const router = express.Router();
@@ -20,4 +18,4 @@ router.get('/api/currentUser', authenticateToken, async (req, res) => {
   }
 });
 
-export default router; // Ensure this line is present
+export default router;

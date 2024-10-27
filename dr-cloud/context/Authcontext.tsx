@@ -1,5 +1,3 @@
-// context/AuthContext.tsx
-
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
@@ -40,7 +38,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const fetchCurrentUser = async () => {
       try {
         console.log('AuthProvider: Fetching current user');
-        const res = await fetch('http://localhost:5000/api/currentUser', {
+        const res = await fetch('/api/currentUser', {
           method: 'GET',
           credentials: 'include', // Include cookies
         });
@@ -66,12 +64,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:5000/api/logout', {
+      await fetch('/api/logout', {
         method: 'POST',
         credentials: 'include',
       });
       setAuth({ user: null, loading: false });
-      window.location.href = 'http://localhost:3000';
+      window.location.href = 'http://localhost:3002';
     } catch (error) {
       console.error('Error during logout:', error);
     }

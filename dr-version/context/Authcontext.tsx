@@ -1,7 +1,4 @@
-"use client"
-
-// DoctorApp/context/AuthContext.tsx
-// Similarly, create PatientApp/context/AuthContext.tsx
+"use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 
@@ -40,20 +37,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/currentUser', {
+        console.log('AuthProvider: Fetching current user');
+        const res = await fetch('/api/currentUser', {
           method: 'GET',
-          credentials: 'include', // Include cookies in the request
+          credentials: 'include', // Include cookies
         });
 
         const data = await res.json();
+        console.log('AuthProvider: Received data:', data);
 
         if (res.ok && data.user) {
+          console.log('AuthProvider: User is authenticated:', data.user);
           setAuth({ user: data.user, loading: false });
         } else {
+          console.log('AuthProvider: User not authenticated');
           setAuth({ user: null, loading: false });
         }
       } catch (error) {
-        console.error('Error fetching current user:', error);
+        console.error('AuthProvider: Error fetching current user:', error);
         setAuth({ user: null, loading: false });
       }
     };
@@ -63,13 +64,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:5000/api/logout', {
+      await fetch('/api/logout', {
         method: 'POST',
         credentials: 'include',
       });
       setAuth({ user: null, loading: false });
-      // Redirect to AuthContainer after logout
-      window.location.href = 'http://localhost:3000';
+      window.location.href = 'http://localhost:3002';
     } catch (error) {
       console.error('Error during logout:', error);
     }

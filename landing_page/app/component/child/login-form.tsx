@@ -1,34 +1,30 @@
 // AuthContainer/components/LoginForm.tsx
 
-"use client";
-
-import React, { useState, useEffect, useRef } from "react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Select } from "../ui/select";
-import { cn } from "@/lib/utils";
+import React, { useState, useEffect, useRef } from 'react';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Select } from '../ui/select';
+import { cn } from '@/lib/utils';
 import { useRouter } from 'next/router';
 
 interface LoginFormProps {
-  onToggle: () => void;                // Function to toggle to Signup form
-  userType?: "doctor" | "patient";      // Fixed user role (if provided)
+  onToggle: () => void; // Function to toggle to Signup form
+  userType?: 'doctor' | 'patient'; // Fixed user role (if provided)
 }
 
 export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps) {
-  const [userType, setUserType] = useState<"doctor" | "patient">(
-    fixedUserType || "patient"
-  );
+  const [userType, setUserType] = useState<'doctor' | 'patient'>(fixedUserType || 'patient');
 
   const [formData, setFormData] = useState<{
     email: string;
     password: string;
   }>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const firstInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -46,30 +42,30 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
   };
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value as "doctor" | "patient";
+    const value = e.target.value as 'doctor' | 'patient';
     setUserType(value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    console.log('Form submitted');
 
     const { email, password } = formData;
 
     // Basic Validation
     if (!email || !password) {
-      setError("All fields are required");
+      setError('All fields are required');
       return;
     }
 
-    setError("");
-    setSuccess("");
+    setError('');
+    setSuccess('');
 
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
+      const res = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         credentials: 'include', // Include cookies
         body: JSON.stringify({
@@ -83,27 +79,25 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
       console.log(data);
 
       if (!res.ok) {
-        console.log("Login failed:", data.message);
-        setError(data.message || "Login failed");
+        console.log('Login failed:', data.message);
+        setError(data.message || 'Login failed');
       } else {
-        console.log("Login successful:", data.message);
-        setSuccess(data.message || "Login successful");
+        console.log('Login successful:', data.message);
+        setSuccess(data.message || 'Login successful');
         setFormData({
-          email: "",
-          password: "",
+          email: '',
+          password: '',
         });
         // Redirect the user based on role
-        if (data.user.role === "doctor") {
-          //doctor port temp
-          window.location.href = 'http://localhost:3000';
-        } else if (data.user.role === "patient") {
-          //patient port temp
-          window.location.href = 'http://localhost:3001';
+        if (data.user.role === 'doctor') {
+          window.location.href = 'http://localhost:3000'; // Doctor Next.js App
+        } else if (data.user.role === 'patient') {
+          window.location.href = 'http://localhost:3001'; // Patient Next.js App
         }
       }
     } catch (error) {
-      console.log("Error:", error);
-      setError("An unexpected error occurred.");
+      console.log('Error:', error);
+      setError('An unexpected error occurred.');
     }
   };
 
@@ -181,11 +175,9 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
 
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-600 dark:text-gray-300">
-          {fixedUserType ? "" : "Don't have an account? "}{" "}
+          {fixedUserType ? '' : "Don't have an account? "}{' '}
           <button onClick={onToggle} className="text-blue-500 hover:underline">
-            {fixedUserType === "doctor" || fixedUserType === "patient"
-              ? "Sign up"
-              : "Sign up"}
+            Sign up
           </button>
         </p>
       </div>
@@ -198,13 +190,6 @@ interface LabelInputContainerProps {
   className?: string;
 }
 
-const LabelInputContainer: React.FC<LabelInputContainerProps> = ({
-  children,
-  className,
-}) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
+const LabelInputContainer: React.FC<LabelInputContainerProps> = ({ children, className }) => {
+  return <div className={cn('flex flex-col space-y-2 w-full', className)}>{children}</div>;
 };
