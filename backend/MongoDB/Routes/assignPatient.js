@@ -2,6 +2,7 @@
 
 import express from 'express';
 import assignPatient from '../Controllers/assign.js';
+import getPatients from '../Controllers/getPatientsController.js';
 import { authenticateToken, authorizeRoles } from '../middleware/roleAuth.js';
 import { body, validationResult } from 'express-validator';
 import logger from '../../logger.js';
@@ -26,5 +27,7 @@ router.post(
   },
   assignPatient
 );
+
+router.get('/api/patients', authenticateToken, authorizeRoles('doctor'), getPatients);
 
 export default router;
