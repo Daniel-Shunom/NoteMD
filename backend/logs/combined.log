@@ -372,3 +372,53 @@
 2024-10-27 18:20:28 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-10-27 18:20:28 [INFO]: getPatients Controller Invoked
 2024-10-27 18:20:28 [INFO]: Fetched 5 patients
+2024-10-27 18:25:53 [INFO]: authenticateToken invoked
+2024-10-27 18:25:53 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:25:53 [INFO]: getPatients Controller Invoked
+2024-10-27 18:25:53 [INFO]: Fetched 5 patients
+2024-10-27 18:26:48 [INFO]: authenticateToken invoked
+2024-10-27 18:26:48 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:26:48 [INFO]: getPatients Controller Invoked
+2024-10-27 18:26:48 [INFO]: Fetched 5 patients
+2024-10-27 18:28:04 [INFO]: authenticateToken invoked
+2024-10-27 18:28:04 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:28:04 [INFO]: getPatients Controller Invoked
+2024-10-27 18:28:04 [INFO]: Fetched 5 patients
+2024-10-27 18:33:51 [INFO]: authenticateToken invoked
+2024-10-27 18:33:51 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:33:51 [INFO]: getPatients Controller Invoked
+2024-10-27 18:33:51 [INFO]: Fetched 5 patients
+2024-10-27 18:33:58 [INFO]: authenticateToken invoked
+2024-10-27 18:33:58 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:33:58 [INFO]: getPatients Controller Invoked
+2024-10-27 18:33:58 [INFO]: Fetched 5 patients
+2024-10-27 18:34:01 [INFO]: authenticateToken invoked
+2024-10-27 18:34:01 [WARN]: No token provided in cookies.
+2024-10-27 18:34:04 [INFO]: authenticateToken invoked
+2024-10-27 18:34:04 [WARN]: No token provided in cookies.
+2024-10-27 18:34:46 [INFO]: authenticateToken invoked
+2024-10-27 18:34:46 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:34:46 [INFO]: getPatients Controller Invoked
+2024-10-27 18:34:47 [INFO]: Fetched 5 patients
+2024-10-27 18:34:53 [INFO]: authenticateToken invoked
+2024-10-27 18:34:53 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:34:53 [INFO]: getPatients Controller Invoked
+2024-10-27 18:34:53 [INFO]: Fetched 5 patients
+2024-10-27 18:36:00 [INFO]: authenticateToken invoked
+2024-10-27 18:36:00 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:36:00 [INFO]: getPatients Controller Invoked
+2024-10-27 18:36:00 [INFO]: Fetched 5 patients
+2024-10-27 18:36:20 [INFO]: authenticateToken invoked
+2024-10-27 18:36:20 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:36:20 [INFO]: getPatients Controller Invoked
+2024-10-27 18:36:20 [INFO]: Fetched 5 patients
+2024-10-27 18:36:37 [INFO]: authenticateToken invoked
+2024-10-27 18:36:37 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:36:37 [INFO]: getPatients Controller Invoked
+2024-10-27 18:36:37 [INFO]: Fetched 5 patients
+2024-10-27 18:38:16 [INFO]: authenticateToken invoked
+2024-10-27 18:38:16 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-10-27 18:38:40 [INFO]: authenticateToken invoked
+2024-10-27 18:38:40 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 18:38:40 [INFO]: getPatients Controller Invoked
+2024-10-27 18:38:40 [INFO]: Fetched 5 patients
