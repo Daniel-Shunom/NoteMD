@@ -422,3 +422,9 @@
 2024-10-27 18:38:40 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-10-27 18:38:40 [INFO]: getPatients Controller Invoked
 2024-10-27 18:38:40 [INFO]: Fetched 5 patients
+2024-10-27 21:50:02 [INFO]: authenticateToken invoked
+2024-10-27 21:50:02 [WARN]: No token provided in cookies.
+2024-10-27 21:50:54 [INFO]: authenticateToken invoked
+2024-10-27 21:50:54 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-27 21:50:54 [INFO]: getPatients Controller Invoked
+2024-10-27 21:50:54 [INFO]: Fetched 5 patients
