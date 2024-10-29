@@ -90,3 +90,4 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
     at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
 2024-10-29 00:49:41 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-10-29 09:40:33 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')

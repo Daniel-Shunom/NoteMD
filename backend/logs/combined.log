@@ -654,3 +654,36 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-10-29 00:49:39 [INFO]: authenticateToken invoked
 2024-10-29 00:49:39 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-10-29 00:49:41 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-10-29 09:39:46 [INFO]: authenticateToken invoked
+2024-10-29 09:39:46 [WARN]: No token provided in cookies.
+2024-10-29 09:40:17 [INFO]: authenticateToken invoked
+2024-10-29 09:40:17 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 09:40:17 [INFO]: getPatients Controller Invoked
+2024-10-29 09:40:17 [INFO]: Fetched 5 patients
+2024-10-29 09:40:32 [INFO]: authenticateToken invoked
+2024-10-29 09:40:32 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 09:40:33 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-10-29 09:45:52 [INFO]: authenticateToken invoked
+2024-10-29 09:45:52 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 09:45:52 [INFO]: getPatients Controller Invoked
+2024-10-29 09:45:52 [INFO]: Fetched 5 patients
+2024-10-29 09:46:19 [INFO]: authenticateToken invoked
+2024-10-29 09:46:19 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 09:46:19 [INFO]: getPatients Controller Invoked
+2024-10-29 09:46:19 [INFO]: Fetched 5 patients
+2024-10-29 11:32:29 [INFO]: authenticateToken invoked
+2024-10-29 11:32:29 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 11:32:29 [INFO]: getPatients Controller Invoked
+2024-10-29 11:32:29 [INFO]: Fetched 5 patients
+2024-10-29 11:33:15 [INFO]: authenticateToken invoked
+2024-10-29 11:33:15 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 11:33:15 [INFO]: getPatients Controller Invoked
+2024-10-29 11:33:15 [INFO]: Fetched 5 patients
+2024-10-29 11:33:27 [INFO]: authenticateToken invoked
+2024-10-29 11:33:27 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 11:33:27 [INFO]: getPatients Controller Invoked
+2024-10-29 11:33:27 [INFO]: Fetched 5 patients
+2024-10-29 11:33:30 [INFO]: authenticateToken invoked
+2024-10-29 11:33:30 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 11:33:30 [INFO]: getPatients Controller Invoked
+2024-10-29 11:33:30 [INFO]: Fetched 5 patients

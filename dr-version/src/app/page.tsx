@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <ProtectedRoute>
       <div className="flex flex-row h-full">
-        <div className="bg-red-400 h-full w-full p-6">
+        <div className="bg-red-400 h-full w-full">
           <DrBento/>
         </div>
         <div className="bg-blue-400 h-full w-full p-1">
