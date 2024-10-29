@@ -2,8 +2,9 @@
 
 import React, { createContext, useState, ReactNode } from 'react';
 
-interface Patient {
-  id: string;
+// Define and export the Patient interface with _id
+export interface Patient {
+  id: string; // Changed from id to _id
   name: string;
   lname?: string;
   age: number;

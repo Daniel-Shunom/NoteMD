@@ -15,6 +15,7 @@ import registerRoute from './MongoDB/auth/signup.js';
 import assignPatientRoute from './MongoDB/Routes/assignPatient.js';
 import medicationRoute from './MongoDB/Routes/medicationRoute.js';
 import currentUserRoute from './MongoDB/auth/currentUser.js';
+import uploadDocumentRoute from './MongoDB/Routes/uploadDocuments.js';
 //import logoutRoute from './routes/logout.js';
 
 // Import Logger
@@ -61,12 +62,16 @@ app.use(
   })
 );
 
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
 // Use Routes
 app.use(loginRoute);
 app.use(registerRoute);
 app.use(assignPatientRoute);
 app.use(medicationRoute);
 app.use(currentUserRoute); // Include currentUser route
+app.use(uploadDocumentRoute); // Use the new upload route
 //app.use(logoutRoute);
 
 // Error Handling Middleware

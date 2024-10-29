@@ -1,0 +1,175 @@
+2024-10-28 22:19:34 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Controllers/fileUploadController.js:13:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:19:41 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Controllers/fileUploadController.js:13:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:20:00 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Controllers/fileUploadController.js:13:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:20:10 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Controllers/fileUploadController.js:13:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:20:14 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Controllers/fileUploadController.js:13:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:20:17 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Controllers/fileUploadController.js:13:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:21:04 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Controllers/fileUploadController.js:13:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:28:20 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Controllers/fileUploadController.js:13:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:30:40 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Routes/uploadDocuments.js:17:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:33:49 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Routes/uploadDocuments.js:17:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:34:23 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Routes/uploadDocuments.js:17:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:34:32 [ERROR]: uncaughtException: OpenAIApi is not defined
+ReferenceError: OpenAIApi is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Routes/uploadDocuments.js:17:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-28 22:45:15 [ERROR]: uncaughtException: Class constructor OpenAI cannot be invoked without 'new'
+TypeError: Class constructor OpenAI cannot be invoked without 'new'
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/MongoDB/Routes/uploadDocuments.js:17:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-29 00:14:41 [ERROR]: uncaughtException: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+    at Object.openSync (node:fs:581:18)
+    at Object.readFileSync (node:fs:457:35)
+    at Object.<anonymous> (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\pdf-parse\index.js:15:25)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at cjsLoader (node:internal/modules/esm/translators:356:17)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+2024-10-29 00:16:51 [ERROR]: uncaughtException: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+    at Object.openSync (node:fs:581:18)
+    at Object.readFileSync (node:fs:457:35)
+    at Object.<anonymous> (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\pdf-parse\index.js:15:25)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at cjsLoader (node:internal/modules/esm/translators:356:17)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+2024-10-29 00:44:14 [ERROR]: uncaughtException: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+    at Object.openSync (node:fs:581:18)
+    at Object.readFileSync (node:fs:457:35)
+    at Object.<anonymous> (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\pdf-parse\index.js:15:25)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at cjsLoader (node:internal/modules/esm/translators:356:17)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+2024-10-29 00:44:21 [ERROR]: uncaughtException: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+    at Object.openSync (node:fs:581:18)
+    at Object.readFileSync (node:fs:457:35)
+    at Object.<anonymous> (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\pdf-parse\index.js:15:25)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at cjsLoader (node:internal/modules/esm/translators:356:17)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+2024-10-29 00:46:59 [ERROR]: uncaughtException: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+    at Object.openSync (node:fs:581:18)
+    at Object.readFileSync (node:fs:457:35)
+    at Object.<anonymous> (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\pdf-parse\index.js:15:25)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at cjsLoader (node:internal/modules/esm/translators:356:17)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+2024-10-29 00:47:44 [ERROR]: uncaughtException: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+    at Object.openSync (node:fs:581:18)
+    at Object.readFileSync (node:fs:457:35)
+    at Object.<anonymous> (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\pdf-parse\index.js:15:25)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at cjsLoader (node:internal/modules/esm/translators:356:17)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+2024-10-29 00:48:26 [ERROR]: uncaughtException: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\test\data\05-versions-space.pdf'
+    at Object.openSync (node:fs:581:18)
+    at Object.readFileSync (node:fs:457:35)
+    at Object.<anonymous> (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\pdf-parse\index.js:15:25)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at cjsLoader (node:internal/modules/esm/translators:356:17)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)

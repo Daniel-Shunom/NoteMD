@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useRef } from 'react';
+// components/FileUploader.tsx
+
+import React, { useState, useCallback, useRef, useContext } from 'react';
 import clsx from 'clsx';
 import {
   Upload,
@@ -12,6 +14,9 @@ import {
   Code,
   Database,
 } from 'lucide-react';
+import { SelectedPatientContext, Patient } from '../../../context/SelectedPatientContext'; // Adjust path as needed
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface FileWithPreview extends File {
   preview?: string;
@@ -109,7 +114,13 @@ const FileUploader: React.FC<FileUploaderProps> = ({
 }) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [isUploading, setIsUploading] = useState(false); // Loading state
+  const [uploadProgress, setUploadProgress] = useState<number>(0); // Progress state
+  const [uploadedDocuments, setUploadedDocuments] = useState<any[]>([]); // Store uploaded documents
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Consume the context to get the selected patient
+  const { selectedPatient } = useContext(SelectedPatientContext);
 
   const validateFile = (file: File): boolean => {
     if (maxFileSize && file.size > maxFileSize) {
@@ -182,8 +193,62 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   // Ensure the accentColor is one of the predefined colors
   const validAccentColor = ACCENT_COLORS.includes(accentColor) ? accentColor : 'blue';
 
+  const uploadFilesToServer = async (filesToUpload: File[]) => {
+    if (!selectedPatient) {
+      onError?.('No patient selected. Please select a patient before uploading documents.');
+      toast.error('No patient selected. Please select a patient before uploading documents.');
+      return;
+    }
+  
+    console.log('Selected Patient:', selectedPatient); // Detailed Logging
+  
+    const patientId = selectedPatient.id //|| selectedPatient.id;
+    if (!patientId) {
+      onError?.('Selected patient does not have a valid ID.');
+      toast.error('Selected patient does not have a valid ID.');
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append('patientId', patientId.toString());
+    filesToUpload.forEach((file) => {
+      formData.append('documents', file);
+    });
+
+    try {
+      setIsUploading(true); // Start loading
+      const response = await axios.post('/api/upload-documents', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true, // Send cookies with the request
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.total) {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(percentCompleted);
+          }
+        },
+      });
+      toast.success('Documents uploaded successfully.');
+      setUploadedDocuments(response.data.documents); // Store uploaded documents
+      setFiles([]); // Clear files after successful upload
+    } catch (error: any) {
+      console.error('Error uploading documents:', error);
+      const errorMessage = error.response?.data?.message || 'Failed to upload documents.';
+      onError?.(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setIsUploading(false); // End loading
+      setUploadProgress(0); // Reset progress
+    }
+  };
+
+  const handleSubmit = () => {
+    uploadFilesToServer(files);
+  };
+
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
       {glassmorphism && (
         <div
           className={clsx(
@@ -301,6 +366,59 @@ const FileUploader: React.FC<FileUploaderProps> = ({
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Optional: Progress Bar */}
+        {isUploading && (
+          <div className="w-full bg-gray-200 rounded-full h-2.5 my-2">
+            <div
+              className="bg-blue-600 h-2.5 rounded-full"
+              style={{ width: `${uploadProgress}%` }}
+            ></div>
+          </div>
+        )}
+
+        {/* Optional: Uploaded Documents List */}
+        {uploadedDocuments.length > 0 && (
+          <div className="p-4 border-t border-gray-200/50">
+            <h3 className="text-lg font-semibold mb-2">Uploaded Documents:</h3>
+            <ul className="space-y-2">
+              {uploadedDocuments.map((doc) => (
+                <li key={doc._id} className="flex items-center justify-between bg-gray-100 p-2 rounded">
+                  <span>{doc.fileName}</span>
+                  <a
+                    href={doc.fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    View
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Submit Button */}
+        <div className="p-4 border-t border-gray-200/50 flex justify-end space-x-2">
+          <button
+            onClick={() => setFiles([])}
+            className="px-4 py-2 bg-gray-200/50 text-gray-700 rounded-lg hover:bg-gray-300/50 transition-colors"
+            disabled={isUploading} // Disable during upload
+          >
+            Clear
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={files.length === 0 || !selectedPatient || isUploading}
+            className={clsx(
+              'px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors',
+              (files.length === 0 || !selectedPatient || isUploading) && 'opacity-50 cursor-not-allowed'
+            )}
+          >
+            {isUploading ? 'Uploading...' : 'Upload'}
+          </button>
         </div>
       </div>
     </div>
