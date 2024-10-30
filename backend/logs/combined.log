@@ -750,3 +750,5 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-10-30 13:24:06 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-10-30 13:24:06 [INFO]: getPatients Controller Invoked
 2024-10-30 13:24:06 [INFO]: Fetched 5 patients
+2024-10-30 13:43:36 [INFO]: Server running on port 5000
+2024-10-30 13:43:36 [INFO]: MongoDB Connected
