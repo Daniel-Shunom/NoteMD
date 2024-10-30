@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Tabs, { Tab } from '../ui/tabs';
 import _Calendar from '../ui/calendar';
+import PrescribeMedication from '../ui/meds';
 
 const ExampleUsage: React.FC = () => {
   const tabs: Tab[] = [
@@ -20,9 +21,9 @@ const ExampleUsage: React.FC = () => {
       id: 'meds',
       label: 'Medication',
       content: (
-        <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
-          <div className="w-full flex items-center justify-center text-gray-500">
-            Class Content Area
+        <div className="">
+          <div className="w-full h-full flex items-center justify-center text-gray-500">
+            <PrescribeMedication/>
           </div>
         </div>
       ),

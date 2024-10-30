@@ -29,6 +29,7 @@
     "openai": "^4.68.4",
     "pdf-parse": "^1.1.1",
     "processenv": "^3.0.9",
+    "socket.io": "^4.8.1",
     "winston": "^3.15.0",
     "ws": "^8.18.0"
   }
