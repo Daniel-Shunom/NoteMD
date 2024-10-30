@@ -695,3 +695,20 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-10-29 11:35:39 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-10-29 11:35:39 [INFO]: getPatients Controller Invoked
 2024-10-29 11:35:39 [INFO]: Fetched 5 patients
+2024-10-29 15:20:27 [INFO]: authenticateToken invoked
+2024-10-29 15:20:27 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 15:20:27 [INFO]: getPatients Controller Invoked
+2024-10-29 15:20:27 [INFO]: Fetched 5 patients
+2024-10-29 15:20:34 [INFO]: authenticateToken invoked
+2024-10-29 15:20:34 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 15:20:35 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-10-29 15:23:23 [INFO]: Server running on port 5000
+2024-10-29 15:23:24 [INFO]: MongoDB Connected
+2024-10-29 15:40:43 [INFO]: authenticateToken invoked
+2024-10-29 15:40:43 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 15:40:43 [INFO]: getPatients Controller Invoked
+2024-10-29 15:40:43 [INFO]: Fetched 5 patients
+2024-10-29 15:43:30 [INFO]: authenticateToken invoked
+2024-10-29 15:43:30 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-10-29 15:43:30 [INFO]: getPatients Controller Invoked
+2024-10-29 15:43:30 [INFO]: Fetched 5 patients
