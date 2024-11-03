@@ -65,7 +65,7 @@ const DocumentList: React.FC = () => {
             <li key={doc._id} className="flex items-center justify-between bg-gray-100 p-2 rounded">
               <span>{doc.fileName}</span>
               <a
-                href={doc.fileUrl}
+                href={`http://localhost:5000/api/documents/${doc._id}/download`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"

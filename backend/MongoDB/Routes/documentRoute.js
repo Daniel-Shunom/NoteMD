@@ -51,4 +51,48 @@ router.get('/api/documents/:patientId', authenticateToken, async (req, res) => {
   }
 });
 
+
+
+// GET /api/documents/:documentId/download
+router.get('/api/documents/:documentId/download', authenticateToken, async (req, res) => {
+    const { documentId } = req.params;
+    const userId = req.user.userId;
+    const userRole = req.user.role;
+  
+    try {
+      const document = await Document.findById(documentId);
+  
+      if (!document) {
+        return res.status(404).json({ status: 'error', message: 'Document not found.' });
+      }
+  
+      // Check if the user has access to this document
+      const patient = await User.findById(document.patientId);
+  
+      if (userRole === 'patient') {
+        if (userId !== document.patientId.toString()) {
+          return res.status(403).json({ status: 'error', message: 'Access denied.' });
+        }
+      } else if (userRole === 'doctor') {
+        if (patient.doctor.toString() !== userId) {
+          return res.status(403).json({ status: 'error', message: 'You are not assigned to this patient.' });
+        }
+      } else {
+        return res.status(403).json({ status: 'error', message: 'Access denied.' });
+      }
+  
+      res.set({
+        'Content-Type': document.fileMimeType,
+        'Content-Disposition': `attachment; filename="${document.fileName}"`,
+      });
+  
+      res.send(document.fileData);
+    } catch (error) {
+      logger.error(`Error downloading document: ${error.message}`);
+      res.status(500).json({ status: 'error', message: 'Failed to download document.' });
+    }
+  }
+);
+  
+
 export default router;

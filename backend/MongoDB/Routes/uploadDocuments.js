@@ -21,17 +21,7 @@ const KEY = process.env.OPENAI_API_KEY;
 const openai = new OpenAI({ apiKey: KEY });
 
 // Configure Multer Storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadPath = path.join(process.cwd(), 'uploads');
-    fs.mkdirSync(uploadPath, { recursive: true });
-    cb(null, uploadPath);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `${uniqueSuffix}-${file.originalname}`);
-  },
-});
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage,
@@ -48,14 +38,13 @@ const upload = multer({
 }).array('documents', 10); // Limit to 10 files per upload
 
 // Helper function to extract text from files
-const extractTextContent = async (filePath, mimeType) => {
+const extractTextContent = async (fileBuffer, mimeType) => {
   try {
     if (mimeType === 'application/pdf') {
-      const dataBuffer = fs.readFileSync(filePath);
-      const data = await pdfParse(dataBuffer); // Use pdfParse directly
+      const data = await pdfParse(fileBuffer); // Use pdfParse directly
       return data.text;
     } else if (mimeType.startsWith('text/')) {
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = fileBuffer.toString('utf-8');
       return content;
     } else {
       // For image files, you might integrate OCR here
@@ -110,7 +99,7 @@ router.post('/api/upload-documents', authenticateToken, authorizeRoles('doctor')
 
       for (const file of files) {
         try {
-          const content = await extractTextContent(file.path, file.mimetype);
+          const content = await extractTextContent(file.buffer, file.mimetype);
 
           if (!content) {
             logger.warn(`No content extracted from file: ${file.originalname}`);
@@ -128,21 +117,20 @@ router.post('/api/upload-documents', authenticateToken, authorizeRoles('doctor')
           console.log(embedding)
 
           // Generate file URL (assuming you serve /uploads statically)
-          const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+          //const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
 
           // Read file data from disk
-          const fileData = fs.readFileSync(file.path);
+          //const fileData = fs.readFileSync(file.path);
 
-          const fileMimeType = file.mimetype;
+          //const fileMimeType = file.mimetype;
 
 
           // Save document to MongoDB
           const document = new Document({
             patientId,
             fileName: file.originalname,
-            fileUrl,
-            fileData,
-            fileMimeType,
+            fileData: file.buffer,
+            fileMimeType: file.mimetype,
             content,
             embedding,
             uploadedBy: doctorId,

@@ -14,10 +14,6 @@ const documentSchema = new mongoose.Schema(
       required: [true, 'File name is required.'],
       trim: true,
     },
-    fileUrl: {
-      type: String,
-      required: [true, 'File URL is required.'],
-    },
     fileData: { 
       type: Buffer, 
       required: true 

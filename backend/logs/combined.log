@@ -984,3 +984,79 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-03 13:35:29 [INFO]: Fetched 5 patients
 2024-11-03 13:35:52 [INFO]: authenticateToken invoked
 2024-11-03 13:35:52 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:38:24 [INFO]: authenticateToken invoked
+2024-11-03 13:38:24 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:38:24 [INFO]: getPatients Controller Invoked
+2024-11-03 13:38:24 [INFO]: Fetched 5 patients
+2024-11-03 13:38:51 [INFO]: authenticateToken invoked
+2024-11-03 13:38:51 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:41:22 [INFO]: authenticateToken invoked
+2024-11-03 13:41:22 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:41:22 [INFO]: getPatients Controller Invoked
+2024-11-03 13:41:22 [INFO]: Fetched 5 patients
+2024-11-03 13:41:45 [INFO]: authenticateToken invoked
+2024-11-03 13:41:45 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:41:45 [INFO]: getPatients Controller Invoked
+2024-11-03 13:41:45 [INFO]: Fetched 5 patients
+2024-11-03 13:41:48 [INFO]: authenticateToken invoked
+2024-11-03 13:41:48 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:41:48 [INFO]: getPatients Controller Invoked
+2024-11-03 13:41:48 [INFO]: Fetched 5 patients
+2024-11-03 13:42:32 [INFO]: authenticateToken invoked
+2024-11-03 13:42:32 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:42:32 [INFO]: getPatients Controller Invoked
+2024-11-03 13:42:32 [INFO]: Fetched 5 patients
+2024-11-03 13:42:56 [INFO]: authenticateToken invoked
+2024-11-03 13:42:56 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:56:13 [INFO]: authenticateToken invoked
+2024-11-03 13:56:13 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:56:13 [INFO]: getPatients Controller Invoked
+2024-11-03 13:56:13 [INFO]: Fetched 5 patients
+2024-11-03 13:56:16 [INFO]: authenticateToken invoked
+2024-11-03 13:56:16 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:56:16 [INFO]: getPatients Controller Invoked
+2024-11-03 13:56:16 [INFO]: Fetched 5 patients
+2024-11-03 13:56:44 [INFO]: authenticateToken invoked
+2024-11-03 13:56:44 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:56:44 [ERROR]: Error extracting content from file: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+2024-11-03 13:56:44 [WARN]: No content extracted from file: gsas-cvs-and-cover-letters.pdf
+2024-11-03 14:07:20 [INFO]: authenticateToken invoked
+2024-11-03 14:07:20 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:07:20 [INFO]: getPatients Controller Invoked
+2024-11-03 14:07:20 [INFO]: Fetched 5 patients
+2024-11-03 14:07:31 [INFO]: authenticateToken invoked
+2024-11-03 14:07:31 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:07:31 [ERROR]: Error extracting content from file: fileBuffer is not defined
+2024-11-03 14:07:31 [WARN]: No content extracted from file: 1730659131209-968604312-CV FORMAT Computational Biology.pdf
+2024-11-03 14:10:05 [INFO]: authenticateToken invoked
+2024-11-03 14:10:05 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:10:05 [INFO]: getPatients Controller Invoked
+2024-11-03 14:10:06 [INFO]: Fetched 5 patients
+2024-11-03 14:10:09 [INFO]: authenticateToken invoked
+2024-11-03 14:10:09 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:13:09 [INFO]: authenticateToken invoked
+2024-11-03 14:13:09 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:13:09 [INFO]: getPatients Controller Invoked
+2024-11-03 14:13:09 [INFO]: Fetched 5 patients
+2024-11-03 14:16:42 [INFO]: authenticateToken invoked
+2024-11-03 14:16:42 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:16:42 [INFO]: getPatients Controller Invoked
+2024-11-03 14:16:42 [INFO]: Fetched 5 patients
+2024-11-03 14:16:48 [INFO]: authenticateToken invoked
+2024-11-03 14:16:48 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:16:48 [INFO]: getPatients Controller Invoked
+2024-11-03 14:16:48 [INFO]: Fetched 5 patients
+2024-11-03 14:17:18 [INFO]: authenticateToken invoked
+2024-11-03 14:17:18 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:17:18 [INFO]: getPatients Controller Invoked
+2024-11-03 14:17:18 [INFO]: Fetched 5 patients
+2024-11-03 14:17:21 [INFO]: authenticateToken invoked
+2024-11-03 14:17:21 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:17:21 [INFO]: getPatients Controller Invoked
+2024-11-03 14:17:21 [INFO]: Fetched 5 patients
+2024-11-03 14:19:12 [INFO]: authenticateToken invoked
+2024-11-03 14:19:12 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:19:12 [INFO]: getPatients Controller Invoked
+2024-11-03 14:19:12 [INFO]: Fetched 5 patients
+2024-11-03 14:19:15 [ERROR]: Error retrieving documents: document is not defined
+2024-11-03 14:19:15 [ERROR]: Error retrieving documents: document is not defined
