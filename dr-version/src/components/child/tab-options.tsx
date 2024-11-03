@@ -23,9 +23,11 @@ const ExampleUsage: React.FC = () => {
       id: 'meds',
       label: 'Medication',
       content: (
-        <div className="">
-          <div className="w-full h-full flex items-center justify-center text-gray-500">
-            <PrescribeMedication/>
+        <div className="flex flex-col h-full">
+          <div className="flex-1">
+            <div className="w-full h-full flex items-center justify-center text-gray-500">
+              <PrescribeMedication />
+            </div>
           </div>
         </div>
       ),

@@ -1,19 +1,38 @@
 import React, { useState, ChangeEvent, FormEvent, useContext } from "react";
 import axios from "axios";
 import { SelectedPatientContext } from "../../../context/SelectedPatientContext";
-//import { AuthContext } from "../../../context/Authcontext"; // Import AuthContext
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+
+// Import animation library
+import Lottie from "react-lottie";
+import successAnimationData from "./successAnimation.json";
+
+// Import the CreatableSelect component
+import CreatableSelect from "react-select/creatable";
+
+// Import custom styles for react-select
+import "../../custom_styles/prescribeMedForm.css";
 
 const PrescribeMedication: React.FC = () => {
   const { selectedPatient } = useContext(SelectedPatientContext);
-  //const { auth } = useContext(AuthContext);
 
   const [medicationName, setMedicationName] = useState<string>("");
   const [dosage, setDosage] = useState<string>("");
   const [instructions, setInstructions] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [showSuccessAnimation, setShowSuccessAnimation] = useState<boolean>(false);
+
+  // Preset dosages
+  const dosageOptions = [
+    { value: "250mg", label: "250 mg" },
+    { value: "500mg", label: "500 mg" },
+    { value: "1g", label: "1 g" },
+    { value: "5ml", label: "5 ml" },
+    { value: "10ml", label: "10 ml" },
+    // Add more standard doses as needed
+  ];
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,8 +44,6 @@ const PrescribeMedication: React.FC = () => {
       setIsSubmitting(false);
       return;
     }
-    console.log('Selected Patient:', selectedPatient);
-
 
     if (!medicationName || !dosage) {
       setMessage("Medication name and dosage are required.");
@@ -35,10 +52,8 @@ const PrescribeMedication: React.FC = () => {
     }
 
     try {
-      // No need to retrieve token from localStorage
-
       const response = await axios.post(
-        "http://localhost:5000/api/medications",
+        "/api/medications",
         {
           patientId: selectedPatient.id,
           medicationName,
@@ -55,6 +70,12 @@ const PrescribeMedication: React.FC = () => {
       setDosage("");
       setInstructions("");
       toast.success("Medication prescribed successfully.");
+
+      // Show success animation
+      setShowSuccessAnimation(true);
+      setTimeout(() => {
+        setShowSuccessAnimation(false);
+      }, 3000); // Animation duration
     } catch (error: any) {
       console.error("Error prescribing medication:", error);
       setMessage(error.response?.data?.message || "An error occurred.");
@@ -64,13 +85,25 @@ const PrescribeMedication: React.FC = () => {
     }
   };
 
+  // Animation options
+  const defaultOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: successAnimationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   return (
-    <div className="w-full h-full flex justify-center items-center bg-gray-100 p-4">
+    <div className="w-full h-full flex items-center justify-center p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-xl shadow-md p-8 flex flex-col space-y-6"
+        className="w-full h-full flex flex-col bg-white rounded-3xl shadow-lg p-6 space-y-4 overflow-auto"
       >
-        <h2 className="text-2xl font-semibold text-gray-800 text-center">Prescribe Medication</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center mb-2">
+          Prescribe Medication
+        </h2>
 
         {message && (
           <div
@@ -82,7 +115,7 @@ const PrescribeMedication: React.FC = () => {
           </div>
         )}
 
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-grow">
           <label htmlFor="medicationName" className="mb-1 text-sm font-medium text-gray-700">
             Medication Name
           </label>
@@ -92,27 +125,30 @@ const PrescribeMedication: React.FC = () => {
             value={medicationName}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setMedicationName(e.target.value)}
             placeholder="Enter medication name"
-            className="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm"
             required
           />
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-grow">
           <label htmlFor="dosage" className="mb-1 text-sm font-medium text-gray-700">
             Dosage
           </label>
-          <input
-            type="text"
+          <CreatableSelect
             id="dosage"
-            value={dosage}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setDosage(e.target.value)}
-            placeholder="e.g., 500mg"
-            className="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            required
+            isClearable
+            options={dosageOptions}
+            value={dosage ? { label: dosage, value: dosage } : null}
+            onChange={(newValue: any) => {
+              setDosage(newValue ? newValue.value : "");
+            }}
+            placeholder="Select or enter a dosage"
+            className="react-select-container"
+            classNamePrefix="react-select"
           />
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-grow">
           <label htmlFor="instructions" className="mb-1 text-sm font-medium text-gray-700">
             Instructions (Optional)
           </label>
@@ -121,21 +157,20 @@ const PrescribeMedication: React.FC = () => {
             value={instructions}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setInstructions(e.target.value)}
             placeholder="Enter any specific instructions"
-            className="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            rows={3}
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm resize-none flex-grow"
           ></textarea>
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`mt-4 py-3 bg-blue-600 text-white font-semibold rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors flex items-center justify-center ${
+          className={`w-full py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors flex items-center justify-center ${
             isSubmitting ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
           {isSubmitting ? (
             <svg
-              className="animate-spin h-5 w-5 mr-3 text-white"
+              className="animate-spin h-5 w-5 mr-2 text-white"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -157,6 +192,13 @@ const PrescribeMedication: React.FC = () => {
           ) : null}
           {isSubmitting ? "Prescribing..." : "Prescribe"}
         </button>
+
+        {/* Success Animation */}
+        {showSuccessAnimation && (
+          <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center rounded-3xl">
+            <Lottie options={defaultOptions} height={200} width={200} />
+          </div>
+        )}
       </form>
 
       {/* Toast Notifications */}
