@@ -274,7 +274,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({
               className={clsx(
                 'flex-1',
                 glassmorphism ? 'backdrop-blur-sm bg-white/40' : 'bg-gray-50',
-                'rounded-lg'
+                'rounded-lg',
+                'max-h-64', // Set maximum height
+                'overflow-y-auto', // Enable vertical scrolling
               )}
             >
               <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
@@ -322,11 +324,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           </div>
 
           {/* Upload Section */}
-          <div className="w-40 p-2 flex-shrink-0">
+          <div className="w-40 p-2 flex-shrink-0 flex flex-col items-center">
             <div
               className={clsx(
-                'relative h-full rounded-lg border-2 border-dashed cursor-pointer',
-                'transition-all duration-300 ease-in-out',
+                'relative rounded-lg border-2 border-dashed cursor-pointer w-full',
+                'transition-all duration-300 ease-in-out flex-grow',
                 isDragging
                   ? `border-${validAccentColor}-400 bg-${validAccentColor}-50/50`
                   : 'border-gray-300/50 hover:border-gray-400/50 bg-white/30 hover:bg-white/40',
@@ -365,6 +367,27 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                 )}
               </div>
             </div>
+
+            {/* Buttons Section */}
+            <div className="mt-2 w-full flex justify-between space-x-2">
+              <button
+                onClick={() => setFiles([])}
+                className="flex-1 px-2 py-1 bg-gray-200/50 text-gray-700 rounded-lg hover:bg-gray-300/50 transition-colors"
+                disabled={isUploading} // Disable during upload
+              >
+                Clear
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={files.length === 0 || !selectedPatient || isUploading}
+                className={clsx(
+                  'flex-1 px-2 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors',
+                  (files.length === 0 || !selectedPatient || isUploading) && 'opacity-50 cursor-not-allowed'
+                )}
+              >
+                {isUploading ? 'Uploading...' : 'Upload'}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -377,49 +400,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             ></div>
           </div>
         )}
-
-        {/* Optional: Uploaded Documents List */}
-        {uploadedDocuments.length > 0 && (
-          <div className="p-4 border-t border-gray-200/50">
-            <h3 className="text-lg font-semibold mb-2">Uploaded Documents:</h3>
-            <ul className="space-y-2">
-              {uploadedDocuments.map((doc) => (
-                <li key={doc.id} className="flex items-center justify-between bg-gray-100 p-2 rounded">
-                  <span>{doc.fileName}</span>
-                  <a
-                    href={doc.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:underline"
-                  >
-                    View
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Submit Button */}
-        <div className="p-4 border-t border-gray-200/50 flex justify-end space-x-2">
-          <button
-            onClick={() => setFiles([])}
-            className="px-4 py-2 bg-gray-200/50 text-gray-700 rounded-lg hover:bg-gray-300/50 transition-colors"
-            disabled={isUploading} // Disable during upload
-          >
-            Clear
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={files.length === 0 || !selectedPatient || isUploading}
-            className={clsx(
-              'px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors',
-              (files.length === 0 || !selectedPatient || isUploading) && 'opacity-50 cursor-not-allowed'
-            )}
-          >
-            {isUploading ? 'Uploading...' : 'Upload'}
-          </button>
-        </div>
       </div>
     </div>
   );
