@@ -1086,3 +1086,68 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-03 14:52:06 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-11-03 14:52:06 [INFO]: getPatients Controller Invoked
 2024-11-03 14:52:07 [INFO]: Fetched 5 patients
+2024-11-03 15:24:13 [INFO]: authenticateToken invoked
+2024-11-03 15:24:13 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:24:13 [INFO]: getPatients Controller Invoked
+2024-11-03 15:24:13 [INFO]: Fetched 5 patients
+2024-11-03 15:24:29 [INFO]: authenticateToken invoked
+2024-11-03 15:24:29 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:35:11 [INFO]: authenticateToken invoked
+2024-11-03 15:35:11 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:35:11 [INFO]: getPatients Controller Invoked
+2024-11-03 15:35:11 [INFO]: Fetched 5 patients
+2024-11-03 15:40:22 [INFO]: authenticateToken invoked
+2024-11-03 15:40:22 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:40:22 [INFO]: getPatients Controller Invoked
+2024-11-03 15:40:22 [INFO]: Fetched 5 patients
+2024-11-03 15:40:35 [INFO]: authenticateToken invoked
+2024-11-03 15:40:35 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:40:35 [INFO]: getPatients Controller Invoked
+2024-11-03 15:40:35 [INFO]: Fetched 5 patients
+2024-11-03 15:43:58 [INFO]: authenticateToken invoked
+2024-11-03 15:43:58 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:43:58 [INFO]: getPatients Controller Invoked
+2024-11-03 15:43:58 [INFO]: Fetched 5 patients
+2024-11-03 15:53:27 [INFO]: authenticateToken invoked
+2024-11-03 15:53:27 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:53:27 [INFO]: getPatients Controller Invoked
+2024-11-03 15:53:28 [INFO]: Fetched 5 patients
+2024-11-03 15:53:46 [INFO]: authenticateToken invoked
+2024-11-03 15:53:46 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:55:56 [INFO]: authenticateToken invoked
+2024-11-03 15:55:56 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 15:55:56 [INFO]: getPatients Controller Invoked
+2024-11-03 15:55:56 [INFO]: Fetched 5 patients
+2024-11-03 16:12:28 [INFO]: authenticateToken invoked
+2024-11-03 16:12:28 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 16:12:28 [INFO]: getPatients Controller Invoked
+2024-11-03 16:12:40 [INFO]: Fetched 5 patients
+2024-11-03 16:13:25 [ERROR]: Error retrieving documents: read ECONNRESET
+2024-11-03 16:14:01 [INFO]: authenticateToken invoked
+2024-11-03 16:14:01 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 16:14:01 [INFO]: getPatients Controller Invoked
+2024-11-03 16:14:01 [INFO]: Fetched 5 patients
+2024-11-03 16:18:43 [INFO]: authenticateToken invoked
+2024-11-03 16:18:43 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 16:18:43 [INFO]: getPatients Controller Invoked
+2024-11-03 16:18:43 [INFO]: Fetched 5 patients
+2024-11-03 16:18:46 [INFO]: authenticateToken invoked
+2024-11-03 16:18:46 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 16:18:46 [INFO]: getPatients Controller Invoked
+2024-11-03 16:18:46 [INFO]: Fetched 5 patients
+2024-11-03 16:18:48 [INFO]: authenticateToken invoked
+2024-11-03 16:18:48 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 16:18:48 [INFO]: getPatients Controller Invoked
+2024-11-03 16:18:48 [INFO]: Fetched 5 patients
+2024-11-03 16:18:50 [INFO]: authenticateToken invoked
+2024-11-03 16:18:50 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 16:18:50 [INFO]: getPatients Controller Invoked
+2024-11-03 16:18:50 [INFO]: Fetched 5 patients
+2024-11-03 16:18:53 [INFO]: authenticateToken invoked
+2024-11-03 16:18:53 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 16:18:53 [INFO]: getPatients Controller Invoked
+2024-11-03 16:18:53 [INFO]: Fetched 5 patients
+2024-11-03 16:18:56 [INFO]: authenticateToken invoked
+2024-11-03 16:18:56 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 16:18:56 [INFO]: getPatients Controller Invoked
+2024-11-03 16:18:56 [INFO]: Fetched 5 patients

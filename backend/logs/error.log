@@ -104,3 +104,4 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-03 14:07:31 [ERROR]: Error extracting content from file: fileBuffer is not defined
 2024-11-03 14:19:15 [ERROR]: Error retrieving documents: document is not defined
 2024-11-03 14:19:15 [ERROR]: Error retrieving documents: document is not defined
+2024-11-03 16:13:25 [ERROR]: Error retrieving documents: read ECONNRESET
