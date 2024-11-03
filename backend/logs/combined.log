@@ -1060,3 +1060,7 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-03 14:19:12 [INFO]: Fetched 5 patients
 2024-11-03 14:19:15 [ERROR]: Error retrieving documents: document is not defined
 2024-11-03 14:19:15 [ERROR]: Error retrieving documents: document is not defined
+2024-11-03 14:27:59 [INFO]: authenticateToken invoked
+2024-11-03 14:27:59 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 14:27:59 [INFO]: getPatients Controller Invoked
+2024-11-03 14:27:59 [INFO]: Fetched 5 patients
