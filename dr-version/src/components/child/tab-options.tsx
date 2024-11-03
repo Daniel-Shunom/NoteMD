@@ -12,9 +12,11 @@ const ExampleUsage: React.FC = () => {
       id: 'notes',
       label: 'Notes',
       content: (
-        <div className="flex-1 p-2 sm:p-4 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
-          <div className="w-full flex items-center justify-center text-gray-500 overflow-auto">
-            <_Calendar />
+        <div className="flex flex-col h-full">
+          <div className="flex-1">
+            <div className="w-full h-full flex items-center justify-center text-gray-500">
+              <_Calendar />
+            </div>
           </div>
         </div>
       ),
@@ -36,9 +38,11 @@ const ExampleUsage: React.FC = () => {
       id: 'visits',
       label: 'Visits',
       content: (
-        <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
-          <div className="w-full flex items-center justify-center text-gray-500">
-            Detail Content Area
+        <div className="flex flex-col h-full">
+          <div className="flex-1">
+            <div className="w-full h-full flex items-center justify-center text-gray-500">
+              Hi
+            </div>
           </div>
         </div>
       ),

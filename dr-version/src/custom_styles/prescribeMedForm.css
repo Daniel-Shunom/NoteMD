@@ -26,3 +26,19 @@
     color: white;
   }
   
+  //
+  .react-select__multi-value {
+    background-color: #6366f1;
+  }
+  
+  .react-select__multi-value__label {
+    color: white;
+  }
+  
+  .react-select__multi-value__remove {
+    color: white;
+  }
+  
+  .react-select__placeholder {
+    color: #9ca3af; /* Tailwind's gray-400 */
+  }
