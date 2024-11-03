@@ -1,87 +1,145 @@
-// Controllers/medicationController.js
+// MongoDB/Controllers/medicationController.js
 
 import Medication from '../models/meds_model.js';
 import User from '../models/user_model.js';
+import winston from 'winston';
 
-// Assign medications to a patient
+// Initialize Logger
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.simple()
+  ),
+  transports: [new winston.transports.Console()],
+});
+
+/**
+ * Assign medications to a patient (Doctor only)
+ * @param {*} req
+ * @param {*} res
+ */
 export const assignMedications = async (req, res) => {
-  const { patientId, medications } = req.body;
-  const doctorId = req.user.userId;
+  const { patientId, medicationName, dosage, instructions } = req.body;
+
+  if (!patientId || !medicationName || !dosage) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Patient ID, medication name, and dosage are required.',
+    });
+  }
 
   try {
-    // Fetch doctor
-    const doctor = await User.findById(doctorId);
-    if (!doctor || doctor.role !== 'doctor') {
-      return res.status(403).json({ status: 'error', message: 'Only doctors can assign medications.' });
-    }
-
-    // Fetch patient
+    // Verify that the patient exists and is a patient
     const patient = await User.findById(patientId);
     if (!patient || patient.role !== 'patient') {
-      return res.status(400).json({ status: 'error', message: 'Invalid patient ID.' });
+      return res.status(404).json({
+        status: 'error',
+        message: 'Patient not found.',
+      });
     }
 
-    // Check if patient is assigned to this doctor
-    if (String(patient.doctor) !== String(doctorId)) {
-      return res.status(403).json({ status: 'error', message: 'You are not assigned to this patient.' });
-    }
+    // Create new medication entry
+    const newMedication = {
+      name: medicationName,
+      dosage,
+      instructions,
+      dateAssigned: new Date(),
+    };
 
-    // Find existing medication record
-    let medicationRecord = await Medication.findOne({ patient: patientId, doctor: doctorId });
+    // Update or create Medication document
+    let medicationDoc = await Medication.findOne({ patient: patientId });
 
-    if (!medicationRecord) {
-      // Create new record if it doesn't exist
-      medicationRecord = new Medication({ patient: patientId, doctor: doctorId, medications });
+    if (medicationDoc) {
+      medicationDoc.medications.push(newMedication);
     } else {
-      // Append to existing medications
-      medicationRecord.medications.push(...medications);
+      medicationDoc = new Medication({
+        patient: patientId,
+        doctor: req.user.userId, // Assuming JWT payload has userId
+        medications: [newMedication],
+      });
     }
 
-    await medicationRecord.save();
+    await medicationDoc.save();
+
+    // Emit real-time notification to patient
+    const io = req.app.get('io');
+    const userSockets = req.app.get('userSockets');
+
+    if (userSockets[patientId]) {
+      // Fetch doctor's name
+      const doctor = await User.findById(req.user.userId);
+      if (!doctor) {
+        logger.warn(`Doctor with ID ${req.user.userId} not found.`);
+      }
+
+      const prescriptionData = {
+        id: newMedication._id, // Assuming MongoDB ObjectId
+        medication: medicationName,
+        dosage,
+        instructions,
+        prescribedBy: doctor ? `${doctor.name} ${doctor.lname}` : 'Unknown',
+        dateAssigned: newMedication.dateAssigned,
+      };
+
+      userSockets[patientId].emit('new-prescription', prescriptionData);
+      logger.info(`Emitted new-prescription to user: ${patientId}`);
+    } else {
+      logger.warn(`User ${patientId} not connected via Socket.io.`);
+    }
 
     res.status(200).json({
-      status: 'ok',
-      message: 'Medications assigned successfully.',
-      medication: medicationRecord,
+      status: 'success',
+      message: 'Medication prescribed successfully.',
+      data: newMedication,
     });
   } catch (error) {
-    console.error('Error assigning medications:', error);
-    res.status(500).json({ status: 'error', message: 'Server error. Please try again later.' });
+    logger.error(`Error assigning medication: ${error.message}`);
+    res.status(500).json({
+      status: 'error',
+      message: 'Internal Server Error',
+    });
   }
 };
 
-// Get medications for a patient
+/**
+ * Get medications for a specific patient (Doctor or Patient)
+ * @param {*} req
+ * @param {*} res
+ */
 export const getMedications = async (req, res) => {
   const { patientId } = req.params;
-  const requester = req.user;
 
   try {
-    const medicationRecord = await Medication.findOne({ patient: patientId })
-      .populate('doctor', 'name lname email licenseNumber');
-
-    if (!medicationRecord) {
-      return res.status(404).json({ status: 'error', message: 'No medications found for this patient.' });
+    // If requester is patient, ensure they are requesting their own data
+    if (req.user.role === 'patient' && req.user.userId !== patientId) {
+      return res.status(403).json({
+        status: 'error',
+        message: 'Forbidden: Access denied.',
+      });
     }
 
-    // Authorization Checks
-    if (requester.role === 'doctor') {
-      if (String(medicationRecord.doctor._id) !== String(requester.userId)) {
-        return res.status(403).json({ status: 'error', message: 'Not authorized to view medications for this patient.' });
-      }
-    } else if (requester.role === 'patient') {
-      if (String(medicationRecord.patient) !== String(requester.userId)) {
-        return res.status(403).json({ status: 'error', message: 'Not authorized to view these medications.' });
-      }
-    } else {
-      return res.status(403).json({ status: 'error', message: 'Forbidden: Access denied.' });
+    // Fetch Medication document
+    const medicationDoc = await Medication.findOne({ patient: patientId })
+      .populate('doctor', 'name lname email') // Populate doctor details
+      .populate('patient', 'name lname email'); // Populate patient details
+
+    if (!medicationDoc) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'No medications found for this patient.',
+      });
     }
 
     res.status(200).json({
-      status: 'ok',
-      medication: medicationRecord,
+      status: 'success',
+      data: medicationDoc,
     });
   } catch (error) {
-    console.error('Error fetching medications:', error);
-    res.status(500).json({ status: 'error', message: 'Server error. Please try again later.' });
+    logger.error(`Error fetching medications: ${error.message}`);
+    res.status(500).json({
+      status: 'error',
+      message: 'Internal Server Error',
+    });
   }
 };

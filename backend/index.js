@@ -8,6 +8,9 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
+import { Server } from 'socket.io';
+import http from 'http'; // Added to create HTTP server
+import jwt from 'jsonwebtoken'; // Added for JWT verification
 
 // Import Routes
 import loginRoute from './MongoDB/auth/login.js';
@@ -18,12 +21,79 @@ import currentUserRoute from './MongoDB/auth/currentUser.js';
 import uploadDocumentRoute from './MongoDB/Routes/uploadDocuments.js';
 //import logoutRoute from './routes/logout.js';
 
-// Import Logger
-import logger from './logger.js';
+// Import Middleware
+import { authenticateToken } from './MongoDB/middleware/auth.js';
 
+// Import Logger
+import winston from 'winston';
+
+// Configure environment variables
 dotenv.config();
 
+// Initialize Logger
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.simple()
+  ),
+  transports: [new winston.transports.Console()],
+});
+
 const app = express();
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// Initialize Socket.io
+const io = new Server(server, {
+  cors: {
+    origin: [
+      'http://localhost:3002',
+      'http://localhost:3000', // dr-version (doctor app)
+      'http://localhost:3001', // dr-cloud (patient app)
+    ],
+    methods: ['GET', 'POST'],
+    credentials: true,
+  },
+});
+
+// In-memory storage for user sockets
+const userSockets = {};
+
+// Middleware to authenticate Socket.io connections
+io.use((socket, next) => {
+  const token = socket.handshake.auth.token;
+  if (!token) {
+    logger.warn('Socket.io connection attempt without token.');
+    return next(new Error('Authentication error'));
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    socket.user = decoded; // Attach decoded token to socket
+    next();
+  } catch (error) {
+    logger.error(`Socket.io token verification failed: ${error.message}`);
+    next(new Error('Authentication error'));
+  }
+});
+
+// Handle Socket.io connections
+io.on('connection', (socket) => {
+  const userId = socket.user.userId; // Assuming JWT payload has userId
+  userSockets[userId] = socket;
+  logger.info(`User connected via Socket.io: ${userId}`);
+
+  socket.on('disconnect', () => {
+    delete userSockets[userId];
+    logger.info(`User disconnected from Socket.io: ${userId}`);
+  });
+});
+
+// Attach io and userSockets to app for use in routes
+app.set('io', io);
+app.set('userSockets', userSockets);
 
 // Connect to MongoDB
 mongoose
@@ -80,8 +150,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ status: 'error', message: 'Internal Server Error' });
 });
 
+// Start the server with Socket.io
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
 });

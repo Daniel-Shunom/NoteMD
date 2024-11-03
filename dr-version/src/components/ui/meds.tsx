@@ -1,106 +1,131 @@
-"use client"
-// src/components/PrescribeMedication.tsx
-import React, { useState, ChangeEvent, FormEvent } from "react";
+// dr-version/components/PrescribeMedication.tsx
+
+import React, { useState, ChangeEvent, FormEvent, useContext } from "react";
+import axios from "axios";
+import { SelectedPatientContext, Patient } from '../../../context/SelectedPatientContext';
+import { AuthContext } from '../../../context/Authcontext';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-interface PrescriptionDetails {
-  patient: string;
-  condition: string;
-  medication: string;
-}
-
 const PrescribeMedication: React.FC = () => {
-  const [patient, setPatient] = useState<string>("");
-  const [condition, setCondition] = useState<string>("");
-  const [medication, setMedication] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { selectedPatient } = useContext(SelectedPatientContext);
+  const { auth } = useContext(AuthContext);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  const [medicationName, setMedicationName] = useState<string>("");
+  const [dosage, setDosage] = useState<string>("");
+  const [instructions, setInstructions] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setMessage(null);
 
-    const prescription: PrescriptionDetails = { patient, condition, medication };
+    if (!selectedPatient) {
+      setMessage("No patient selected.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!medicationName || !dosage) {
+      setMessage("Medication name and dosage are required.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      // TODO: Replace with actual submission logic, e.g., API call
-      console.log("Prescription Details:", prescription);
-      
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const token = localStorage.getItem("token"); // Adjust based on your auth implementation
 
-      toast.success("Medication prescribed successfully!");
-      
-      // Reset form fields
-      setPatient("");
-      setCondition("");
-      setMedication("");
-    } catch (error) {
+      const response = await axios.post(
+        "http://localhost:5000/api/medications",
+        {
+          patientId: selectedPatient.id,
+          medicationName,
+          dosage,
+          instructions,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setMessage(response.data.message);
+      setMedicationName("");
+      setDosage("");
+      setInstructions("");
+      toast.success("Medication prescribed successfully.");
+    } catch (error: any) {
       console.error("Error prescribing medication:", error);
-      toast.error("Failed to prescribe medication. Please try again.");
+      setMessage(error.response?.data?.message || "An error occurred.");
+      toast.error(error.response?.data?.message || "An error occurred.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center bg-gray-200 p-1 rounded-2xl">
+    <div className="w-full h-full flex justify-center items-center bg-gray-100 p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full h-full max-w-2xl bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-xl shadow-md p-8 flex flex-col space-y-6"
+        className="w-full max-w-lg bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-xl shadow-md p-8 flex flex-col space-y-6"
       >
         <h2 className="text-2xl font-semibold text-gray-800 text-center">Prescribe Medication</h2>
 
-        <div className="flex flex-col">
-          <label htmlFor="patient" className="mb-1 text-sm font-medium text-gray-700">
-            Patient Name
-          </label>
-          <input
-            type="text"
-            id="patient"
-            value={patient}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPatient(e.target.value)}
-            placeholder="Enter patient's full name"
-            className="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label htmlFor="condition" className="mb-1 text-sm font-medium text-gray-700">
-            Condition
-          </label>
-          <select
-            id="condition"
-            value={condition}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) => setCondition(e.target.value)}
-            className="px-4 py-3 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            required
+        {message && (
+          <div
+            className={`text-center text-sm ${
+              message.includes("successfully") ? "text-green-600" : "text-red-600"
+            }`}
           >
-            <option value="" disabled>
-              Select a condition
-            </option>
-            <option value="Hypertension">Hypertension</option>
-            <option value="Diabetes">Diabetes</option>
-            <option value="Asthma">Asthma</option>
-            <option value="Arthritis">Arthritis</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+            {message}
+          </div>
+        )}
 
         <div className="flex flex-col">
-          <label htmlFor="medication" className="mb-1 text-sm font-medium text-gray-700">
-            Medication
+          <label htmlFor="medicationName" className="mb-1 text-sm font-medium text-gray-700">
+            Medication Name
           </label>
           <input
             type="text"
-            id="medication"
-            value={medication}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setMedication(e.target.value)}
+            id="medicationName"
+            value={medicationName}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setMedicationName(e.target.value)}
             placeholder="Enter medication name"
             className="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             required
           />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="dosage" className="mb-1 text-sm font-medium text-gray-700">
+            Dosage
+          </label>
+          <input
+            type="text"
+            id="dosage"
+            value={dosage}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setDosage(e.target.value)}
+            placeholder="e.g., 500mg"
+            className="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="instructions" className="mb-1 text-sm font-medium text-gray-700">
+            Instructions (Optional)
+          </label>
+          <textarea
+            id="instructions"
+            value={instructions}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setInstructions(e.target.value)}
+            placeholder="Enter any specific instructions"
+            className="px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            rows={3}
+          ></textarea>
         </div>
 
         <button

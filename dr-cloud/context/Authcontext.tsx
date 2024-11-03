@@ -1,6 +1,9 @@
+// dr-cloud/context/AuthContext.tsx
+
 "use client";
 
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode } from "react";
+import { initiateSocket, disconnectSocket } from "../Sockets/sockets";
 
 interface User {
   id: string;
@@ -14,9 +17,10 @@ interface User {
 interface AuthState {
   user: User | null;
   loading: boolean;
+  token: string | null;
 }
 
-interface AuthContextProps {
+export interface AuthContextProps {
   auth: AuthState;
   setAuth: React.Dispatch<React.SetStateAction<AuthState>>;
   logout: () => Promise<void>;
@@ -32,46 +36,50 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [auth, setAuth] = useState<AuthState>({
     user: null,
     loading: true,
+    token: null,
   });
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        console.log('AuthProvider: Fetching current user');
-        const res = await fetch('/api/currentUser', {
-          method: 'GET',
-          credentials: 'include', // Include cookies
+        const res = await fetch("http://localhost:5000/api/currentUser", {
+          method: "GET",
+          credentials: "include",
         });
 
         const data = await res.json();
-        console.log('AuthProvider: Received data:', data);
 
         if (res.ok && data.user) {
-          console.log('AuthProvider: User is authenticated:', data.user);
-          setAuth({ user: data.user, loading: false });
+          setAuth({ user: data.user, loading: false, token: data.token });
+          initiateSocket(data.token); // Initialize Socket.io
         } else {
-          console.log('AuthProvider: User not authenticated');
-          setAuth({ user: null, loading: false });
+          setAuth({ user: null, loading: false, token: null });
         }
       } catch (error) {
-        console.error('AuthProvider: Error fetching current user:', error);
-        setAuth({ user: null, loading: false });
+        console.error("Error fetching current user:", error);
+        setAuth({ user: null, loading: false, token: null });
       }
     };
 
     fetchCurrentUser();
+
+    // Cleanup on unmount
+    return () => {
+      disconnectSocket();
+    };
   }, []);
 
   const logout = async () => {
     try {
-      await fetch('/api/logout', {
-        method: 'POST',
-        credentials: 'include',
+      await fetch("http://localhost:5000/api/logout", {
+        method: "POST",
+        credentials: "include",
       });
-      setAuth({ user: null, loading: false });
-      window.location.href = 'http://localhost:3002';
+      setAuth({ user: null, loading: false, token: null });
+      disconnectSocket();
+      window.location.href = "http://localhost:3002";
     } catch (error) {
-      console.error('Error during logout:', error);
+      console.error("Error during logout:", error);
     }
   };
 

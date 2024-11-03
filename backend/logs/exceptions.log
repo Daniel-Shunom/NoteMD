@@ -173,3 +173,101 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
     at cjsLoader (node:internal/modules/esm/translators:356:17)
     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:305:7)
     at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+2024-10-30 14:03:16 [ERROR]: uncaughtException: http.createServer is not a function
+TypeError: http.createServer is not a function
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:29:21
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 14:16:04 [ERROR]: uncaughtException: http.createServer is not a function
+TypeError: http.createServer is not a function
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:29:21
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 14:16:39 [ERROR]: uncaughtException: http.createServer is not a function
+TypeError: http.createServer is not a function
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:29:21
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 14:42:38 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:28:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 14:42:41 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:28:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 14:43:45 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:31:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 14:46:28 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:33:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 14:47:11 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:33:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 14:48:36 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:33:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 15:53:24 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:33:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 15:55:51 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:33:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-30 15:56:04 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:33:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-31 18:27:27 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:33:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-10-31 18:28:28 [ERROR]: uncaughtException: http is not defined
+ReferenceError: http is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:33:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
