@@ -1,4 +1,4 @@
-// models/Medication.js
+// models/meds_model.js
 
 import mongoose from 'mongoose';
 

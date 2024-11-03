@@ -19,6 +19,7 @@ const logger = winston.createLogger({
  * @param {*} req
  * @param {*} res
  */
+
 export const assignMedications = async (req, res) => {
   const { patientId, medicationName, dosage, instructions } = req.body;
 
@@ -62,6 +63,9 @@ export const assignMedications = async (req, res) => {
 
     await medicationDoc.save();
 
+    // **Retrieve the saved medication with the assigned _id**
+    const savedMedication = medicationDoc.medications[medicationDoc.medications.length - 1];
+
     // Emit real-time notification to patient
     const io = req.app.get('io');
     const userSockets = req.app.get('userSockets');
@@ -74,12 +78,12 @@ export const assignMedications = async (req, res) => {
       }
 
       const prescriptionData = {
-        id: newMedication._id, // Assuming MongoDB ObjectId
-        medication: medicationName,
-        dosage,
-        instructions,
+        id: savedMedication._id,
+        medication: savedMedication.name,
+        dosage: savedMedication.dosage,
+        instructions: savedMedication.instructions,
         prescribedBy: doctor ? `${doctor.name} ${doctor.lname}` : 'Unknown',
-        dateAssigned: newMedication.dateAssigned,
+        dateAssigned: savedMedication.dateAssigned,
       };
 
       userSockets[patientId].emit('new-prescription', prescriptionData);
@@ -88,10 +92,11 @@ export const assignMedications = async (req, res) => {
       logger.warn(`User ${patientId} not connected via Socket.io.`);
     }
 
+    // **Send the saved medication back in the response**
     res.status(200).json({
       status: 'success',
       message: 'Medication prescribed successfully.',
-      data: newMedication,
+      data: savedMedication,
     });
   } catch (error) {
     logger.error(`Error assigning medication: ${error.message}`);

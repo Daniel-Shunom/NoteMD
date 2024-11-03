@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { SelectedPatientContext } from '../../../context/SelectedPatientContext';
 
 interface Patient {
-  id: string;
+  _id: string;
   name: string;
   lname?: string;
   age: number;
@@ -166,22 +166,22 @@ const SelectPatients: React.FC<SelectPatientsProps> = ({ onSelect, initialPatien
               ) : (
                 filteredPatients.map((patient) => (
                   <div
-                    key={patient.id}
+                    key={patient._id}
                     className={`w-full p-4 flex items-center space-x-4 hover:bg-blue-50/50 
                              transition-colors border-b border-gray-200/50 cursor-pointer
-                             ${selectedPatient?.id === patient.id ? 'bg-blue-100/50' : ''}`}
+                             ${selectedPatient?._id === patient._id ? 'bg-blue-100/50' : ''}`}
                     onClick={() => handleSelectPatientForWork(patient)}
                   >
                     {/* Checkbox for Assignment */}
                     <input
                       type="checkbox"
-                      checked={selectedPatients.has(patient.id)}
+                      checked={selectedPatients.has(patient._id)}
                       onChange={(e) => {
                         e.stopPropagation(); // Prevent triggering selection for work
-                        handleCheckboxChange(patient.id);
+                        handleCheckboxChange(patient._id);
                       }}
                       className="form-checkbox h-5 w-5 text-blue-600 flex-shrink-0"
-                      disabled={patient.isAssigned && patient.id !== selectedPatient?.id} // Disable if assigned to another doctor
+                      disabled={patient.isAssigned && patient._id !== selectedPatient?._id} // Disable if assigned to another doctor
                     />
 
                     {/* User Icon */}

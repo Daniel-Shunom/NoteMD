@@ -17,24 +17,22 @@ import "react-toastify/dist/ReactToastify.css";
 
 export function DrBento() {
   return (
-    <SelectedPatientProvider>
-      <div className="flex flex-col space-y-6 max-w-4xl mx-auto h-full p-4">
-        <BentoGrid>
-          {items.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              icon={item.icon}
-              className={i === 0 || i === 3 ? "md:col-span-2" : ""}
-            />
-          ))}
-        </BentoGrid>
-        {/* Centralized ToastContainer */}
-        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
-      </div>
-    </SelectedPatientProvider>
+    <div className="flex flex-col space-y-6 max-w-4xl mx-auto h-full p-4">
+      <BentoGrid>
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            icon={item.icon}
+            className={i === 0 || i === 3 ? "md:col-span-2" : ""}
+          />
+        ))}
+      </BentoGrid>
+      {/* Centralized ToastContainer */}
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
+    </div>
   );
 }
 

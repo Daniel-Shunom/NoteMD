@@ -1,15 +1,13 @@
-// dr-version/components/PrescribeMedication.tsx
-
 import React, { useState, ChangeEvent, FormEvent, useContext } from "react";
 import axios from "axios";
-import { SelectedPatientContext, Patient } from '../../../context/SelectedPatientContext';
-import { AuthContext } from '../../../context/Authcontext';
+import { SelectedPatientContext } from "../../../context/SelectedPatientContext";
+//import { AuthContext } from "../../../context/Authcontext"; // Import AuthContext
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const PrescribeMedication: React.FC = () => {
   const { selectedPatient } = useContext(SelectedPatientContext);
-  const { auth } = useContext(AuthContext);
+  //const { auth } = useContext(AuthContext);
 
   const [medicationName, setMedicationName] = useState<string>("");
   const [dosage, setDosage] = useState<string>("");
@@ -27,6 +25,8 @@ const PrescribeMedication: React.FC = () => {
       setIsSubmitting(false);
       return;
     }
+    console.log('Selected Patient:', selectedPatient);
+
 
     if (!medicationName || !dosage) {
       setMessage("Medication name and dosage are required.");
@@ -35,7 +35,7 @@ const PrescribeMedication: React.FC = () => {
     }
 
     try {
-      const token = localStorage.getItem("token"); // Adjust based on your auth implementation
+      // No need to retrieve token from localStorage
 
       const response = await axios.post(
         "http://localhost:5000/api/medications",
@@ -46,9 +46,7 @@ const PrescribeMedication: React.FC = () => {
           instructions,
         },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true, // Include cookies in the request
         }
       );
 
