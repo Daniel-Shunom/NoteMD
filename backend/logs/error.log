@@ -92,3 +92,11 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-10-29 00:49:41 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
 2024-10-29 09:40:33 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
 2024-10-29 15:20:35 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 09:52:20 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 10:35:53 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 10:39:05 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 12:42:42 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 13:01:45 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 13:03:25 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 13:06:14 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '1')
+2024-11-03 13:08:18 [ERROR]: Error uploading documents: Document validation failed: fileMimeType: Path `fileMimeType` is required., fileData: Path `fileData` is required.

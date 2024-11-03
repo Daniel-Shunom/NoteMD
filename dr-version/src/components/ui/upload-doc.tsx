@@ -384,7 +384,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             <h3 className="text-lg font-semibold mb-2">Uploaded Documents:</h3>
             <ul className="space-y-2">
               {uploadedDocuments.map((doc) => (
-                <li key={doc._id} className="flex items-center justify-between bg-gray-100 p-2 rounded">
+                <li key={doc.id} className="flex items-center justify-between bg-gray-100 p-2 rounded">
                   <span>{doc.fileName}</span>
                   <a
                     href={doc.fileUrl}

@@ -109,43 +109,56 @@ router.post('/api/upload-documents', authenticateToken, authorizeRoles('doctor')
       const uploadedDocuments = [];
 
       for (const file of files) {
-        const content = await extractTextContent(file.path, file.mimetype);
+        try {
+          const content = await extractTextContent(file.path, file.mimetype);
 
-        if (!content) {
-          logger.warn(`No content extracted from file: ${file.originalname}`);
-          continue; // Skip files with no extractable content
+          if (!content) {
+            logger.warn(`No content extracted from file: ${file.originalname}`);
+            continue; // Skip files with no extractable content
+          }
+
+          // Generate embedding using OpenAI
+          const embeddingResponse = await openai.embeddings.create({
+            model: 'text-embedding-ada-002', // Choose appropriate model
+            input: content,
+            encoding_format: "float",
+          });
+
+          const embedding = embeddingResponse.data[0].embedding;
+          console.log(embedding)
+
+          // Generate file URL (assuming you serve /uploads statically)
+          const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+
+          // Read file data from disk
+          const fileData = fs.readFileSync(file.path);
+
+          const fileMimeType = file.mimetype;
+
+
+          // Save document to MongoDB
+          const document = new Document({
+            patientId,
+            fileName: file.originalname,
+            fileUrl,
+            fileData,
+            fileMimeType,
+            content,
+            embedding,
+            uploadedBy: doctorId,
+          });
+
+          await document.save();
+          uploadedDocuments.push(document);
+          } catch (error) {console.error(`Error processing upload: ${error}`)}
         }
 
-        // Generate embedding using OpenAI
-        const embeddingResponse = await openai.embeddings.create({
-          model: 'text-embedding-ada-002', // Choose appropriate model
-          input: content,
-        });
-
-        const embedding = embeddingResponse.data.data[0].embedding;
-
-        // Generate file URL (assuming you serve /uploads statically)
-        const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
-
-        // Save document to MongoDB
-        const document = new Document({
-          patientId,
-          fileName: file.originalname,
-          fileUrl,
-          content,
-          embedding,
-          uploadedBy: doctorId,
-        });
-
-        await document.save();
-        uploadedDocuments.push(document);
-      }
-
-      res.status(200).json({
-        status: 'success',
-        message: 'Documents uploaded successfully.',
-        documents: uploadedDocuments,
-      });
+        res.status(200).json({
+          status: 'success',
+          message: 'Documents uploaded successfully.',
+          documents: uploadedDocuments,
+        }
+      );
     } catch (error) {
       logger.error(`Error uploading documents: ${error.message}`);
       res.status(500).json({ status: 'error', message: 'Failed to upload documents.' });

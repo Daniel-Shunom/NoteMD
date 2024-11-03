@@ -1,8 +1,10 @@
+"use client"
 // ExampleUsage.tsx
 import React, { useState } from 'react';
 import Tabs, { Tab } from '../ui/tabs';
 import _Calendar from '../ui/calendar';
 import PrescribeMedication from '../ui/meds';
+import DocumentList from '../ui/documentList';
 
 const ExampleUsage: React.FC = () => {
   const tabs: Tab[] = [
@@ -45,7 +47,7 @@ const ExampleUsage: React.FC = () => {
         content: (
           <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
             <div className="w-full flex items-center justify-center text-gray-500">
-              Detail Content Area
+              <DocumentList/>
             </div>
           </div>
         ),

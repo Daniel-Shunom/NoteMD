@@ -892,3 +892,89 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-03 09:26:28 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-11-03 09:26:28 [INFO]: getPatients Controller Invoked
 2024-11-03 09:26:28 [INFO]: Fetched 5 patients
+2024-11-03 09:36:24 [INFO]: authenticateToken invoked
+2024-11-03 09:36:24 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 09:36:24 [INFO]: getPatients Controller Invoked
+2024-11-03 09:36:24 [INFO]: Fetched 5 patients
+2024-11-03 09:37:07 [INFO]: authenticateToken invoked
+2024-11-03 09:37:07 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 09:42:54 [INFO]: authenticateToken invoked
+2024-11-03 09:42:54 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 09:42:54 [INFO]: getPatients Controller Invoked
+2024-11-03 09:42:54 [INFO]: Fetched 5 patients
+2024-11-03 09:43:21 [INFO]: authenticateToken invoked
+2024-11-03 09:43:21 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 09:49:05 [INFO]: authenticateToken invoked
+2024-11-03 09:49:05 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 09:49:05 [INFO]: getPatients Controller Invoked
+2024-11-03 09:49:05 [INFO]: Fetched 5 patients
+2024-11-03 09:49:11 [INFO]: authenticateToken invoked
+2024-11-03 09:49:11 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 09:49:11 [INFO]: getPatients Controller Invoked
+2024-11-03 09:49:11 [INFO]: Fetched 5 patients
+2024-11-03 09:49:31 [INFO]: authenticateToken invoked
+2024-11-03 09:49:31 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 09:52:20 [INFO]: authenticateToken invoked
+2024-11-03 09:52:20 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 09:52:20 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 10:35:49 [INFO]: authenticateToken invoked
+2024-11-03 10:35:49 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 10:35:49 [INFO]: getPatients Controller Invoked
+2024-11-03 10:35:49 [INFO]: Fetched 5 patients
+2024-11-03 10:35:52 [INFO]: authenticateToken invoked
+2024-11-03 10:35:52 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 10:35:53 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 10:39:02 [INFO]: authenticateToken invoked
+2024-11-03 10:39:02 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 10:39:02 [INFO]: getPatients Controller Invoked
+2024-11-03 10:39:02 [INFO]: Fetched 5 patients
+2024-11-03 10:39:05 [INFO]: authenticateToken invoked
+2024-11-03 10:39:05 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 10:39:05 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 11:55:45 [INFO]: authenticateToken invoked
+2024-11-03 11:55:45 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 11:55:45 [INFO]: getPatients Controller Invoked
+2024-11-03 11:55:45 [INFO]: Fetched 5 patients
+2024-11-03 12:42:42 [INFO]: authenticateToken invoked
+2024-11-03 12:42:42 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 12:42:42 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 12:45:29 [INFO]: authenticateToken invoked
+2024-11-03 12:45:29 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 12:45:29 [INFO]: getPatients Controller Invoked
+2024-11-03 12:45:29 [INFO]: Fetched 5 patients
+2024-11-03 13:01:06 [INFO]: authenticateToken invoked
+2024-11-03 13:01:06 [WARN]: No token provided in cookies.
+2024-11-03 13:01:27 [INFO]: authenticateToken invoked
+2024-11-03 13:01:27 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:01:27 [INFO]: getPatients Controller Invoked
+2024-11-03 13:01:27 [INFO]: Fetched 5 patients
+2024-11-03 13:01:44 [INFO]: authenticateToken invoked
+2024-11-03 13:01:44 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:01:45 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 13:03:14 [INFO]: authenticateToken invoked
+2024-11-03 13:03:14 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:03:14 [INFO]: getPatients Controller Invoked
+2024-11-03 13:03:14 [INFO]: Fetched 5 patients
+2024-11-03 13:03:25 [INFO]: authenticateToken invoked
+2024-11-03 13:03:25 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:03:25 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '0')
+2024-11-03 13:05:49 [INFO]: authenticateToken invoked
+2024-11-03 13:05:49 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:05:49 [INFO]: getPatients Controller Invoked
+2024-11-03 13:05:49 [INFO]: Fetched 5 patients
+2024-11-03 13:06:12 [INFO]: authenticateToken invoked
+2024-11-03 13:06:12 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:06:14 [ERROR]: Error uploading documents: Cannot read properties of undefined (reading '1')
+2024-11-03 13:08:02 [INFO]: authenticateToken invoked
+2024-11-03 13:08:02 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:08:02 [INFO]: getPatients Controller Invoked
+2024-11-03 13:08:02 [INFO]: Fetched 5 patients
+2024-11-03 13:08:17 [INFO]: authenticateToken invoked
+2024-11-03 13:08:17 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:08:18 [ERROR]: Error uploading documents: Document validation failed: fileMimeType: Path `fileMimeType` is required., fileData: Path `fileData` is required.
+2024-11-03 13:21:08 [INFO]: authenticateToken invoked
+2024-11-03 13:21:08 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 13:21:08 [INFO]: getPatients Controller Invoked
+2024-11-03 13:21:08 [INFO]: Fetched 5 patients
+2024-11-03 13:21:21 [INFO]: authenticateToken invoked
+2024-11-03 13:21:21 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
