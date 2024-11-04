@@ -77,7 +77,7 @@ const DoctorNotesInbox: React.FC = () => {
 
   return (
     // Main container that will fill parent's dimensions
-    <div className="h-full w-full flex flex-col bg-gray-50 rounded-lg overflow-hidden">
+    <div className="h-[28rem] w-full flex flex-col bg-gray-50 rounded-lg overflow-hidden">
       {/* Fixed-height header */}
       <div className="shrink-0 p-4 bg-white border-b flex items-center justify-between">
         <h1 className="text-xl font-semibold text-gray-900">Medical Notes Inbox</h1>

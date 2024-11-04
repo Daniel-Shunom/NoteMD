@@ -13,7 +13,7 @@ const ExampleUsage: React.FC = () => {
       id: 'notes',
       label: 'Notes',
       content: (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-30">
           <div className="flex-1">
             <div className="w-full h-full flex items-center justify-center text-gray-500">
               <DoctorNotesInbox/>

@@ -271,3 +271,10 @@ ReferenceError: http is not defined
     at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
     at async loadESM (node:internal/process/esm_loader:28:7)
     at async handleMainPromise (node:internal/modules/run_main:113:12)
+2024-11-04 12:40:06 [ERROR]: uncaughtException: chatbotRoutes is not defined
+ReferenceError: chatbotRoutes is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:87:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)

@@ -4,6 +4,7 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { initiateSocket, disconnectSocket } from "../Sockets/sockets";
+import { useSocket } from "./Socketcontext"; // Adjust the import path
 
 interface User {
   id: string;
@@ -17,7 +18,6 @@ interface User {
 interface AuthState {
   user: User | null;
   loading: boolean;
-  token: string | null;
 }
 
 export interface AuthContextProps {
@@ -36,28 +36,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [auth, setAuth] = useState<AuthState>({
     user: null,
     loading: true,
-    token: null,
   });
+
+  const { socket } = useSocket(); // Access socket from SocketContext
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
         const res = await fetch("http://localhost:5000/api/currentUser", {
           method: "GET",
-          credentials: "include",
+          credentials: "include", // Include cookies in the request
         });
 
         const data = await res.json();
 
         if (res.ok && data.user) {
-          setAuth({ user: data.user, loading: false, token: data.token });
-          initiateSocket(data.token); // Initialize Socket.io
+          setAuth({ user: data.user, loading: false });
+          // Initialize Socket.io here if needed
+          // initiateSocket(data.token); // Removed since SocketContext handles it
         } else {
-          setAuth({ user: null, loading: false, token: null });
+          setAuth({ user: null, loading: false });
         }
       } catch (error) {
         console.error("Error fetching current user:", error);
-        setAuth({ user: null, loading: false, token: null });
+        setAuth({ user: null, loading: false });
       }
     };
 
@@ -67,17 +69,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return () => {
       disconnectSocket();
     };
-  }, []);
+  }, [socket]); // Depend on socket if necessary
 
   const logout = async () => {
     try {
       await fetch("http://localhost:5000/api/logout", {
         method: "POST",
-        credentials: "include",
+        credentials: "include", // Include cookies in the request
       });
-      setAuth({ user: null, loading: false, token: null });
+      setAuth({ user: null, loading: false });
       disconnectSocket();
-      window.location.href = "http://localhost:3002";
+      window.location.href = "http://localhost:3002"; // Redirect after logout
     } catch (error) {
       console.error("Error during logout:", error);
     }

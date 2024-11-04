@@ -20,7 +20,7 @@ import medicationRoute from './MongoDB/Routes/medicationRoute.js';
 import currentUserRoute from './MongoDB/auth/currentUser.js';
 import uploadDocumentRoute from './MongoDB/Routes/uploadDocuments.js';
 import documentRoutes from './MongoDB/Routes/documentRoute.js';
-
+import chatbotRoutes from './MongoDB/Routes/chatbotRoute.js'
 //import logoutRoute from './routes/logout.js';
 
 // Import Middleware
@@ -145,6 +145,7 @@ app.use(medicationRoute);
 app.use(currentUserRoute); // Include currentUser route
 app.use(uploadDocumentRoute); // Use the new upload route
 app.use(documentRoutes);
+app.use(chatbotRoutes);
 //app.use(logoutRoute);
 
 // Error Handling Middleware

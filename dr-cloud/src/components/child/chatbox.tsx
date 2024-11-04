@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, FormEvent } from "react";
 import { ChevronUp } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
 import { AnimatePresence, motion } from "framer-motion";
+import axios from 'axios';
 
 type Message = {
   role: string;
@@ -11,103 +12,21 @@ type Message = {
 
 export function ChatBox() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [streaming, setStreaming] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Speech recognition variables
-  const [recognitionActive, setRecognitionActive] = useState(false);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
-
-  // WebSocket reference
-  const wsRef = useRef<WebSocket | null>(null);
-  const assistantMessageRef = useRef<string>("");
-
   const placeholders = [
     "Schedule a doctor's appointment",
-    "Who is a doctor?",
-    "Where is my doctor?",
+    "Who is my doctor?",
+    "Where is my doctor located?",
     "Write a note to my doctor",
-    "What to do when sick?",
+    "What should I do when I feel sick?",
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentMessage(e.target.value);
   };
-
-  const speakText = (text: string) => {
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel(); // Cancel any ongoing speech
-      const utterance = new SpeechSynthesisUtterance(text);
-      // Set voice properties if needed
-      // utterance.lang = 'en-US';
-      window.speechSynthesis.speak(utterance);
-    } else {
-      console.warn("Text-to-speech not supported in this browser.");
-    }
-  };
-
-  // Initialize WebSocket connection with reconnection logic
-  useEffect(() => {
-    let ws: WebSocket;
-    let reconnectInterval: NodeJS.Timeout;
-
-    const connectWebSocket = () => {
-      ws = new WebSocket("ws://localhost:5000/ws");
-      wsRef.current = ws;
-
-      ws.onopen = () => {
-        console.log("WebSocket connection established");
-        clearInterval(reconnectInterval);
-      };
-
-      ws.onmessage = (event) => {
-        console.log("Message received from WebSocket:", event.data);
-        try {
-          const data = JSON.parse(event.data);
-          // Assuming the data contains the assistant's message content
-          const content = data.choices?.[0]?.delta?.content || "";
-          if (content) {
-            assistantMessageRef.current += content;
-            setMessages((prev) => {
-              const newMessages = [...prev];
-              const lastMessage = newMessages[newMessages.length - 1];
-              if (lastMessage && lastMessage.role === "assistant") {
-                lastMessage.content += content;
-              } else {
-                newMessages.push({ role: "assistant", content: content });
-              }
-              return newMessages;
-            });
-          }
-        } catch (err) {
-          console.error("Error parsing WebSocket message:", err);
-        }
-      };
-
-      ws.onclose = () => {
-        console.log("WebSocket connection closed, attempting to reconnect...");
-        setStreaming(false);
-        // Attempt to reconnect every 5 seconds
-        reconnectInterval = setInterval(() => {
-          console.log("Reconnecting WebSocket...");
-          connectWebSocket();
-        }, 5000);
-      };
-
-      ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
-        ws.close();
-      };
-    };
-
-    connectWebSocket();
-
-    return () => {
-      ws.close();
-      clearInterval(reconnectInterval);
-    };
-  }, []);
 
   const onSubmit = async (
     e?: FormEvent<HTMLFormElement>,
@@ -122,87 +41,35 @@ export function ChatBox() {
 
     setMessages((prev) => [...prev, { role: "user", content: messageToSend }]);
     setCurrentMessage("");
-    setStreaming(true);
-    assistantMessageRef.current = "";
+    setLoading(true);
 
-    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-      wsRef.current.send(
-        JSON.stringify({ type: "user_message", payload: {content: messageToSend} })
+    try {
+      // Send the message to the chatbot endpoint
+      const response = await axios.post(
+        'http://localhost:5000/api/chat',
+        { message: messageToSend },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true, // Include cookies in the request
+        }
       );
-    } else {
-      console.error("WebSocket is not connected");
-      setStreaming(false);
+
+      const assistantResponse = response.data.response;
+
+      setMessages((prev) => [...prev, { role: "assistant", content: assistantResponse }]);
+    } catch (error) {
+      console.error('Error during chat:', error);
+      setMessages((prev) => [...prev, { role: "assistant", content: 'Sorry, something went wrong while processing your request.' }]);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-  // Initialize Speech Recognition
-  useEffect(() => {
-    if (
-      "webkitSpeechRecognition" in window ||
-      "SpeechRecognition" in window
-    ) {
-      const SpeechRecognition =
-        (window as any).SpeechRecognition ||
-        (window as any).webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = "en-US";
-      recognitionRef.current = recognition;
-    } else {
-      console.warn("Speech Recognition API not supported in this browser.");
-    }
-  }, []);
-
-  // Handle Speech Recognition Events
-  useEffect(() => {
-    const recognition = recognitionRef.current;
-    if (recognition) {
-      recognition.onresult = (event: SpeechRecognitionEvent) => {
-        const transcript = Array.from(event.results)
-          .map((result) => result[0].transcript)
-          .join("");
-
-        // Automatically submit the message
-        onSubmit(undefined, transcript);
-      };
-
-      recognition.onerror = (event: any) => {
-        console.error("Speech recognition error", event);
-        setRecognitionActive(false);
-      };
-
-      recognition.onend = () => {
-        setRecognitionActive(false);
-      };
-    }
-  }, []);
-
-  const toggleRecognition = () => {
-    const recognition = recognitionRef.current;
-    if (recognition) {
-      if (recognitionActive) {
-        recognition.stop();
-        setRecognitionActive(false);
-      } else {
-        recognition.start();
-        setRecognitionActive(true);
-      }
-    } else {
-      console.warn("Speech Recognition is not initialized.");
-    }
-  };
-
-  // Speak the assistant's message once streaming ends
-  useEffect(() => {
-    if (!streaming && assistantMessageRef.current) {
-      speakText(assistantMessageRef.current);
-    }
-  }, [streaming]);
 
   return (
     <div className="flex flex-col max-h-80">
@@ -231,32 +98,21 @@ export function ChatBox() {
         <PlaceholdersAndVanishInput
           placeholders={placeholders}
           onChange={handleChange}
-          onSubmit={onSubmit} // Pass the onSubmit prop here
+          onSubmit={onSubmit}
           _value={currentMessage}
-          disabled={streaming}
+          disabled={loading}
         />
 
-        {/* Microphone Button and Streaming Indicator */}
+        {/* Loading Indicator */}
         <div className="flex justify-end mt-2 items-center">
-          <button
-            onClick={toggleRecognition}
-            className={`p-2 rounded-full ${
-              recognitionActive ? "bg-red-500" : "bg-blue-500"
-            } text-white`}
-            aria-label={recognitionActive ? "Stop Recording" : "Start Recording"}
-          >
-            {recognitionActive ? "Stop Recording" : "🎤"}
-          </button>
-          {streaming && (
-            <span className="ml-2 text-sm text-gray-600">Streaming...</span>
+          {loading && (
+            <span className="ml-2 text-sm text-gray-600">Processing...</span>
           )}
         </div>
       </div>
     </div>
   );
 }
-
-
 
 const HideableChatbox = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);

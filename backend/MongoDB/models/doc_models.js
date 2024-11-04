@@ -8,6 +8,7 @@ const documentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'Patient ID is required.'],
+      index: true, // Ensures faster queries on patientId
     },
     fileName: {
       type: String,
@@ -29,6 +30,13 @@ const documentSchema = new mongoose.Schema(
     embedding: {
       type: [Number],
       required: [true, 'Vector embedding is required.'],
+      validate: {
+        validator: function(v) {
+          // Replace 768 with your embedding dimension
+          return v.length === 1536;
+        },
+        message: props => `Embedding must be 1536 dimensions. Currently, it's ${props.value.length}.`,
+      },
     },
     uploadDate: {
       type: Date,
@@ -38,6 +46,7 @@ const documentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'Uploader (doctor) ID is required.'],
+      index: true,
     },
   },
   {
@@ -45,7 +54,6 @@ const documentSchema = new mongoose.Schema(
   }
 );
 
-documentSchema.index({ patientId: 1 });
-documentSchema.index({ uploadedBy: 1 });
+// Note: knnVector index will be created separately
 
 export default mongoose.model('Document', documentSchema);
