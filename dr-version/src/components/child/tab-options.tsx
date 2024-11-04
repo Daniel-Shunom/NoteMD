@@ -5,6 +5,7 @@ import Tabs, { Tab } from '../ui/tabs';
 import _Calendar from '../ui/calendar';
 import PrescribeMedication from '../ui/meds';
 import DocumentList from '../ui/documentList';
+import DoctorNotesInbox from '../ui/NoteInbox';
 
 const ExampleUsage: React.FC = () => {
   const tabs: Tab[] = [
@@ -15,7 +16,7 @@ const ExampleUsage: React.FC = () => {
         <div className="flex flex-col h-full">
           <div className="flex-1">
             <div className="w-full h-full flex items-center justify-center text-gray-500">
-              <_Calendar />
+              <DoctorNotesInbox/>
             </div>
           </div>
         </div>
@@ -41,7 +42,7 @@ const ExampleUsage: React.FC = () => {
         <div className="flex flex-col h-full">
           <div className="flex-1">
             <div className="w-full h-full flex items-center justify-center text-gray-500">
-              Hi
+              <_Calendar />
             </div>
           </div>
         </div>
@@ -49,7 +50,7 @@ const ExampleUsage: React.FC = () => {
     },
     {
         id: 'notifications',
-        label: 'nots',
+        label: 'files',
         content: (
           <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
             <div className="w-full flex items-center justify-center text-gray-500">

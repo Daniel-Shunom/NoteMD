@@ -1155,3 +1155,27 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-03 16:22:14 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-11-03 16:22:14 [INFO]: getPatients Controller Invoked
 2024-11-03 16:22:14 [INFO]: Fetched 5 patients
+2024-11-03 18:12:12 [INFO]: authenticateToken invoked
+2024-11-03 18:12:12 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 18:12:12 [INFO]: getPatients Controller Invoked
+2024-11-03 18:12:12 [INFO]: Fetched 5 patients
+2024-11-03 18:13:20 [INFO]: authenticateToken invoked
+2024-11-03 18:13:20 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 18:13:20 [INFO]: getPatients Controller Invoked
+2024-11-03 18:13:20 [INFO]: Fetched 5 patients
+2024-11-03 18:18:07 [INFO]: authenticateToken invoked
+2024-11-03 18:18:07 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 18:18:07 [INFO]: getPatients Controller Invoked
+2024-11-03 18:18:07 [INFO]: Fetched 5 patients
+2024-11-03 18:29:59 [INFO]: authenticateToken invoked
+2024-11-03 18:29:59 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 18:29:59 [INFO]: getPatients Controller Invoked
+2024-11-03 18:29:59 [INFO]: Fetched 5 patients
+2024-11-03 18:40:04 [INFO]: authenticateToken invoked
+2024-11-03 18:40:04 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 18:40:04 [INFO]: getPatients Controller Invoked
+2024-11-03 18:40:04 [INFO]: Fetched 5 patients
+2024-11-03 18:40:09 [INFO]: authenticateToken invoked
+2024-11-03 18:40:09 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-03 18:40:09 [INFO]: getPatients Controller Invoked
+2024-11-03 18:40:09 [INFO]: Fetched 5 patients
