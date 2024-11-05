@@ -1,6 +1,6 @@
 // controllers/chatbotController.js
 
-import Document from '../models/doc_models.js';
+import Document from '../models/doc_models.js'; // Ensure this path is correct
 import mongoose from 'mongoose';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
@@ -21,11 +21,19 @@ export const chatbotInteraction = async (req, res) => {
   const { message } = req.body;
   const userId = req.user.userId; // Assuming req.user has userId
 
+  console.log('Authenticated User:', req.user);
+
   if (!message) {
     return res.status(400).json({ message: 'Message is required.' });
   }
 
   try {
+    // Validate userId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      console.error('Invalid userId:', userId);
+      return res.status(400).json({ message: 'Invalid user ID.' });
+    }
+
     // Generate embedding for the user's message
     const embeddingResponse = await openai.embeddings.create({
       model: 'text-embedding-ada-002',
@@ -38,12 +46,11 @@ export const chatbotInteraction = async (req, res) => {
     const similarDocuments = await Document.aggregate([
       {
         $vectorSearch: {
-          index: 'embedding_vector_index', // Replace with your actual index name
+          index: 'patient_index', // Ensure this is the correct vector index name
+          path: 'embedding', // Correct path to the embedding field
           queryVector: queryEmbedding,
-          path: 'embedding',
-          k: 5,
-          numCandidates: 100, // Number of candidates to consider
-          limit: 5, // Required parameter to limit the results
+          numCandidates: 100,
+          limit: 5,
           filter: {
             patientId: new mongoose.Types.ObjectId(userId),
           },
@@ -58,7 +65,7 @@ export const chatbotInteraction = async (req, res) => {
       },
     ]);
 
-    console.log(similarDocuments)
+    console.log('Similar Documents:', similarDocuments);
 
     let assistantResponse;
 
@@ -72,16 +79,16 @@ export const chatbotInteraction = async (req, res) => {
 
       // Prepare the prompt
       const prompt = `
-            You are a helpful medical assistant. Based on the following documents, answer the patient's question concisely and accurately.
+You are a helpful medical assistant. Based on the following documents, answer the patient's question concisely and accurately.
 
-            Documents:
-            ${aggregatedContent}
+Documents:
+${aggregatedContent}
 
-            Patient's Question:
-            ${message}
+Patient's Question:
+${message}
 
-            Answer:
-        `;
+Answer:
+`;
 
       // Generate response using OpenAI GPT
       const gptResponse = await openai.chat.completions.create({
@@ -100,6 +107,16 @@ export const chatbotInteraction = async (req, res) => {
     res.status(200).json({ response: assistantResponse });
   } catch (error) {
     console.error('Error during chatbot interaction:', error);
-    res.status(500).json({ message: 'Internal server error.' });
+
+    // Enhanced Error Handling
+    if (error instanceof mongoose.Error) {
+      res.status(500).json({ message: 'Database error occurred.' });
+    } else if (error.response) {
+      // OpenAI API error
+      console.error('OpenAI API Error:', error.response.data);
+      res.status(502).json({ message: 'Error communicating with OpenAI API.' });
+    } else {
+      res.status(500).json({ message: 'Internal server error.' });
+    }
   }
 };
