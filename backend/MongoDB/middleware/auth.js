@@ -2,11 +2,8 @@
 
 import jwt from 'jsonwebtoken';
 
-/**
- * Middleware to authenticate users by verifying JWT tokens.
- */
 export const authenticateToken = (req, res, next) => {
-  const token = req.cookies.token; // Get token from cookies
+  const token = req.cookies.token;
 
   if (!token) {
     console.log('No token provided in cookies.');
@@ -15,8 +12,9 @@ export const authenticateToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Decoded token:', decoded); // For debugging
     req.user = decoded; // Attach decoded token to req.user
-    console.log('Authenticated User:', req.user); // Debugging log
+    console.log('Authenticated User:', req.user); // For debugging
     next();
   } catch (error) {
     console.error('Token verification failed:', error);

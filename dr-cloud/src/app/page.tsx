@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <ProtectedRoute>
-      <AuthProvider>
+        <AuthProvider>
         <div className="relazive z-0">
           <div className="fixed bottom-0 w-full z-[999]">
             <HideableChatbox />

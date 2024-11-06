@@ -1,3 +1,4 @@
+"use client"
 // PatientAppointmentScheduler.tsx
 
 import React, { useState, useEffect } from 'react';

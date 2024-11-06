@@ -1,3 +1,4 @@
+"use client"
 // AppointmentCard.tsx
 
 import React from 'react';

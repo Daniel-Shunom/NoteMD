@@ -1,21 +1,22 @@
 // src/components/MedsBay.tsx
 
-import React, { useEffect, useState } from 'react';
-import { useSocket } from '../../../context/Socketcontext';
-import { usePrescription } from '../../../hooks/usePrescriptionhook';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PrescriptionData } from '../../../types/types';
-import jwt_decode from "jwt-decode";
-
-interface JwtPayload {
-  userId: string;
-  // Add other fields if necessary
-}
+import { AuthContext, AuthContextProps } from '../../../context/Authcontext'; // Import AuthContext and its props
+import { usePrescription } from '../../../hooks/usePrescriptionhook';
 
 const MedsBay: React.FC = () => {
-  const { socket } = useSocket();
+  const authContext = useContext(AuthContext);
+
+  // Handle the case where AuthContext is undefined
+  if (!authContext) {
+    throw new Error('AuthContext not found. Make sure you are using AuthProvider.');
+  }
+
+  const { auth } = authContext;
   const { prescriptions, setPrescriptions } = usePrescription();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,24 +25,12 @@ const MedsBay: React.FC = () => {
   useEffect(() => {
     const fetchPrescriptions = async () => {
       try {
-        const token = localStorage.getItem('token'); // Ensure the key matches
-
-        if (!token) {
-          setError('Authentication token missing.');
-          setLoading(false);
-          return;
-        }
-
-        // Decode token to get userId
-        const decoded: JwtPayload = jwt_decode<JwtPayload>(token);
-        const userId = decoded.userId;
+        const userId = auth.user!.id; // Get userId from auth context
 
         const response = await axios.get(
           `http://localhost:5000/api/medications/${userId}`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            withCredentials: true, // Include cookies in the request
           }
         );
 
@@ -49,35 +38,35 @@ const MedsBay: React.FC = () => {
         setPrescriptions(data);
       } catch (err: any) {
         console.error('Error fetching prescriptions:', err);
-        setError(err.response?.data?.message || 'Failed to fetch prescriptions.');
-        toast.error(err.response?.data?.message || 'Failed to fetch prescriptions.');
+        setError(
+          err.response?.data?.message || 'Failed to fetch prescriptions.'
+        );
+        toast.error(
+          err.response?.data?.message || 'Failed to fetch prescriptions.'
+        );
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPrescriptions();
-  }, [setPrescriptions]);
+    if (auth.user) {
+      fetchPrescriptions();
+    } else if (!auth.loading) {
+      setLoading(false);
+    }
+  }, [setPrescriptions, auth.user, auth.loading]);
 
-  // Listen for new prescriptions in real-time
-  useEffect(() => {
-    if (!socket) return;
-
-    const handleNewPrescription = (data: PrescriptionData) => {
-      setPrescriptions((prev) => [data, ...prev]);
-      toast.info(`New prescription received: ${data.medication}`);
-    };
-
-    socket.on('new-prescription', handleNewPrescription);
-
-    // Cleanup
-    return () => {
-      socket.off('new-prescription', handleNewPrescription);
-    };
-  }, [socket, setPrescriptions]);
-
-  if (loading) {
+  // Handle loading and authentication states
+  if (auth.loading || loading) {
     return <p className="text-center">Loading prescriptions...</p>;
+  }
+
+  if (!auth.user) {
+    return (
+      <p className="text-center text-red-500">
+        You need to be logged in to view this page.
+      </p>
+    );
   }
 
   if (error) {
@@ -92,7 +81,6 @@ const MedsBay: React.FC = () => {
         hideProgressBar={false}
         newestOnTop
         closeOnClick
-        rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
@@ -107,7 +95,9 @@ const MedsBay: React.FC = () => {
               <h3 className="text-lg font-semibold">{med.medication}</h3>
               <p className="text-sm text-gray-600">Dosage: {med.dosage}</p>
               {med.instructions && (
-                <p className="text-sm text-gray-600">Instructions: {med.instructions}</p>
+                <p className="text-sm text-gray-600">
+                  Instructions: {med.instructions}
+                </p>
               )}
               <p className="text-xs text-gray-500">
                 Prescribed by: {med.prescribedBy}
@@ -124,80 +114,3 @@ const MedsBay: React.FC = () => {
 };
 
 export default MedsBay;
-
-
-
-
-
-/*"use client"
-// App.tsx
-import React from 'react';
-import DrugGrid from '../ui/meds'; // Adjust the import path as necessary
-import { Pill, Syringe, Droplet, FlaskConical } from 'lucide-react'; // Corrected import
-
-const MedsBay: React.FC = () => {
-  // Define the items to display in the grid
-  const drugItems = [
-    {
-      id: 1,
-      icon: Pill,
-      label: 'Aspirin',
-      modalContent: (
-        <div>
-          <h3 className="text-lg  text-black font-semibold mb-2">Aspirin Details</h3>
-          <p className="text-black">
-            Aspirin is used to reduce fever and relieve mild to moderate pain from conditions such as muscle aches, toothaches, common cold, and headaches.
-          </p>
-        </div>
-      ),
-    },
-    {
-      id: 2,
-      icon: Syringe,
-      label: 'Insulin',
-      modalContent: (
-        <div>
-          <h3 className="text-lg text-black font-semibold mb-2">Insulin Details</h3>
-          <p className="text-black">
-            Insulin is a hormone used to control blood sugar in people with diabetes.
-          </p>
-        </div>
-      ),
-    },
-    {
-      id: 3,
-      icon: Droplet,
-      label: 'Cough Syrup',
-      modalContent: (
-        <div>
-          <h3 className="text-lg text-black font-semibold mb-2">Cough Syrup Details</h3>
-          <p className="text-black">
-            Cough syrup is used to treat coughs and relieve throat irritation.
-          </p>
-        </div>
-      ),
-    },
-    {
-      id: 4,
-      icon: FlaskConical, // Updated icon
-      label: 'Antibiotic',
-      modalContent: (
-        <div>
-          <h3 className="text-lg text-black font-semibold mb-2">Antibiotic Details</h3>
-          <p className="text-black">
-            Antibiotics are used to treat or prevent some types of bacterial infections.
-          </p>
-        </div>
-      ),
-    },
-  ];
-
-  return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Active Meds</h1>
-      <DrugGrid items={drugItems} />
-    </div>
-  );
-};
-
-export default MedsBay;*/

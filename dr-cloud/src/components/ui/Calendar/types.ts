@@ -1,3 +1,4 @@
+"use client"
 // types.ts
 
 export type TimeSlotStatus = 'available' | 'pending' | 'booked';

@@ -66,32 +66,6 @@ export const assignMedications = async (req, res) => {
     // **Retrieve the saved medication with the assigned _id**
     const savedMedication = medicationDoc.medications[medicationDoc.medications.length - 1];
 
-    // Emit real-time notification to patient
-    const io = req.app.get('io');
-    const userSockets = req.app.get('userSockets');
-
-    if (userSockets[patientId]) {
-      // Fetch doctor's name
-      const doctor = await User.findById(req.user.userId);
-      if (!doctor) {
-        logger.warn(`Doctor with ID ${req.user.userId} not found.`);
-      }
-
-      const prescriptionData = {
-        id: savedMedication._id,
-        medication: savedMedication.name,
-        dosage: savedMedication.dosage,
-        instructions: savedMedication.instructions,
-        prescribedBy: doctor ? `${doctor.name} ${doctor.lname}` : 'Unknown',
-        dateAssigned: savedMedication.dateAssigned,
-      };
-
-      userSockets[patientId].emit('new-prescription', prescriptionData);
-      logger.info(`Emitted new-prescription to user: ${patientId}`);
-    } else {
-      logger.warn(`User ${patientId} not connected via Socket.io.`);
-    }
-
     // **Send the saved medication back in the response**
     res.status(200).json({
       status: 'success',
@@ -117,7 +91,7 @@ export const getMedications = async (req, res) => {
 
   try {
     // If requester is patient, ensure they are requesting their own data
-    if (req.user.role === 'patient' && req.user.userId !== patientId) {
+    if (req.user.role === 'patient' && req.user.id !== patientId) {
       return res.status(403).json({
         status: 'error',
         message: 'Forbidden: Access denied.',
@@ -126,8 +100,8 @@ export const getMedications = async (req, res) => {
 
     // Fetch Medication document
     const medicationDoc = await Medication.findOne({ patient: patientId })
-      .populate('doctor', 'name lname email') // Populate doctor details
-      .populate('patient', 'name lname email'); // Populate patient details
+      .populate('doctor', 'name lname email')
+      .populate('patient', 'name lname email');
 
     if (!medicationDoc) {
       return res.status(404).json({

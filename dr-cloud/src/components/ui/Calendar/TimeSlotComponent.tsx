@@ -1,3 +1,4 @@
+"use client"
 // TimeSlot.tsx
 
 import React from 'react';

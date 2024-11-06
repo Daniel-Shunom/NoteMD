@@ -1,3 +1,4 @@
+"use client"
 // Calendar.tsx
 
 import React from 'react';
