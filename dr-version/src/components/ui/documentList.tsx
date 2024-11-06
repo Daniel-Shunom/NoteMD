@@ -31,7 +31,7 @@ const DocumentList: React.FC = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/documents/${patientId}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/documents/${patientId}`, {
         withCredentials: true,
       });
 
@@ -65,7 +65,7 @@ const DocumentList: React.FC = () => {
             <li key={doc._id} className="flex items-center justify-between bg-gray-100 p-2 rounded">
               <span>{doc.fileName}</span>
               <a
-                href={`http://localhost:5000/api/documents/${doc._id}/download`}
+                href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/documents/${doc._id}/download`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"

@@ -1291,3 +1291,39 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-06 05:09:47 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
 2024-11-06 05:09:47 [INFO]: authenticateToken invoked
 2024-11-06 05:09:47 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 05:35:56 [INFO]: authenticateToken invoked
+2024-11-06 05:35:56 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 05:35:57 [INFO]: authenticateToken invoked
+2024-11-06 05:35:57 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 05:42:09 [INFO]: authenticateToken invoked
+2024-11-06 05:42:09 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 05:42:09 [INFO]: authenticateToken invoked
+2024-11-06 05:42:09 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 05:42:14 [INFO]: authenticateToken invoked
+2024-11-06 05:42:14 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 05:42:14 [INFO]: authenticateToken invoked
+2024-11-06 05:42:14 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 05:48:24 [INFO]: authenticateToken invoked
+2024-11-06 05:48:24 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 05:48:24 [INFO]: authenticateToken invoked
+2024-11-06 05:48:24 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:41:28 [INFO]: authenticateToken invoked
+2024-11-06 08:41:28 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:41:28 [INFO]: authenticateToken invoked
+2024-11-06 08:41:28 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:44:51 [INFO]: authenticateToken invoked
+2024-11-06 08:44:51 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:44:51 [INFO]: authenticateToken invoked
+2024-11-06 08:44:51 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:47:21 [INFO]: authenticateToken invoked
+2024-11-06 08:47:21 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:47:21 [INFO]: authenticateToken invoked
+2024-11-06 08:47:21 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:47:28 [INFO]: authenticateToken invoked
+2024-11-06 08:47:28 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:47:29 [INFO]: authenticateToken invoked
+2024-11-06 08:47:29 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:51:43 [INFO]: authenticateToken invoked
+2024-11-06 08:51:43 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 08:51:43 [INFO]: authenticateToken invoked
+2024-11-06 08:51:43 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient

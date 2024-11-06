@@ -21,7 +21,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     const token = localStorage.getItem('token'); // Ensure the key matches where the token is stored
 
     if (token) {
-      const newSocket = io('http://localhost:5000', {
+      const newSocket = io(`${process.env.BACKEND_URL}`, {
         auth: {
           token, // Send the token during the Socket.io handshake
         },

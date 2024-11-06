@@ -6,6 +6,9 @@ import { Input } from '../ui/input';
 import { Select } from '../ui/select';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/router';
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 interface LoginFormProps {
   onToggle: () => void; // Function to toggle to Signup form
@@ -62,7 +65,7 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
     setSuccess('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/login', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,9 +93,9 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
         });
         // Redirect the user based on role
         if (data.user.role === 'doctor') {
-          window.location.href = 'http://localhost:3000'; // Doctor Next.js App
+          window.location.href = `${process.env.NEXT_PUBLIC_DOCTOR_URL}`; // Doctor Next.js App
         } else if (data.user.role === 'patient') {
-          window.location.href = 'http://localhost:3001'; // Patient Next.js App
+          window.location.href = `${process.env.NEXT_PUBLIC_PATIENT_URL}`; // Patient Next.js App
         }
       }
     } catch (error) {

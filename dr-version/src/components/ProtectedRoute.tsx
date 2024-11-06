@@ -3,6 +3,9 @@
 import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/Authcontext";
 import { useRouter } from "next/navigation";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -25,10 +28,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     if (!auth.loading) {
       if (!auth.user) {
         console.log("ProtectedRoute: User not authenticated, redirecting");
-        router.push("http://localhost:3002"); // Adjust the URL as needed
+        router.push(`${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`); // Adjust the URL as needed
       } else if (auth.user.role !== "doctor") {
         console.log("ProtectedRoute: User has wrong role, redirecting");
-        router.push("http://localhost:3002"); // Adjust the URL as needed
+        router.push(`${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`); // Adjust the URL as needed
       }
     }
   }, [authContext, router]);

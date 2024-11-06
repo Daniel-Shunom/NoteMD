@@ -4,6 +4,9 @@ import { ChevronUp } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
 import { AnimatePresence, motion } from "framer-motion";
 import axios from 'axios';
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 type Message = {
   role: string;
@@ -46,7 +49,7 @@ export function ChatBox() {
     try {
       // Send the message to the chatbot endpoint
       const response = await axios.post(
-        'http://localhost:5000/api/chat',
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/chat`,
         { message: messageToSend },
         {
           headers: {

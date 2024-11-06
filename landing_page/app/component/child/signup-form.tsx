@@ -68,7 +68,7 @@ export function SignupForm({ userType, onToggle }: SignupFormProps) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/register", {
+      const res = await fetch(`${process.env.BACKEND_URL}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

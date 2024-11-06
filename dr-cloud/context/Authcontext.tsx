@@ -5,6 +5,9 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { initiateSocket, disconnectSocket } from "../Sockets/sockets";
 import { useSocket } from "./Socketcontext"; // Adjust the import path
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 interface User {
   id: string;
@@ -43,7 +46,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/currentUser", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
           method: "GET",
           credentials: "include", // Include cookies in the request
         });
@@ -73,13 +76,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:5000/api/logout", {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
         method: "POST",
         credentials: "include", // Include cookies in the request
       });
       setAuth({ user: null, loading: false });
       disconnectSocket();
-      window.location.href = "http://localhost:3002"; // Redirect after logout
+      window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect after logout
     } catch (error) {
       console.error("Error during logout:", error);
     }
