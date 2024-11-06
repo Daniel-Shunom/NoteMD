@@ -1,6 +1,9 @@
 // utils/api.ts
 
+import dotenv from 'dotenv'
 import axios from 'axios';
+
+dotenv.config()
 
 /**
  * Create an Axios instance with predefined configurations.

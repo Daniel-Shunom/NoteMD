@@ -1,6 +1,9 @@
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 interface User {
   id: string;
@@ -69,7 +72,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         credentials: 'include',
       });
       setAuth({ user: null, loading: false });
-      window.location.href = 'http://localhost:3002';
+      window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`;
     } catch (error) {
       console.error('Error during logout:', error);
     }
