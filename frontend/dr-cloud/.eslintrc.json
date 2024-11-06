@@ -1,3 +1,23 @@
+// Example: .eslintrc.json
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "next/core-web-vitals"
+  ],
+  "plugins": ["@typescript-eslint", "react"],
+  "rules": {
+    "@typescript-eslint/no-unsafe-function-type": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "prefer-const": "warn",
+    "@typescript-eslint/no-unused-expressions": "off",
+    "react-hooks/exhaustive-deps": "warn"
+    // Add or modify other rules as needed
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
