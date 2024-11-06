@@ -1327,3 +1327,27 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-06 08:51:43 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
 2024-11-06 08:51:43 [INFO]: authenticateToken invoked
 2024-11-06 08:51:43 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 09:34:54 [INFO]: authenticateToken invoked
+2024-11-06 09:34:54 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 09:34:55 [INFO]: authenticateToken invoked
+2024-11-06 09:34:55 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 09:36:43 [INFO]: authenticateToken invoked
+2024-11-06 09:36:43 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 09:36:44 [INFO]: authenticateToken invoked
+2024-11-06 09:36:44 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 09:53:52 [INFO]: authenticateToken invoked
+2024-11-06 09:53:52 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-06 09:53:52 [INFO]: getPatients Controller Invoked
+2024-11-06 09:53:52 [INFO]: Fetched 5 patients
+2024-11-06 09:55:47 [INFO]: authenticateToken invoked
+2024-11-06 09:55:47 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-06 09:55:47 [INFO]: getPatients Controller Invoked
+2024-11-06 09:55:47 [INFO]: Fetched 5 patients
+2024-11-06 09:59:28 [INFO]: authenticateToken invoked
+2024-11-06 09:59:28 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 09:59:28 [INFO]: authenticateToken invoked
+2024-11-06 09:59:28 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 10:28:55 [INFO]: authenticateToken invoked
+2024-11-06 10:28:55 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-06 10:28:56 [INFO]: authenticateToken invoked
+2024-11-06 10:28:56 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient

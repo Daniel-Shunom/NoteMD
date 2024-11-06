@@ -191,9 +191,9 @@ app.use(limiter);
 app.use(
   cors({
     origin: [
-      'http://localhost:3000', // Replace with your frontend URL
-      'http://localhost:3001',
-      'http://localhost:3002', // Add other allowed origins
+      `${process.env.DOCTOR_URL}`, // Replace with your frontend URL
+      `${process.env.PATIENT_URL}`,
+      `${process.env.LANDINGPAGE_URL}`, // Add other allowed origins
     ],
     credentials: true, // Allow cookies to be sent
   })
