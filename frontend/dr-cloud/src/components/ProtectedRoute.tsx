@@ -1,11 +1,10 @@
+// ProtectedRoute.tsx
+
 "use client";
 
 import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/Authcontext";
+import { AuthContext } from "../../context/Authcontext"; // Corrected import path
 import { useRouter } from "next/navigation";
-import dotenv from 'dotenv';
-
-dotenv.config()
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -17,27 +16,25 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   useEffect(() => {
     if (!authContext) {
-      console.log("ProtectedRoute: AuthContext is undefined");
+      console.error("ProtectedRoute: AuthContext is undefined");
       return;
     }
 
     const { auth } = authContext;
-    console.log("ProtectedRoute: auth.loading:", auth.loading);
-    console.log("ProtectedRoute: auth.user:", auth.user);
 
     if (!auth.loading) {
       if (!auth.user) {
         console.log("ProtectedRoute: User not authenticated, redirecting");
-        router.push(`${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`); // Adjust the URL as needed
+        router.push(process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/");
       } else if (auth.user.role !== "patient") {
         console.log("ProtectedRoute: User has wrong role, redirecting");
-        router.push(`${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`); // Adjust the URL as needed
+        router.push(process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/");
       }
     }
   }, [authContext, router]);
 
   if (!authContext) {
-    return null; // Or handle the absence of context appropriately
+    return null; // Or display an error message
   }
 
   const { auth } = authContext;
@@ -47,7 +44,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   if (!auth.user || auth.user.role !== "patient") {
-    return null;
+    return null; // The redirect will happen in useEffect
   }
 
   return <>{children}</>;
