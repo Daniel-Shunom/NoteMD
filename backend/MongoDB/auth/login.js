@@ -71,8 +71,8 @@ router.post(
       // Set JWT as an httpOnly cookie
       const isProduction = process.env.NODE_ENV === 'production';
       const cookieOptions = {
-        httpOnly: true,
-        secure: true, // true in production, false otherwise
+        httpOnly: isProduction,
+        secure: isProduction, // true in production, false otherwise
         sameSite: 'None', // 'none' in production for cross-site
         path: '/', // Ensure the cookie is accessible across all routes
         maxAge: 60 * 60 * 1000, // 1 hour
@@ -80,7 +80,7 @@ router.post(
 
       // Only set the domain if in production
       if (isProduction) {
-        cookieOptions.domain = '.dr-cloud.vercel.app'; // Replace with your actual domain
+        cookieOptions.domain = 'dr-cloud.vercel.app'; // Replace with your actual domain
       }
 
       console.log('Setting JWT Token as cookie with options:', cookieOptions);
