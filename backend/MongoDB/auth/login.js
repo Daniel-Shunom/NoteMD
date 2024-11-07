@@ -71,8 +71,8 @@ router.post(
       // Set JWT as an httpOnly cookie
       const cookieOptions = {
         httpOnly: true,
-        secure: isProduction, //process.env.NODE_ENV === 'production', // Should be false in development
-        sameSite: isProduction ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === 'production', // Should be false in development
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         path: '/',
         maxAge: 60 * 60 * 1000, // 1 hour
       };
