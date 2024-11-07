@@ -3,7 +3,9 @@
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { useRouter } from "next/router";
+
+// Remove the useRouter import since it's no longer needed
+// import { useRouter } from "next/router";
 
 interface User {
   id: string;
@@ -37,12 +39,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user: null,
     loading: true,
   });
-  const router = useRouter();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
         const token = localStorage.getItem("token");
+        console.log("Retrieved token from localStorage:", token); // Debugging log
         if (!token) {
           setAuth({ user: null, loading: false });
           return;
@@ -96,14 +98,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (data.token) {
         localStorage.setItem("token", data.token);
+        console.log("Token stored in localStorage:", data.token); // Debugging log
 
         setAuth({ user: data.user, loading: false });
 
-        // Redirect based on user role
+        // Redirect based on user role using window.location.href
         if (data.user.role === "patient") {
-          router.push("https://notemd-kohl.vercel.app");
+          window.location.href = "https://notemd-kohl.vercel.app";
         } else if (data.user.role === "doctor") {
-          router.push("https://notemd-doctor.vercel.app");
+          window.location.href = "https://notemd-doctor.vercel.app";
         }
       } else {
         console.error("No token received during login");
@@ -117,7 +120,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       localStorage.removeItem("token");
       setAuth({ user: null, loading: false });
-      router.push(process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/");
+      window.location.href = process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/";
     } catch (error) {
       console.error("Error during logout:", error);
     }
