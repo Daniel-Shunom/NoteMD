@@ -1,4 +1,4 @@
-// ProtectedRoute.tsx
+// dr-cloud/components/ProtectedRoute.tsx
 
 "use client";
 

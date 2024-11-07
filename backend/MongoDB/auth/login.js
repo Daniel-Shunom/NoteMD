@@ -80,7 +80,7 @@ router.post(
 
       // Only set the domain if in production
       if (isProduction) {
-        cookieOptions.domain = '.dr-cloud.vercel.app'; // Replace with your actual domain
+        cookieOptions.domain = '.notemd-kohl.vercel.app'; // Replace with your actual domain
       }
 
       console.log('Setting JWT Token as cookie with options:', cookieOptions);
