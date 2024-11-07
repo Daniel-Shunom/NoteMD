@@ -1,5 +1,4 @@
-// dr-cloud/context/AuthContext.tsx
-
+// notemd-kohl/context/AuthContext.tsx (Patient Application)
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
@@ -23,6 +22,7 @@ export interface AuthContextProps {
   setAuth: React.Dispatch<React.SetStateAction<AuthState>>;
   logout: () => Promise<void>;
   login: (email: string, password: string, userType: string) => Promise<void>;
+  fetchCurrentUser: () => Promise<void>; // Ensure this method is included
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null);
@@ -37,42 +37,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading: true,
   });
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        console.log("Retrieved token from localStorage:", token);
-        if (!token) {
-          setAuth({ user: null, loading: false });
-          return;
-        }
+  const fetchCurrentUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("Retrieved token from localStorage:", token);
+      if (!token) {
+        setAuth({ user: null, loading: false });
+        return;
+      }
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (!res.ok) {
-          console.error("Failed to fetch current user:", res.statusText);
-          setAuth({ user: null, loading: false });
-          return;
-        }
+      if (!res.ok) {
+        console.error("Failed to fetch current user:", res.statusText);
+        setAuth({ user: null, loading: false });
+        return;
+      }
 
-        const data = await res.json();
+      const data = await res.json();
 
-        if (data.user) {
-          setAuth({ user: data.user, loading: false });
-        } else {
-          setAuth({ user: null, loading: false });
-        }
-      } catch (error) {
-        console.error("Error fetching current user:", error);
+      if (data.user) {
+        setAuth({ user: data.user, loading: false });
+      } else {
         setAuth({ user: null, loading: false });
       }
-    };
+    } catch (error) {
+      console.error("Error fetching current user:", error);
+      setAuth({ user: null, loading: false });
+    }
+  };
 
+  useEffect(() => {
     fetchCurrentUser();
   }, []);
 
@@ -125,7 +125,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, logout, login }}>
+    <AuthContext.Provider value={{ auth, setAuth, logout, login, fetchCurrentUser }}>
       {children}
     </AuthContext.Provider>
   );
