@@ -73,7 +73,7 @@ router.post(
       const cookieOptions = {
         httpOnly: true,
         secure: isProduction, // true in production, false otherwise
-        sameSite: isProduction ? 'none' : 'lax', // 'none' in production for cross-site
+        sameSite: isProduction ? 'None' : 'lax', // 'none' in production for cross-site
         path: '/', // Ensure the cookie is accessible across all routes
         maxAge: 60 * 60 * 1000, // 1 hour
       };
