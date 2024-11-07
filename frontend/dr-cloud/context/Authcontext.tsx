@@ -102,9 +102,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         // Redirect based on user role with token as URL parameter
         if (data.user.role === "patient") {
-          window.location.href = `https://notemd-kohl.vercel.app/receive-token?token=${data.token}`;
+          window.location.href = `${process.env.NEXT_PUBLIC_PATIENT_URL}/receive-token?token=${data.token}`;
         } else if (data.user.role === "doctor") {
-          window.location.href = `https://notemd-doctor.vercel.app/receive-token?token=${data.token}`;
+          window.location.href = `${process.env.NEXT_PUBLIC_DOCTOR_URL}/receive-token?token=${data.token}`;
         }
       } else {
         console.error("No token received during login");
