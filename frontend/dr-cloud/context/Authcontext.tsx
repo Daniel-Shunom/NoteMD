@@ -3,8 +3,7 @@
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { initiateSocket, disconnectSocket } from "../Sockets/sockets";
-import { useSocket } from "./Socketcontext"; // Ensure correct path
+import { useRouter } from "next/router";
 
 interface User {
   id: string;
@@ -24,6 +23,7 @@ export interface AuthContextProps {
   auth: AuthState;
   setAuth: React.Dispatch<React.SetStateAction<AuthState>>;
   logout: () => Promise<void>;
+  login: (email: string, password: string, userType: string) => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null);
@@ -37,14 +37,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user: null,
     loading: true,
   });
+  const router = useRouter();
 
   useEffect(() => {
-    console.log('Backend URL:', process.env.NEXT_PUBLIC_BACKEND_URL);
     const fetchCurrentUser = async () => {
       try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setAuth({ user: null, loading: false });
+          return;
+        }
+
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
           method: "GET",
-          credentials: "include", // Include cookies in the request
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         if (!res.ok) {
@@ -57,8 +65,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         if (data.user) {
           setAuth({ user: data.user, loading: false });
-          // Initialize Socket.io here if needed
-          // initiateSocket(data.token); // Removed since SocketContext handles it
         } else {
           setAuth({ user: null, loading: false });
         }
@@ -69,34 +75,56 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     fetchCurrentUser();
+  }, []);
 
-    // Cleanup on unmount
-    return () => {
-      disconnectSocket();
-    };
-  }, []); // Removed [socket] from dependencies if not necessary
+  const login = async (email: string, password: string, userType: string) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, userType }),
+      });
+
+      if (!res.ok) {
+        console.error("Failed to login:", res.statusText);
+        return;
+      }
+
+      const data = await res.json();
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+
+        setAuth({ user: data.user, loading: false });
+
+        // Redirect based on user role
+        if (data.user.role === "patient") {
+          router.push("https://notemd-kohl.vercel.app");
+        } else if (data.user.role === "doctor") {
+          router.push("https://notemd-doctor.vercel.app");
+        }
+      } else {
+        console.error("No token received during login");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
 
   const logout = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
-        method: "POST",
-        credentials: "include", // Include cookies in the request
-      });
-
-      if (res.ok) {
-        setAuth({ user: null, loading: false });
-        disconnectSocket();
-        window.location.href = process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/";
-      } else {
-        console.error("Failed to logout:", res.statusText);
-      }
+      localStorage.removeItem("token");
+      setAuth({ user: null, loading: false });
+      router.push(process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/");
     } catch (error) {
       console.error("Error during logout:", error);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, logout }}>
+    <AuthContext.Provider value={{ auth, setAuth, logout, login }}>
       {children}
     </AuthContext.Provider>
   );
