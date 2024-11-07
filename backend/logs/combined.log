@@ -1351,3 +1351,37 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-06 10:28:55 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
 2024-11-06 10:28:56 [INFO]: authenticateToken invoked
 2024-11-06 10:28:56 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-07 10:54:36 [INFO]: authenticateToken invoked
+2024-11-07 10:54:36 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-07 10:54:36 [INFO]: authenticateToken invoked
+2024-11-07 10:54:36 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-07 10:56:03 [INFO]: authenticateToken invoked
+2024-11-07 10:56:03 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-07 10:56:04 [INFO]: authenticateToken invoked
+2024-11-07 10:56:04 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-07 10:58:09 [INFO]: authenticateToken invoked
+2024-11-07 10:58:09 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-07 10:58:09 [INFO]: getPatients Controller Invoked
+2024-11-07 10:58:09 [INFO]: Fetched 5 patients
+2024-11-07 16:20:53 [INFO]: authenticateToken invoked
+2024-11-07 16:20:53 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-07 16:20:53 [INFO]: getPatients Controller Invoked
+2024-11-07 16:20:53 [INFO]: Fetched 5 patients
+2024-11-07 16:21:47 [INFO]: authenticateToken invoked
+2024-11-07 16:21:47 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-07 16:21:47 [INFO]: getPatients Controller Invoked
+2024-11-07 16:21:47 [INFO]: Fetched 5 patients
+2024-11-07 16:23:09 [INFO]: authenticateToken invoked
+2024-11-07 16:23:09 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-07 16:23:09 [INFO]: getPatients Controller Invoked
+2024-11-07 16:23:09 [INFO]: Fetched 5 patients
+2024-11-07 16:23:54 [INFO]: authenticateToken invoked
+2024-11-07 16:23:54 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-11-07 16:24:27 [INFO]: authenticateToken invoked
+2024-11-07 16:24:27 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-07 16:24:27 [INFO]: authenticateToken invoked
+2024-11-07 16:24:27 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-07 16:32:13 [INFO]: authenticateToken invoked
+2024-11-07 16:32:13 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-07 16:32:13 [INFO]: authenticateToken invoked
+2024-11-07 16:32:13 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
