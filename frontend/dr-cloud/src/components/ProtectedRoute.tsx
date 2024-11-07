@@ -3,15 +3,17 @@
 "use client";
 
 import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/Authcontext"; // Ensure correct path and casing
-//import { useRouter } from "next/navigation";
+import { AuthContext } from "../../context/Authcontext"; // Ensure correct path
+import { useRouter } from "next/router";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  requiredRole?: string; // Optional: specify if a specific role is needed
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole }) => {
   const authContext = useContext(AuthContext);
+  const router = useRouter();
 
   useEffect(() => {
     if (!authContext) {
@@ -24,12 +26,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     if (!auth.loading) {
       if (!auth.user) {
         console.log("ProtectedRoute: User not authenticated, redirecting");
-        // Redirect using window.location.href for external domains
-        window.location.href = process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/";
-      } else if (auth.user.role !== "patient") {
-        console.log("ProtectedRoute: User has wrong role, redirecting");
-        // Adjust redirect based on role if needed
-        window.location.href = process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/";
+        router.replace(process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/");
+      } else if (requiredRole && auth.user.role !== requiredRole) {
+        console.log(`ProtectedRoute: User has wrong role (${auth.user.role}), redirecting`);
+        router.replace(process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,7 +45,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  if (!auth.user || auth.user.role !== "patient") {
+  if (!auth.user || (requiredRole && auth.user.role !== requiredRole)) {
     return null; // The redirect will happen in useEffect
   }
 
