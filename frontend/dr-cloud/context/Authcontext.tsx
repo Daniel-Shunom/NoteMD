@@ -3,6 +3,11 @@
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
+import { initiateSocket, disconnectSocket } from "../Sockets/sockets";
+import { useSocket } from "./Socketcontext"; // Adjust the import path
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 interface User {
   id: string;
@@ -22,8 +27,6 @@ export interface AuthContextProps {
   auth: AuthState;
   setAuth: React.Dispatch<React.SetStateAction<AuthState>>;
   logout: () => Promise<void>;
-  login: (email: string, password: string, userType: string) => Promise<void>;
-  fetchCurrentUser: () => Promise<void>; // Added fetchCurrentUser
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null);
@@ -38,96 +41,55 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading: true,
   });
 
-  const fetchCurrentUser = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      console.log("Retrieved token from localStorage:", token);
-      if (!token) {
-        setAuth({ user: null, loading: false });
-        return;
-      }
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) {
-        console.error("Failed to fetch current user:", res.statusText);
-        setAuth({ user: null, loading: false });
-        return;
-      }
-
-      const data = await res.json();
-
-      if (data.user) {
-        setAuth({ user: data.user, loading: false });
-      } else {
-        setAuth({ user: null, loading: false });
-      }
-    } catch (error) {
-      console.error("Error fetching current user:", error);
-      setAuth({ user: null, loading: false });
-    }
-  };
+  const { socket } = useSocket(); // Access socket from SocketContext
 
   useEffect(() => {
-    fetchCurrentUser();
-  }, []);
+    const fetchCurrentUser = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
+          method: "GET",
+          credentials: "include", // Include cookies in the request
+        });
 
-  const login = async (email: string, password: string, userType: string) => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, userType }),
-      });
+        const data = await res.json();
 
-      if (!res.ok) {
-        console.error("Failed to login:", res.statusText);
-        // Optionally, handle error feedback to the user
-        return;
-      }
-
-      const data = await res.json();
-
-      if (data.token) {
-        // Store token temporarily in localStorage
-        localStorage.setItem("token", data.token);
-        console.log("Token stored in localStorage:", data.token);
-
-        setAuth({ user: data.user, loading: false });
-
-        // Redirect based on user role with token as URL parameter
-        if (data.user.role === "patient") {
-          window.location.href = `${process.env.NEXT_PUBLIC_PATIENT_URL}/receive-token?token=${data.token}`;
-        } else if (data.user.role === "doctor") {
-          window.location.href = `${process.env.NEXT_PUBLIC_DOCTOR_URL}/receive-token?token=${data.token}`;
+        if (res.ok && data.user) {
+          setAuth({ user: data.user, loading: false });
+          // Initialize Socket.io here if needed
+          // initiateSocket(data.token); // Removed since SocketContext handles it
+        } else {
+          setAuth({ user: null, loading: false });
         }
-      } else {
-        console.error("No token received during login");
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+        setAuth({ user: null, loading: false });
       }
-    } catch (error) {
-      console.error("Error during login:", error);
-    }
-  };
+    };
+
+    fetchCurrentUser();
+
+    // Cleanup on unmount
+    return () => {
+      disconnectSocket();
+    };
+  }, [socket]); // Depend on socket if necessary
 
   const logout = async () => {
     try {
-      localStorage.removeItem("token");
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
+        method: "POST",
+        credentials: "include", // Include cookies in the request
+      });
       setAuth({ user: null, loading: false });
-      window.location.href = process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/";
+      disconnectSocket();
+      window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect after logout
     } catch (error) {
       console.error("Error during logout:", error);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, logout, login, fetchCurrentUser }}>
+    <AuthContext.Provider value={{ auth, setAuth, logout }}>
       {children}
     </AuthContext.Provider>
   );

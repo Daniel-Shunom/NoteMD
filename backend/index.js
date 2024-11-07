@@ -177,17 +177,8 @@ mongoose
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
-        // Add other directives as needed
-      },
-    },
-  })
-);
+app.use(helmet());
+
 // Rate Limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

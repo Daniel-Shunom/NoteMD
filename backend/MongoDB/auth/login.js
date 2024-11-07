@@ -1,4 +1,4 @@
-// MongoDB/auth/login.js
+// Controllers/login.js
 
 import express from 'express';
 import { body, validationResult } from 'express-validator';
@@ -16,6 +16,7 @@ router.post(
     body('userType').isIn(['doctor', 'patient']).withMessage('Invalid user type.'),
   ],
   async (req, res) => {
+    // Log the receipt of a login request
     console.log('Login Attempt:', {
       email: req.body.email,
       userType: req.body.userType,
@@ -31,22 +32,27 @@ router.post(
     const { email, password, userType } = req.body;
 
     try {
+      // Log the search for the user
       console.log(`Searching for user with email: ${email} and role: ${userType}`);
 
+      // Find the user by email and role
       const user = await User.findOne({ email, role: userType });
       if (!user) {
         console.log('User Not Found:', { email, userType });
         return res.status(401).json({ status: 'error', message: 'Invalid email or password.' });
       }
 
+      // Log that the user was found
       console.log('User Found:', { userId: user._id, email: user.email, role: user.role });
 
+      // Compare passwords
       const isMatch = await user.comparePassword(password);
       if (!isMatch) {
         console.log('Password Mismatch for User:', { userId: user._id, email: user.email });
         return res.status(401).json({ status: 'error', message: 'Invalid email or password.' });
       }
 
+      // Log successful password verification
       console.log('Password Verified:', { userId: user._id, email: user.email });
 
       // Generate JWT Token
@@ -59,17 +65,32 @@ router.post(
 
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+      // Log token generation
       console.log('JWT Token Generated:', { token });
 
-      // Do not set the token as a cookie
-      // Instead, send it in the response body
+      // Set JWT as an httpOnly cookie
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // Should be false in development
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 1000, // 1 hour
+      };
 
+      // Only set the domain if in production
+      if (process.env.NODE_ENV === 'production') {
+        cookieOptions.domain = '.yourdomain.com'; // Replace with your main domain
+      }
+
+      console.log('Setting JWT Token as cookie with options:', cookieOptions);
+
+      res.cookie('token', token, cookieOptions);
+
+      // Log successful login response
       console.log('Login Successful for User:', { userId: user._id, email: user.email });
 
       res.status(200).json({
         status: 'ok',
         message: 'Login successful.',
-        token, // Include the token in the response
         user: {
           id: user._id,
           name: user.name,
@@ -80,6 +101,7 @@ router.post(
         },
       });
     } catch (error) {
+      // Log any unexpected errors
       console.error('Error during user login:', error);
       res.status(500).json({ status: 'error', message: 'Server error. Please try again later.' });
     }

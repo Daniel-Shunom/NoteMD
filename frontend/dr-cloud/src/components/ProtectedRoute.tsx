@@ -1,10 +1,11 @@
-// dr-cloud/components/ProtectedRoute.tsx
-
 "use client";
 
 import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/Authcontext"; // Ensure correct path and casing
-//import { useRouter } from "next/navigation";
+import { AuthContext } from "../../context/Authcontext";
+import { useRouter } from "next/navigation";
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -12,31 +13,31 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const authContext = useContext(AuthContext);
+  const router = useRouter();
 
   useEffect(() => {
     if (!authContext) {
-      console.error("ProtectedRoute: AuthContext is undefined");
+      console.log("ProtectedRoute: AuthContext is undefined");
       return;
     }
 
     const { auth } = authContext;
+    console.log("ProtectedRoute: auth.loading:", auth.loading);
+    console.log("ProtectedRoute: auth.user:", auth.user);
 
     if (!auth.loading) {
       if (!auth.user) {
         console.log("ProtectedRoute: User not authenticated, redirecting");
-        // Redirect using window.location.href for external domains
-        window.location.href = process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/";
+        router.push(`${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`); // Adjust the URL as needed
       } else if (auth.user.role !== "patient") {
         console.log("ProtectedRoute: User has wrong role, redirecting");
-        // Adjust redirect based on role if needed
-        window.location.href = process.env.NEXT_PUBLIC_HOMEPAGE_URL || "/";
+        router.push(`${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`); // Adjust the URL as needed
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authContext?.auth.loading, authContext?.auth.user]);
+  }, [authContext, router]);
 
   if (!authContext) {
-    return null; // Or display an error message
+    return null; // Or handle the absence of context appropriately
   }
 
   const { auth } = authContext;
@@ -46,7 +47,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   if (!auth.user || auth.user.role !== "patient") {
-    return null; // The redirect will happen in useEffect
+    return null;
   }
 
   return <>{children}</>;

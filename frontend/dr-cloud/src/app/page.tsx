@@ -11,14 +11,16 @@ import { SocketProvider } from "../../context/Socketcontext";
 import { PrescriptionProvider } from "../../context/Prescriptioncontext";
 
 export default function Home() {
+  // const [data, setData] = useState(null); // Ensure correct initialization
+
   return (
-    <AuthProvider>
-      <ProtectedRoute>
+    <ProtectedRoute>
+        <AuthProvider>
         <div className="relazive z-0">
           <div className="fixed bottom-0 w-full z-[999]">
             <HideableChatbox />
           </div>
-
+    
           <div className="flex flex-row space-x-4 justify-center scroll-auto">
             <HomeBento />
             <div className="w-full rounded-xl bg-white bg-opacity-80 backdrop-blur-md p-3">
@@ -26,16 +28,18 @@ export default function Home() {
                 {/* Left Column */}
                 <div className="w-full md:w-1/2 bg-zinc-800 rounded-lg p-4 text-white mb-4 md:mb-0">
                   {/* Content goes here */}
-                  <SocketProvider>
-                    <PrescriptionProvider>
-                      <MedsBay />
-                    </PrescriptionProvider>
-                  </SocketProvider>
+                  <AuthProvider>
+                    <SocketProvider>
+                      <PrescriptionProvider>
+                        < MedsBay />
+                      </PrescriptionProvider>
+                    </SocketProvider>
+                  </AuthProvider>
                 </div>
 
                 {/* Spacer */}
                 <div className="h-5 md:w-5"></div>
-
+    
                 {/* Right Column */}
                 <div className="flex flex-col w-full md:w-1/2">
                   <div className="bg-slate-800 rounded-lg p-4 text-white mb-4">
@@ -53,7 +57,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </ProtectedRoute>
-    </AuthProvider>
+      </AuthProvider>
+    </ProtectedRoute>
+    
   );
 }
