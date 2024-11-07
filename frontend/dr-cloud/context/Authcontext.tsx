@@ -38,9 +38,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading: true,
   });
 
-  const { socket } = useSocket(); // Access socket from SocketContext
-
   useEffect(() => {
+    console.log('Backend URL:', process.env.NEXT_PUBLIC_BACKEND_URL);
     const fetchCurrentUser = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
