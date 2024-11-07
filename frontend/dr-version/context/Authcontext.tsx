@@ -1,4 +1,5 @@
-// notemd-kohl/context/AuthContext.tsx (Patient Application)
+// dr-cloud/context/AuthContext.tsx
+
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
@@ -22,7 +23,7 @@ export interface AuthContextProps {
   setAuth: React.Dispatch<React.SetStateAction<AuthState>>;
   logout: () => Promise<void>;
   login: (email: string, password: string, userType: string) => Promise<void>;
-  fetchCurrentUser: () => Promise<void>; // Ensure this method is included
+  fetchCurrentUser: () => Promise<void>; // Added fetchCurrentUser
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null);
@@ -88,6 +89,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (!res.ok) {
         console.error("Failed to login:", res.statusText);
+        // Optionally, handle error feedback to the user
         return;
       }
 
