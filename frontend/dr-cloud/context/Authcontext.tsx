@@ -4,9 +4,6 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 
-// Remove the useRouter import since it's no longer needed
-// import { useRouter } from "next/router";
-
 interface User {
   id: string;
   name: string;
@@ -44,7 +41,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const fetchCurrentUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Retrieved token from localStorage:", token); // Debugging log
+        console.log("Retrieved token from localStorage:", token);
         if (!token) {
           setAuth({ user: null, loading: false });
           return;
@@ -97,16 +94,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const data = await res.json();
 
       if (data.token) {
+        // Store token temporarily in localStorage
         localStorage.setItem("token", data.token);
-        console.log("Token stored in localStorage:", data.token); // Debugging log
+        console.log("Token stored in localStorage:", data.token);
 
         setAuth({ user: data.user, loading: false });
 
-        // Redirect based on user role using window.location.href
+        // Redirect based on user role with token as URL parameter
         if (data.user.role === "patient") {
-          window.location.href = "https://notemd-kohl.vercel.app";
+          window.location.href = `https://notemd-kohl.vercel.app/receive-token?token=${data.token}`;
         } else if (data.user.role === "doctor") {
-          window.location.href = "https://notemd-doctor.vercel.app";
+          window.location.href = `https://notemd-doctor.vercel.app/receive-token?token=${data.token}`;
         }
       } else {
         console.error("No token received during login");
