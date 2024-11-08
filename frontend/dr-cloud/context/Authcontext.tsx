@@ -5,9 +5,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { initiateSocket, disconnectSocket } from "../Sockets/sockets";
 import { useSocket } from "./Socketcontext"; // Adjust the import path
-import dotenv from 'dotenv'
-
-dotenv.config();
+import axiosInstance from "./Axiosinstance"; // Import the Axios instance
 
 interface User {
   id: string;
@@ -46,14 +44,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
-          method: "GET",
-          credentials: "include", // Include cookies in the request
-        });
+        const res = await axiosInstance.get("/api/currentUser"); // Use Axios instance
 
-        const data = await res.json();
+        const data = res.data;
 
-        if (res.ok && data.user) {
+        if (res.status === 200 && data.user) {
           setAuth({ user: data.user, loading: false });
           // Initialize Socket.io here if needed
           // initiateSocket(data.token); // Removed since SocketContext handles it
@@ -76,10 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
-        method: "POST",
-        credentials: "include", // Include cookies in the request
-      });
+      await axiosInstance.post("/api/logout"); // Use Axios instance
       setAuth({ user: null, loading: false });
       disconnectSocket();
       window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect after logout
