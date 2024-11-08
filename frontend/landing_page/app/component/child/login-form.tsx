@@ -88,9 +88,9 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
         });
         // Redirect the user based on role with token in URL
         if (data.user.role === 'doctor') {
-          window.location.href = `https://protected-app.com/doctor-dashboard?token=${data.token}`;
+          window.location.href = `${process.env.NEXT_PUBLIC_DOCTOR_URL}?token=${data.token}`;
         } else if (data.user.role === 'patient') {
-          window.location.href = `https://protected-app.com/patient-dashboard?token=${data.token}`;
+          window.location.href = `${process.env.NEXT_PUBLIC_PATIENT_URL}?token=${data.token}`;
         }
       }
     } catch (error) {
