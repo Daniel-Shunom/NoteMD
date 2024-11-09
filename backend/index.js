@@ -21,7 +21,7 @@ import currentUserRoute from './MongoDB/auth/currentUser.js';
 import uploadDocumentRoute from './MongoDB/Routes/uploadDocuments.js';
 import documentRoutes from './MongoDB/Routes/documentRoute.js';
 import chatbotRoutes from './MongoDB/Routes/chatbotRoute.js';
-// import logoutRoute from './routes/logout.js';
+import logoutRoute from './MongoDB/auth/logout.js';
 
 // Import Middleware
 import { authenticateToken } from './MongoDB/middleware/auth.js';
@@ -211,7 +211,7 @@ app.use(currentUserRoute); // Include currentUser route
 app.use(uploadDocumentRoute); // Use the new upload route
 app.use(documentRoutes);
 app.use(chatbotRoutes);
-// app.use(logoutRoute);
+app.use(logoutRoute);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

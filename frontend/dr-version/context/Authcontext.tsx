@@ -1,9 +1,8 @@
+// src/context/AuthContext.tsx
+
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 interface User {
   id: string;
@@ -67,12 +66,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch('/api/logout', {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
         method: 'POST',
         credentials: 'include',
       });
       setAuth({ user: null, loading: false });
-      window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`;
+      window.location.href = `/`; // Redirect to login page
     } catch (error) {
       console.error('Error during logout:', error);
     }

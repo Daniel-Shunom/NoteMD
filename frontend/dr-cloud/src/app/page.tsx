@@ -1,64 +1,73 @@
-"use client";
-import React from "react";
-import HideableChatbox from "@/components/child/chatbox";
-import { HomeBento } from "@/components/child/home-bento";
-import AnimatedCalendar from "@/components/ui/AnimCalendar";
-import ScheduledVisits from "@/components/ui/visits";
-import MedsBay from "@/components/child/medbay";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import { AuthProvider } from "../../context/Authcontext";
-import { SocketProvider } from "../../context/Socketcontext";
-import { PrescriptionProvider } from "../../context/Prescriptioncontext";
+// app/Page.tsx
 
-export default function Home() {
-  // const [data, setData] = useState(null); // Ensure correct initialization
+"use client";
+
+import React, { useContext, useEffect } from 'react';
+import { AuthContext } from '../../context/Authcontext';
+import { useRouter } from 'next/navigation';
+import { AuthContainer } from "@/components/ui/authcontainer";
+
+export default function PatientLogin() {
+  const authContext = useContext(AuthContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!authContext?.auth.loading && authContext.auth.user) {
+      // If user is already authenticated, redirect based on role
+      if (authContext.auth.user.role === 'doctor') {
+        router.push("/home"); // Redirect to home or appropriate page
+      } else if (authContext.auth.user.role === 'patient') {
+        router.push("/home"); // Redirect to home or appropriate page
+      }
+    }
+  }, [authContext, router]);
 
   return (
-    <ProtectedRoute>
-        <AuthProvider>
-        <div className="relazive z-0">
-          <div className="fixed bottom-0 w-full z-[999]">
-            <HideableChatbox />
-          </div>
-    
-          <div className="flex flex-row space-x-4 justify-center scroll-auto">
-            <HomeBento />
-            <div className="w-full rounded-xl bg-white bg-opacity-80 backdrop-blur-md p-3">
-              <div className="flex flex-col md:flex-row">
-                {/* Left Column */}
-                <div className="w-full md:w-1/2 bg-zinc-800 rounded-lg p-4 text-white mb-4 md:mb-0">
-                  {/* Content goes here */}
-                  <AuthProvider>
-                    <SocketProvider>
-                      <PrescriptionProvider>
-                        < MedsBay />
-                      </PrescriptionProvider>
-                    </SocketProvider>
-                  </AuthProvider>
-                </div>
+    <div className="min-h-screen w-screen overflow-hidden flex flex-col lg:flex-row">
+      {/* Left Section */}
+      <div className="bg-green-800 flex items-center justify-center w-full lg:w-1/2 p-4 lg:p-8">
+        <div className="text-center lg:text-left">
+          <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-bold truncate">
+            It's more than just 15 minutes
+          </h1>
+          {/* Hidden on mobile, visible on desktop */}
+          <p className="text-red-100 mt-2 hidden lg:block text-lg">
+            Welcome to DoctorMD
+          </p>
+        </div>
+      </div>
 
-                {/* Spacer */}
-                <div className="h-5 md:w-5"></div>
-    
-                {/* Right Column */}
-                <div className="flex flex-col w-full md:w-1/2">
-                  <div className="bg-slate-800 rounded-lg p-4 text-white mb-4">
-                    {/* Content goes here */}
-                  </div>
-
-                  {/* Spacer */}
-                  <div className="h-1"></div>
-
-                  <div className="w-full bg-white rounded-lg p-4">
-                    <AnimatedCalendar />
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Right Section - Scrollable */}
+      <div className="bg-yellow-200 w-full lg:w-1/2 lg:h-screen overflow-y-auto">
+        <div className="flex items-center justify-center min-h-full p-4 lg:p-8">
+          <div className="w-full max-w-md">
+            <AuthContainer initialForm="signup" userType="patient" />
           </div>
         </div>
-      </AuthProvider>
-    </ProtectedRoute>
-    
+      </div>
+
+      {/* Scrollbar Styles */}
+      <style jsx global>{`
+        /* Webkit browsers */
+        .overflow-y-auto::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        .overflow-y-auto::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 2px;
+        }
+
+        /* Firefox */
+        .overflow-y-auto {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+      `}</style>
+    </div>
   );
 }

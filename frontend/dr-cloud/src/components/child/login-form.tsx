@@ -1,14 +1,12 @@
-// AuthContainer/components/LoginForm.tsx
+// app/components/AuthContainer/components/LoginForm.tsx
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Select } from '../ui/select';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/router';
-import dotenv from 'dotenv'
-
-dotenv.config()
+import { useRouter } from 'next/navigation';
+import { AuthContext } from '../../../context/Authcontext';
 
 interface LoginFormProps {
   onToggle: () => void; // Function to toggle to Signup form
@@ -31,6 +29,7 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
 
   const firstInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const authContext = useContext(AuthContext); // Access AuthContext
 
   useEffect(() => {
     firstInputRef.current?.focus();
@@ -91,11 +90,19 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
           email: '',
           password: '',
         });
+
+        // Update AuthContext with user data
+        if (authContext) {
+          authContext.setAuth({ user: data.user, loading: false });
+        }
+
         // Redirect the user based on role
         if (data.user.role === 'doctor') {
-          window.location.href = `${process.env.NEXT_PUBLIC_DOCTOR_URL}`; // Doctor Next.js App
+          router.push("/home"); // Redirect to home or appropriate page
         } else if (data.user.role === 'patient') {
-          window.location.href = `${process.env.NEXT_PUBLIC_PATIENT_URL}`; // Patient Next.js App
+          router.push("/home"); // Redirect to home or appropriate page
+        } else {
+          router.push(`/home`); // Default redirect within the same app
         }
       }
     } catch (error) {

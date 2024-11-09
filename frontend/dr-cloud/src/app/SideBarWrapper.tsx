@@ -1,3 +1,5 @@
+// app/SideBarWrapper.tsx
+
 "use client";
 
 import React, { useContext } from 'react';
@@ -10,19 +12,19 @@ import {
   IconLogout,
 } from "@tabler/icons-react";
 
-const SidebarWrapper: React.FC = () => {
+const SideBarWrapper: React.FC = () => {
   const authContext = useContext(AuthContext);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (authContext) {
-      authContext.logout();
+      await authContext.logout();
     }
   };
 
   const links = [
-    { label: "Home", href: "/", icon: <IconHome /> },
+    { label: "Home", href: "/home", icon: <IconHome /> },
     { label: "Profile", href: "/profile", icon: <IconUserBolt /> },
-    { label: "Settings", href: "/settings", icon: <IconSettings /> },
+    { label: "Settings", href: "/Settings", icon: <IconSettings /> },
     { label: "Logout", onClick: handleLogout, icon: <IconLogout /> },
   ];
 
@@ -30,11 +32,16 @@ const SidebarWrapper: React.FC = () => {
     <Sidebar>
       <SidebarBody>
         {links.map((link, index) => (
-          <SidebarLink key={index} link={link} />
+          <SidebarLink
+            key={index}
+            link={link}
+            // If the link has an onClick handler, prevent default navigation
+            //onClick={link.onClick ? (e) => { e.preventDefault(); link.onClick(); } : undefined}
+          />
         ))}
       </SidebarBody>
     </Sidebar>
   );
 };
 
-export default SidebarWrapper;
+export default SideBarWrapper;
