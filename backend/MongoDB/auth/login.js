@@ -74,6 +74,7 @@ router.post(
         secure: process.env.NODE_ENV === 'production', // Should be false in development
         sameSite: 'lax',
         maxAge: 60 * 60 * 1000, // 1 hour
+        path: '/',
       };
 
       // Only set the domain if in production
