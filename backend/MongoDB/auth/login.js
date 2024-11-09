@@ -1,4 +1,4 @@
-// Controllers/login.js
+// controllers/login.js
 
 import express from 'express';
 import { body, validationResult } from 'express-validator';
@@ -68,18 +68,18 @@ router.post(
       // Log token generation
       console.log('JWT Token Generated:', { token });
 
-      // Set JWT as an httpOnly cookie
+      // Set JWT as an HTTP-only cookie
       const cookieOptions = {
-        httpOnly: false,
-        secure: process.env.NODE_ENV === 'production', // Should be false in development
-        sameSite: 'none',
+        httpOnly: true, // Prevents JavaScript access
+        secure: process.env.NODE_ENV === 'production', // Ensures cookie is sent over HTTPS
+        sameSite: 'none', // Necessary for cross-site cookies
         path: '/',
         maxAge: 60 * 60 * 1000, // 1 hour
       };
 
       // Only set the domain if in production
       if (process.env.NODE_ENV === 'production') {
-        cookieOptions.domain = '.vercel.app'; // Replace with your main domain
+        cookieOptions.domain = '.vercel.app'; // Allows sharing across subdomains
       }
 
       console.log('Setting JWT Token as cookie with options:', cookieOptions);
