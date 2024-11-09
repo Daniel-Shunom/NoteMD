@@ -1,4 +1,3 @@
-"use client"
 // AuthContainer/components/LoginForm.tsx
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -8,7 +7,6 @@ import { Select } from '../ui/select';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/router';
 import dotenv from 'dotenv'
-import axiosInstance from './Axiosinstance';
 
 dotenv.config()
 
@@ -54,29 +52,36 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Form submitted');
-  
+
     const { email, password } = formData;
-  
+
     // Basic Validation
     if (!email || !password) {
       setError('All fields are required');
       return;
     }
-  
+
     setError('');
     setSuccess('');
-  
+
     try {
-      const res = await axiosInstance.post("/api/login", {
-        email,
-        password,
-        userType,
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Include cookies
+        body: JSON.stringify({
+          email,
+          password,
+          userType,
+        }),
       });
-  
-      const data = res.data;
+
+      const data = await res.json();
       console.log(data);
-  
-      if (res.status !== 200) {
+
+      if (!res.ok) {
         console.log('Login failed:', data.message);
         setError(data.message || 'Login failed');
       } else {
@@ -86,11 +91,11 @@ export function LoginForm({ onToggle, userType: fixedUserType }: LoginFormProps)
           email: '',
           password: '',
         });
-        // Redirect the user based on role with token in URL
+        // Redirect the user based on role
         if (data.user.role === 'doctor') {
-          window.location.href = `https://protected-app.com/doctor-dashboard?token=${data.token}`;
+          window.location.href = `${process.env.NEXT_PUBLIC_DOCTOR_URL}`; // Doctor Next.js App
         } else if (data.user.role === 'patient') {
-          window.location.href = `https://protected-app.com/patient-dashboard?token=${data.token}`;
+          window.location.href = `${process.env.NEXT_PUBLIC_PATIENT_URL}`; // Patient Next.js App
         }
       }
     } catch (error) {
