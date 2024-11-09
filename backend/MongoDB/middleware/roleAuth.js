@@ -1,7 +1,7 @@
 // middleware/auth.js
 
 import jwt from 'jsonwebtoken';
-import logger from '../../logger.js'; // Ensure this path is correct
+import logger from '../../logger.js'; // Assuming you have a logger
 
 /**
  * Middleware to authenticate users by verifying JWT tokens.

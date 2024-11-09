@@ -4,8 +4,8 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { initiateSocket, disconnectSocket } from "../Sockets/sockets";
-import { useSocket } from "./Socketcontext"; // Adjust the import path if necessary
-import axiosInstance from "./Axiosinstance"; // Ensure correct import path
+import { useSocket } from "./Socketcontext"; // Adjust the import path
+import axiosInstance from "./Axiosinstance"; // Import the Axios instance
 
 interface User {
   id: string;
@@ -74,7 +74,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       await axiosInstance.post("/api/logout"); // Use Axios instance
       setAuth({ user: null, loading: false });
       disconnectSocket();
-      window.location.href = `${[process.env.NEXT_PUBLIC_LANDINGPAGE_URL]}`; // Redirect after logout
+      window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect after logout
     } catch (error) {
       console.error("Error during logout:", error);
     }
