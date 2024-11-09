@@ -1,13 +1,19 @@
 "use client"
 import Image from "next/image";
-import Link from "next/link";
-//import { Inter } from "next/font/google";
-//import client from "@/lib/mongodb";
-//import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import Navbar from "@/app/component/ui/Navbar";
 import image from '@/public/dr-cloud.png';
 
 export default function Home() {
+  const doctorLogin = process.env.NEXT_PUBLIC_DOCTOR_LOGIN;
+  const patientLogin = process.env.NEXT_PUBLIC_PATIENT_LOGIN;
+
+  // Function to handle navigation
+  const handleNavigation = (url: string | undefined) => {
+    if (url) {
+      window.location.href = url;
+    }
+  };
+
   return (
     <main>
       <Navbar
@@ -43,12 +49,18 @@ export default function Home() {
             
             {/* Call-to-Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/dr-login" className="bg-white text-blue-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300">
+              <button
+                onClick={() => handleNavigation(doctorLogin)}
+                className="bg-white text-blue-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300"
+              >
                 Doctor login
-              </Link>
-              <Link href="/patient-login" className="bg-transparent border border-white text-white px-6 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-800 transition duration-300">
+              </button>
+              <button
+                onClick={() => handleNavigation(patientLogin)}
+                className="bg-transparent border border-white text-white px-6 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-800 transition duration-300"
+              >
                 Patient login
-              </Link>
+              </button>
             </div>
           </div>
           
