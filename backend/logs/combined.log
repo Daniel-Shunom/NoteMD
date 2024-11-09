@@ -1527,3 +1527,19 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-09 16:47:05 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
 2024-11-09 16:47:05 [INFO]: authenticateToken invoked
 2024-11-09 16:47:05 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-09 17:00:20 [INFO]: authenticateToken invoked
+2024-11-09 17:00:20 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-09 17:00:20 [INFO]: authenticateToken invoked
+2024-11-09 17:00:20 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-09 17:00:40 [INFO]: authenticateToken invoked
+2024-11-09 17:00:40 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-09 17:00:41 [INFO]: authenticateToken invoked
+2024-11-09 17:00:41 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-09 17:01:38 [INFO]: authenticateToken invoked
+2024-11-09 17:01:38 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-09 17:01:38 [INFO]: authenticateToken invoked
+2024-11-09 17:01:38 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-09 17:04:15 [INFO]: authenticateToken invoked
+2024-11-09 17:04:15 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-09 17:04:16 [INFO]: authenticateToken invoked
+2024-11-09 17:04:16 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
