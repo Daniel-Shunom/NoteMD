@@ -72,7 +72,7 @@ router.post(
       const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Should be false in development
-        sameSite: 'lax',
+        SameSite: 'none',
         maxAge: 60 * 60 * 1000, // 1 hour
         path: '/',
       };
