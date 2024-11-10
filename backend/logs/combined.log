@@ -1567,3 +1567,5 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-09 18:51:54 [WARN]: No token provided in cookies.
 2024-11-09 18:52:09 [INFO]: authenticateToken invoked
 2024-11-09 18:52:09 [WARN]: No token provided in cookies.
+2024-11-09 19:04:18 [INFO]: authenticateToken invoked
+2024-11-09 19:04:18 [WARN]: No token provided in cookies.
