@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const fetchCurrentUser = async () => {
       try {
         console.log('AuthProvider: Fetching current user');
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/currentUser`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/currentUser`, {
           method: 'GET',
           credentials: 'include', // Include cookies
         });
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/logout`, {
         method: 'POST',
         credentials: 'include',
       });
