@@ -100,7 +100,7 @@ export function ChatBox() {
       setSocket(newSocket);
 
       newSocket.onopen = () => {
-        console.log('WebSocket connection established.');
+        console.log('WebSocket connection established..');
         // Start speech recognition here
         startSpeechRecognition();
       };
