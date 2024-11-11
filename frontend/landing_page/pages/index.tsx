@@ -2,6 +2,9 @@
 import Image from "next/image";
 import Navbar from "@/app/component/ui/Navbar";
 import image from '@/public/dr-cloud.png';
+import { FeaturesSectionDemo } from "@/app/component/child/FeatureSection";
+import WaitlistForm from "@/app/component/child/waitlistform";
+import CredentialsBox from "@/app/component/child/Credentialsbox";
 
 export default function Home() {
   const doctorLogin = process.env.NEXT_PUBLIC_DOCTOR_LOGIN;
@@ -34,34 +37,39 @@ export default function Home() {
       />
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-800 to-indigo-900 text-white">
+      <section className="py-20 bg-white text-black">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center max-w-[90%]">
           
           {/* Text Content */}
           <div className="w-full lg:w-1/2 mt-10 lg:mt-0">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              The Best Patient Management System{' '}
-              <br className="hidden lg:block" /> to Exist
+              Enhancing Healthcare, {' '}
+              <br className="hidden lg:block" /> One Patient at a Time
             </h1>
             <p className="text-lg sm:text-xl mb-8">
-              Streamline your healthcare operations with our intuitive and comprehensive patient management solution.
+              Empowering healthcare providers with AI-driven solutions 
+              <br className="hidden lg:block" />for exceptional patient experience
             </p>
             
             {/* Call-to-Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => handleNavigation(doctorLogin)}
-                className="bg-white text-blue-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300"
+                className="bg-black text-white px-6 py-3 rounded-md font-semibold hover:bg-gray-100 hover:text-black transition duration-300"
               >
                 Doctor login
               </button>
               <button
                 onClick={() => handleNavigation(patientLogin)}
-                className="bg-transparent border border-white text-white px-6 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-800 transition duration-300"
+                className="bg-transparent border border-gray-800 text-black px-6 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-800 transition duration-300"
               >
                 Patient login
               </button>
             </div>
+            <div className="left-0">
+              <CredentialsBox/>
+            </div>
+            
           </div>
           
           {/* Illustration/Image */}
@@ -77,6 +85,17 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section className="py-20 bg-white text-black">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center max-w-[90%]">
+          < FeaturesSectionDemo />
+        </div>
+        <WaitlistForm/>
+      </section>
+      
+      <footer className="w-full bg-gray-900 text-center py-4">
+        <p className="text-gray-400">NoteMD 2024 All Rights Reserved</p>
+      </footer>
     </main>
   );
 }
