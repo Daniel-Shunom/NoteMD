@@ -78,9 +78,9 @@ router.post(
       };
 
       // Only set the domain if in production
-      if (process.env.NODE_ENV === 'production') {
+      /*if (process.env.NODE_ENV === 'production') {
         cookieOptions.domain = `${process.env.COOKIE_DOMAIN_URL}`; // Replace with your main domain
-      }
+      }*/
 
       console.log('Setting JWT Token as cookie with options:', cookieOptions);
 
