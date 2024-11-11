@@ -1,10 +1,11 @@
 // ChatBox.js
 
 "use client";
-import React, { useState, useEffect, useRef, FormEvent } from "react";
+import React, { useState, useEffect, useRef, FormEvent, useContext } from "react";
 import { ChevronUp, Mic } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
 import { AnimatePresence, motion } from "framer-motion";
+import { AuthContext } from '../../../context/Authcontext'; 
 import axios from 'axios';
 import dotenv from 'dotenv';
 
@@ -16,6 +17,9 @@ type Message = {
 };
 
 export function ChatBox() {
+  const { auth } = useContext(AuthContext);
+  const user = auth.user;
+  
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("");
@@ -82,35 +86,106 @@ export function ChatBox() {
   // Initialize WebSocket connection when entering microphone mode
   useEffect(() => {
     if (chatMode === 'microphone') {
-      const token = localStorage.getItem('jwtToken'); // Adjust based on how you store tokens
-      const newSocket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/audio-chat`, token);
+      if (!process.env.NEXT_PUBLIC_WEBSOCKET_URL) {
+        console.error('NEXT_PUBLIC_WEBSOCKET_URL is not defined.');
+        alert('WebSocket URL is not configured.');
+        setChatMode('text');
+        return;
+      }
+
+      const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/audio-chat`;
+      console.log('WebSocket URL:', websocketUrl);
+
+      const newSocket = new WebSocket(websocketUrl);
       setSocket(newSocket);
 
       newSocket.onopen = () => {
         console.log('WebSocket connection established.');
+        // Start speech recognition here
+        startSpeechRecognition();
       };
 
       newSocket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.type === 'assistant_response') {
-          setMessages((prev) => [...prev, { role: "assistant", content: data.content }]);
+          setMessages((prev) => [...prev, { role: 'assistant', content: data.content }]);
           setLoading(false);
+        } else if (data.type === 'error') {
+          console.error('Error from server:', data.content);
+          setLoading(false);
+          alert(`Error: ${data.content}`);
         }
       };
 
       newSocket.onerror = (error) => {
         console.error('WebSocket error:', error);
+        alert('WebSocket error occurred.');
+        setChatMode('text');
       };
 
-      newSocket.onclose = () => {
-        console.log('WebSocket connection closed.');
+      newSocket.onclose = (event) => {
+        console.log('WebSocket connection closed:', event);
       };
 
       return () => {
-        newSocket.close();
+        if (newSocket && newSocket.readyState === WebSocket.OPEN) {
+          newSocket.close();
+        }
       };
     }
   }, [chatMode]);
+
+  const startSpeechRecognition = () => {
+    if (!isListening) {
+      setIsListening(true);
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('Speech recognition is not supported in this browser.');
+        setChatMode('text');
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.start();
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setCurrentMessage(transcript);
+        sendMessageViaWebSocket(transcript);
+        setIsListening(false);
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error, event.message);
+        alert(`Speech recognition error: ${event.error}`);
+        setIsListening(false);
+        setChatMode('text');
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        setChatMode('text');
+      };
+    }
+  };
+
+  // Function to send messages via WebSocket
+  const sendMessageViaWebSocket = (message: string) => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      setMessages((prev) => [...prev, { role: "user", content: message }]);
+      setLoading(true);
+      socket.send(JSON.stringify({ type: 'user_message', content: message }));
+    } else {
+      alert('WebSocket connection is not open.');
+      console.error('WebSocket connection is not open.');
+    }
+  };
+
+
 
   // Speech Recognition Effect
   useEffect(() => {
@@ -159,7 +234,7 @@ export function ChatBox() {
     };
   }, [chatMode]);
 
-  // Function to send messages via WebSocket
+  /*/ Function to send messages via WebSocket
   const sendMessageViaWebSocket = (message: string) => {
     if (socket && socket.readyState === WebSocket.OPEN) {
       setMessages((prev) => [...prev, { role: "user", content: message }]);
@@ -168,7 +243,7 @@ export function ChatBox() {
     } else {
       alert('WebSocket connection is not open.');
     }
-  };
+  };*/
 
   return (
     <div className="flex flex-col max-h-80">

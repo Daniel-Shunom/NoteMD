@@ -57,9 +57,22 @@ const wss = new WebSocketServer({ noServer: true });
 const userSockets = {};
 
 // Utility function to authenticate WebSocket connections
+// In server.js
+
 function authenticateWebSocket(request, callback) {
-  const url = new URL(request.url, `http://${request.headers.host}`);
-  const token = url.searchParams.get('token') || request.headers['sec-websocket-protocol'];
+  const cookies = request.headers.cookie;
+  let token;
+
+  if (cookies) {
+    const parsedCookies = {};
+    cookies.split(';').forEach(cookie => {
+      const [name, ...rest] = cookie.trim().split('=');
+      const value = rest.join('=');
+      parsedCookies[name] = decodeURIComponent(value);
+    });
+
+    token = parsedCookies['token']; // Replace 'token' with the actual name of your auth cookie
+  }
 
   if (!token) {
     logger.warn('WebSocket connection attempt without token.');
@@ -74,6 +87,7 @@ function authenticateWebSocket(request, callback) {
     callback(new Error('Authentication error'), null);
   }
 }
+
 
 // Broadcast message to all chat clients
 function broadcastToChatClients(message) {
