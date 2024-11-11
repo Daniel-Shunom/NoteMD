@@ -8,7 +8,7 @@ import axios from 'axios';
  * This instance will be used for all API calls throughout the application.
  */
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api', // Default to localhost for development
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL, // Default to localhost for development
   withCredentials: true, // Include cookies in requests
 });
 
