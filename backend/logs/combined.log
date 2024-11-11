@@ -1637,3 +1637,35 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-10 19:19:52 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
 2024-11-10 19:19:52 [INFO]: authenticateToken invoked
 2024-11-10 19:19:52 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-10 19:42:01 [INFO]: authenticateToken invoked
+2024-11-10 19:42:01 [WARN]: No token provided in cookies.
+2024-11-10 19:49:49 [INFO]: authenticateToken invoked
+2024-11-10 19:49:49 [WARN]: No token provided in cookies.
+2024-11-10 19:50:13 [INFO]: authenticateToken invoked
+2024-11-10 19:50:13 [WARN]: No token provided in cookies.
+2024-11-10 19:50:29 [INFO]: authenticateToken invoked
+2024-11-10 19:50:29 [WARN]: No token provided in cookies.
+2024-11-10 19:54:32 [INFO]: authenticateToken invoked
+2024-11-10 19:54:32 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-11-10 19:56:15 [INFO]: authenticateToken invoked
+2024-11-10 19:56:15 [WARN]: No token provided in cookies.
+2024-11-10 19:56:35 [INFO]: authenticateToken invoked
+2024-11-10 19:56:35 [WARN]: No token provided in cookies.
+2024-11-10 19:59:17 [INFO]: authenticateToken invoked
+2024-11-10 19:59:17 [WARN]: No token provided in cookies.
+2024-11-10 20:01:15 [INFO]: authenticateToken invoked
+2024-11-10 20:01:15 [WARN]: No token provided in cookies.
+2024-11-10 20:01:52 [INFO]: authenticateToken invoked
+2024-11-10 20:01:52 [WARN]: No token provided in cookies.
+2024-11-10 20:02:28 [INFO]: authenticateToken invoked
+2024-11-10 20:02:28 [WARN]: No token provided in cookies.
+2024-11-10 20:02:50 [INFO]: authenticateToken invoked
+2024-11-10 20:02:50 [WARN]: No token provided in cookies.
+2024-11-10 20:09:51 [INFO]: authenticateToken invoked
+2024-11-10 20:09:51 [WARN]: No token provided in cookies.
+2024-11-10 20:11:37 [INFO]: authenticateToken invoked
+2024-11-10 20:11:37 [WARN]: No token provided in cookies.
+2024-11-10 20:11:49 [INFO]: authenticateToken invoked
+2024-11-10 20:11:49 [WARN]: No token provided in cookies.
+2024-11-10 20:12:29 [INFO]: authenticateToken invoked
+2024-11-10 20:12:29 [WARN]: No token provided in cookies.

@@ -3,12 +3,14 @@
 import dotenv from 'dotenv'
 import axios from 'axios';
 
+dotenv.config()
+
 /**
  * Create an Axios instance with predefined configurations.
  * This instance will be used for all API calls throughout the application.
  */
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL, // Default to localhost for development
+  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`, // Default to localhost for development
   withCredentials: true, // Include cookies in requests
 });
 
