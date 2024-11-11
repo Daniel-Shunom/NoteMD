@@ -1,22 +1,27 @@
-import React, { useState, ChangeEvent, FormEvent, useContext } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent, useContext } from "react";
 import axios from "axios";
 import { SelectedPatientContext } from "../../../context/SelectedPatientContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// Import animation library
 import Lottie from "react-lottie";
 import successAnimationData from "./successAnimation.json";
-
-// Import the CreatableSelect component
 import CreatableSelect from "react-select/creatable";
-
-// Import custom styles for react-select
 import "../../custom_styles/prescribeMedForm.css";
+
+interface Medication {
+  id: string;
+  medicationName: string;
+  dosage: string;
+  instructions?: string;
+  prescribedDate: string;
+}
 
 const PrescribeMedication: React.FC = () => {
   const { selectedPatient } = useContext(SelectedPatientContext);
+  const [activeMedications, setActiveMedications] = useState<Medication[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  // Existing state variables
   const [medicationName, setMedicationName] = useState<string>("");
   const [dosage, setDosage] = useState<string>("");
   const [instructions, setInstructions] = useState<string>("");
@@ -24,16 +29,40 @@ const PrescribeMedication: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [showSuccessAnimation, setShowSuccessAnimation] = useState<boolean>(false);
 
-  // Preset dosages
   const dosageOptions = [
     { value: "250mg", label: "250 mg" },
     { value: "500mg", label: "500 mg" },
     { value: "1g", label: "1 g" },
     { value: "5ml", label: "5 ml" },
     { value: "10ml", label: "10 ml" },
-    // Add more standard doses as needed
   ];
 
+  // Fetch active medications
+  useEffect(() => {
+    const fetchMedications = async () => {
+      if (!selectedPatient) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/${selectedPatient.id}`,
+          { withCredentials: true }
+        );
+        setActiveMedications(response.data);
+      } catch (error) {
+        console.error("Error fetching medications:", error);
+        toast.error("Failed to fetch active medications");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMedications();
+  }, [selectedPatient]);
+
+  // Existing handleSubmit function with medication refresh
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -61,9 +90,16 @@ const PrescribeMedication: React.FC = () => {
           instructions,
         },
         {
-          withCredentials: true, // Include cookies in the request
+          withCredentials: true,
         }
       );
+
+      // Refresh medications list
+      const updatedMeds = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/${selectedPatient.id}`,
+        { withCredentials: true }
+      );
+      setActiveMedications(updatedMeds.data);
 
       setMessage(response.data.message);
       setMedicationName("");
@@ -71,11 +107,10 @@ const PrescribeMedication: React.FC = () => {
       setInstructions("");
       toast.success("Medication prescribed successfully.");
 
-      // Show success animation
       setShowSuccessAnimation(true);
       setTimeout(() => {
         setShowSuccessAnimation(false);
-      }, 3000); // Animation duration
+      }, 3000);
     } catch (error: any) {
       console.error("Error prescribing medication:", error);
       setMessage(error.response?.data?.message || "An error occurred.");
@@ -85,7 +120,6 @@ const PrescribeMedication: React.FC = () => {
     }
   };
 
-  // Animation options
   const defaultOptions = {
     loop: false,
     autoplay: true,
@@ -96,10 +130,49 @@ const PrescribeMedication: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-4">
+    <div className="w-full h-full flex flex-col md:flex-row gap-6 p-4">
+      {/* Active Medications Panel */}
+      <div className="w-full md:w-1/2 bg-white rounded-3xl shadow-lg p-6 overflow-auto">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Active Medications</h2>
+        {loading ? (
+          <div className="flex items-center justify-center h-32">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+          </div>
+        ) : activeMedications.length > 0 ? (
+          <div className="space-y-4">
+            {activeMedications.map((med) => (
+              <div
+                key={med.id}
+                className="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:border-indigo-300 transition-colors"
+              >
+                <h3 className="font-semibold text-lg text-gray-800">{med.medicationName}</h3>
+                <div className="mt-2 space-y-1">
+                  <p className="text-sm text-gray-600">
+                    <span className="font-medium">Dosage:</span> {med.dosage}
+                  </p>
+                  {med.instructions && (
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium">Instructions:</span> {med.instructions}
+                    </p>
+                  )}
+                  <p className="text-xs text-gray-500">
+                    Prescribed: {new Date(med.prescribedDate).toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center text-gray-500 py-8">
+            No active medications for this patient
+          </div>
+        )}
+      </div>
+
+      {/* Prescription Form */}
       <form
         onSubmit={handleSubmit}
-        className="w-full h-full flex flex-col bg-white rounded-3xl shadow-lg p-6 space-y-4 overflow-auto"
+        className="w-full md:w-1/2 bg-white rounded-3xl shadow-lg p-6 space-y-4 overflow-auto"
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center mb-2">
           Prescribe Medication
@@ -193,7 +266,6 @@ const PrescribeMedication: React.FC = () => {
           {isSubmitting ? "Prescribing..." : "Prescribe"}
         </button>
 
-        {/* Success Animation */}
         {showSuccessAnimation && (
           <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center rounded-3xl">
             <Lottie options={defaultOptions} height={200} width={200} />
@@ -201,7 +273,6 @@ const PrescribeMedication: React.FC = () => {
         )}
       </form>
 
-      {/* Toast Notifications */}
       <ToastContainer
         position="top-right"
         autoClose={3000}
