@@ -29,9 +29,7 @@ export default function Home() {
                 <div className="w-full md:w-1/2 bg-zinc-800 rounded-lg p-4 text-white mb-4 md:mb-0">
                   {/* Content goes here */}
                   <AuthProvider>
-                    <PrescriptionProvider>
-                      < MedsBay />
-                    </PrescriptionProvider>
+                    < MedsBay />
                   </AuthProvider>
                 </div>
 
