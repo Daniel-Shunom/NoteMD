@@ -28,9 +28,7 @@ export default function Home() {
                 {/* Left Column */}
                 <div className="w-full md:w-1/2 bg-zinc-800 rounded-lg p-4 text-white mb-4 md:mb-0">
                   {/* Content goes here */}
-                  <AuthProvider>
-                    < MedsBay />
-                  </AuthProvider>
+                  < MedsBay />
                 </div>
 
                 {/* Spacer */}

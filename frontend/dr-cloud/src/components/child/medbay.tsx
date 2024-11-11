@@ -5,8 +5,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PrescriptionData } from '../../../types/types';
-import { AuthContext, AuthContextProps } from '../../../context/Authcontext'; // Import AuthContext and its props
-import { usePrescription } from '../../../hooks/usePrescriptionhook';
+import { AuthContext } from '../../../context/Authcontext'; // Import AuthContext
 
 const MedsBay: React.FC = () => {
   const authContext = useContext(AuthContext);
@@ -17,7 +16,7 @@ const MedsBay: React.FC = () => {
   }
 
   const { auth } = authContext;
-  const { prescriptions, setPrescriptions } = usePrescription();
+  const [prescriptions, setPrescriptions] = useState<PrescriptionData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,7 +53,7 @@ const MedsBay: React.FC = () => {
     } else if (!auth.loading) {
       setLoading(false);
     }
-  }, [setPrescriptions, auth.user, auth.loading]);
+  }, [auth.user, auth.loading]);
 
   // Handle loading and authentication states
   if (auth.loading || loading) {
