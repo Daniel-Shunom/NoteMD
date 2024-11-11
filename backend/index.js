@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
-import WebSocket, { WebSocketServer } from 'ws'; // Added WebSocket import
+import WebSocket, { WebSocketServer } from 'ws';
 import http from 'http';
 import jwt from 'jsonwebtoken';
 
@@ -28,6 +28,9 @@ import { authenticateToken } from './MongoDB/middleware/auth.js';
 
 // Import Logger
 import winston from 'winston';
+
+// Import the audioChatHandler
+import audioChatHandler from './MongoDB/Controllers/audioChatController.js'; // Added this line
 
 // Configure environment variables
 dotenv.config();
@@ -151,6 +154,12 @@ server.on('upgrade', (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, (ws) => {
       ws.path = '/notifications';
       notificationsHandler(ws, request);
+    });
+  } else if (url.startsWith('/audio-chat')) { // Added this block
+    request.url = '/audio-chat'; // Ensure the path is correctly set
+    wss.handleUpgrade(request, socket, head, (ws) => {
+      ws.path = '/audio-chat';
+      audioChatHandler(ws, request);
     });
   } else {
     // Reject other routes

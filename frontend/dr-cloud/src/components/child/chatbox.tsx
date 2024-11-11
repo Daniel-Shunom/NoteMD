@@ -1,10 +1,12 @@
+// ChatBox.js
+
 "use client";
 import React, { useState, useEffect, useRef, FormEvent } from "react";
-import { ChevronUp } from "lucide-react";
+import { ChevronUp, Mic } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
 import { AnimatePresence, motion } from "framer-motion";
 import axios from 'axios';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -17,6 +19,9 @@ export function ChatBox() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("");
+  const [chatMode, setChatMode] = useState<'text' | 'microphone'>('text');
+  const [isListening, setIsListening] = useState(false);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const placeholders = [
@@ -74,45 +79,191 @@ export function ChatBox() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Initialize WebSocket connection when entering microphone mode
+  useEffect(() => {
+    if (chatMode === 'microphone') {
+      const token = localStorage.getItem('jwtToken'); // Adjust based on how you store tokens
+      const newSocket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/audio-chat`, token);
+      setSocket(newSocket);
+
+      newSocket.onopen = () => {
+        console.log('WebSocket connection established.');
+      };
+
+      newSocket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === 'assistant_response') {
+          setMessages((prev) => [...prev, { role: "assistant", content: data.content }]);
+          setLoading(false);
+        }
+      };
+
+      newSocket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
+
+      newSocket.onclose = () => {
+        console.log('WebSocket connection closed.');
+      };
+
+      return () => {
+        newSocket.close();
+      };
+    }
+  }, [chatMode]);
+
+  // Speech Recognition Effect
+  useEffect(() => {
+    let recognition: any;
+
+    if (chatMode === 'microphone' && !isListening) {
+      setIsListening(true);
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('Speech recognition is not supported in this browser.');
+        setChatMode('text');
+        return;
+      }
+
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.start();
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setCurrentMessage(transcript);
+        // Send the transcript via WebSocket
+        sendMessageViaWebSocket(transcript);
+        setIsListening(false);
+      };
+
+      recognition.onerror = (event: any) => {
+        console.error('Speech recognition error', event);
+        setIsListening(false);
+        setChatMode('text');
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        setChatMode('text');
+      };
+    }
+
+    return () => {
+      if (recognition && recognition.abort) {
+        recognition.abort();
+      }
+    };
+  }, [chatMode]);
+
+  // Function to send messages via WebSocket
+  const sendMessageViaWebSocket = (message: string) => {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      setMessages((prev) => [...prev, { role: "user", content: message }]);
+      setLoading(true);
+      socket.send(JSON.stringify({ type: 'user_message', content: message }));
+    } else {
+      alert('WebSocket connection is not open.');
+    }
+  };
+
   return (
     <div className="flex flex-col max-h-80">
-      <div className="flex-grow overflow-y-auto p-4">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`mb-4 ${
-              message.role === "user" ? "text-right" : "text-left"
-            }`}
+      <AnimatePresence mode="wait">
+        {chatMode === 'text' ? (
+          <motion.div
+            key="text-chat"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col flex-grow"
           >
-            <div
-              className={`inline-block p-2 rounded-lg ${
-                message.role === "user"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-black"
-              }`}
-            >
-              {message.content}
+            {/* Text Chat UI */}
+            <div className="flex-grow overflow-y-auto p-4">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`mb-4 ${
+                    message.role === "user" ? "text-right" : "text-left"
+                  }`}
+              >
+                  <div
+                    className={`inline-block p-2 rounded-lg ${
+                      message.role === "user"
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200 text-black"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
             </div>
-          </div>
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
-      <div className="p-4">
-        <PlaceholdersAndVanishInput
-          placeholders={placeholders}
-          onChange={handleChange}
-          onSubmit={onSubmit}
-          _value={currentMessage}
-          disabled={loading}
-        />
-
-        {/* Loading Indicator */}
-        <div className="flex justify-end mt-2 items-center">
-          {loading && (
-            <span className="ml-2 text-sm text-gray-600">Processing...</span>
-          )}
-        </div>
-      </div>
+            <div className="p-4 flex items-center">
+              <PlaceholdersAndVanishInput
+                placeholders={placeholders}
+                onChange={handleChange}
+                onSubmit={onSubmit}
+                _value={currentMessage}
+                disabled={loading}
+              />
+              <button
+                onClick={() => setChatMode('microphone')}
+                className="ml-2 p-2 rounded-full bg-blue-500 text-white"
+              >
+                <Mic size={24} />
+              </button>
+            </div>
+            {/* Loading Indicator */}
+            <div className="flex justify-end mt-2 items-center">
+              {loading && (
+                <span className="ml-2 text-sm text-gray-600">Processing...</span>
+              )}
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="microphone-chat"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col items-center justify-center flex-grow p-4"
+          >
+            {/* Microphone Chat UI */}
+            {/* Audio Wave-like UI */}
+            <div className="mb-4">
+              <div className="audio-wave flex">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+            <div className="mb-4">
+              {loading ? (
+                <span className="text-sm text-gray-600">Processing...</span>
+              ) : (
+                <span className="text-sm text-gray-600">
+                  {isListening ? 'Listening...' : 'No response'}
+                </span>
+              )}
+            </div>
+            <button
+              onClick={() => setChatMode('text')}
+              className="p-2 rounded-full bg-blue-500 text-white"
+            >
+              Back to Chat
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
