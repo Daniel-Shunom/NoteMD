@@ -1,3 +1,4 @@
+"use client"
 // components/ui/button.tsx
 import React from "react"
 

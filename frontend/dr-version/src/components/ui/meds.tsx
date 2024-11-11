@@ -254,7 +254,7 @@ const PrescribeMedication: React.FC = () => {
                     onChange={(newValue: any) => {
                       setDosage(newValue ? newValue.value : "");
                     }}
-                    placeholder="Select or enter a dosage"
+                    placeholder="Select"
                     className="react-select-container"
                     classNamePrefix="react-select"
                   />
@@ -274,7 +274,7 @@ const PrescribeMedication: React.FC = () => {
                       setInstructions(e.target.value)
                     }
                     placeholder="Enter any specific instructions"
-                    rows={4}
+                    rows={1}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200 resize-none"
                   />
                 </div>

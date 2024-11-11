@@ -1,3 +1,4 @@
+"use client"
 // components/ui/dialog.tsx
 import React, { createContext, useContext, useState } from "react"
 

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Plus, Trash, Edit2, Clock } from 'lucide-react';
 import {
@@ -153,7 +154,7 @@ const GlassCalendar = () => {
 
     // Add empty cells for days before the first of the month
     for (let i = 0; i < startingDay; i++) {
-      days.push(<div key={`empty-${i}`} className="h-32 bg-white/5 rounded-lg"></div>);
+      days.push(<div key={`empty-${i}`} className="h-full w-full bg-white/5 rounded-lg"></div>);
     }
 
     // Add cells for each day of the month
@@ -168,13 +169,13 @@ const GlassCalendar = () => {
           key={day}
           onClick={() => setSelectedDate(date)}
           className={`
-            h-32 p-2 rounded-lg backdrop-blur-sm transition-all cursor-pointer overflow-hidden
+            h-full w-full p-1 sm:p-2 rounded-lg backdrop-blur-sm transition-all cursor-pointer overflow-hidden
             ${isToday ? 'bg-white/20' : 'bg-white/10 hover:bg-white/15'}
             ${selectedDate?.toDateString() === date.toDateString() ? 'ring-2 ring-blue-400' : ''}
           `}
         >
           <div className="flex justify-between items-start">
-            <span className={`text-sm ${isToday ? 'font-bold' : ''}`}>{day}</span>
+            <span className={`text-xs sm:text-sm ${isToday ? 'font-bold' : ''}`}>{day}</span>
             {dayMeetings.length > 0 && (
               <div className="w-2 h-2 rounded-full bg-blue-400"></div>
             )}
@@ -228,10 +229,17 @@ const GlassCalendar = () => {
       );
     }
 
-    return (
-      <div className="space-y-6">
+    return { days, monthNames, dayNames };
+  };
+
+  const { days, monthNames, dayNames } = renderCalendarDays();
+
+  return (
+    <div className="w-full aspect-[1.2] p-2 sm:p-4 rounded-xl bg-gradient-to-br from-purple-500/30 to-blue-500/30 backdrop-blur-xl border border-white/10 shadow-xl flex flex-col overflow-hidden">
+      {/* Calendar Header */}
+      <div className="flex-none">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-light">
+          <h2 className="text-xl sm:text-2xl font-light">
             {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
           </h2>
           <div className="flex gap-2">
@@ -243,56 +251,59 @@ const GlassCalendar = () => {
             </Button>
           </div>
         </div>
-        
-        <div className="grid grid-cols-7 gap-4">
+      </div>
+      {/* Day Names */}
+      <div className="flex-none mt-2">
+        <div className="grid grid-cols-7 gap-1">
           {dayNames.map(day => (
-            <div key={day} className="text-sm text-center text-gray-400">
+            <div key={day} className="text-xs sm:text-sm text-center text-gray-400">
               {day}
             </div>
           ))}
+        </div>
+      </div>
+      {/* Calendar Grid */}
+      <div className="flex-grow mt-1 overflow-hidden">
+        <div className="grid grid-cols-7 grid-rows-6 gap-1 h-full">
           {days}
         </div>
       </div>
-    );
-  };
-
-  return (
-    <div className="max-w-4xl mx-auto p-8 rounded-xl bg-gradient-to-br from-purple-500/30 to-blue-500/30 backdrop-blur-xl border border-white/10 shadow-xl">
-      {renderCalendarDays()}
-      
+      {/* Add Meeting Button */}
       {selectedDate && (
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="mt-4 w-full bg-white/10 backdrop-blur-sm hover:bg-white/20">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Meeting
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="bg-gradient-to-br from-purple-500/30 to-blue-500/30 backdrop-blur-xl border border-white/10">
-            <DialogHeader>
-              <DialogTitle>
-                {editingMeeting ? 'Edit Meeting' : 'Add Meeting'} for {selectedDate.toDateString()}
-              </DialogTitle>
-            </DialogHeader>
-            <MeetingForm
-              onSubmit={(title, time) => {
-                if (editingMeeting) {
-                  updateMeeting(formatDate(selectedDate), {
-                    ...editingMeeting,
-                    title,
-                    time
-                  });
-                } else {
-                  addMeeting(formatDate(selectedDate), title, time);
-                }
-              }}
-              initialData={editingMeeting ? {
-                title: editingMeeting.title,
-                time: editingMeeting.time
-              } : undefined}
-            />
-          </DialogContent>
-        </Dialog>
+        <div className="flex-none mt-2">
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="w-full bg-white/10 backdrop-blur-sm hover:bg-white/20">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Meeting
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-gradient-to-br from-purple-500/30 to-blue-500/30 backdrop-blur-xl border border-white/10">
+              <DialogHeader>
+                <DialogTitle>
+                  {editingMeeting ? 'Edit Meeting' : 'Add Meeting'} for {selectedDate.toDateString()}
+                </DialogTitle>
+              </DialogHeader>
+              <MeetingForm
+                onSubmit={(title, time) => {
+                  if (editingMeeting) {
+                    updateMeeting(formatDate(selectedDate), {
+                      ...editingMeeting,
+                      title,
+                      time
+                    });
+                  } else {
+                    addMeeting(formatDate(selectedDate), title, time);
+                  }
+                }}
+                initialData={editingMeeting ? {
+                  title: editingMeeting.title,
+                  time: editingMeeting.time
+                } : undefined}
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
       )}
     </div>
   );

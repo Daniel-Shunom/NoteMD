@@ -6,6 +6,7 @@ import _Calendar from '../ui/calendar';
 import PrescribeMedication from '../ui/meds';
 import DocumentList from '../ui/documentList';
 import DoctorNotesInbox from '../ui/NoteInbox';
+import GlassCalendar from '../ui/Calendar/Calendar';
 
 const ExampleUsage: React.FC = () => {
   const tabs: Tab[] = [
@@ -42,7 +43,7 @@ const ExampleUsage: React.FC = () => {
         <div className="flex flex-col h-full">
           <div className="flex-1">
             <div className="w-full h-full flex items-center justify-center text-gray-500">
-              <_Calendar />
+              <GlassCalendar />
             </div>
           </div>
         </div>
