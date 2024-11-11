@@ -53,7 +53,7 @@ const PrescribeMedication: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "/api/medications",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications`,
         {
           patientId: selectedPatient.id,
           medicationName,
