@@ -27,7 +27,7 @@ const MedsBay: React.FC = () => {
         const userId = auth.user!.id; // Get userId from auth context
 
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/${userId}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/:${userId}`,
           {
             withCredentials: true, // Include cookies in the request
           }
