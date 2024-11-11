@@ -217,7 +217,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
 
     try {
       setIsUploading(true); // Start loading
-      const response = await axios.post('/api/upload-documents', formData, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/upload-documents`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
