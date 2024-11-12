@@ -2,7 +2,7 @@
 import React, { useEffect, useId, useRef, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/outside-click";
-import { AuthContext } from "../../../context/Authcontext"; // Adjust the path as necessary
+import { AuthContext } from "../../../context/Authcontext"; // Corrected import
 
 export function MedicationsList() {
   const [medications, setMedications] = useState([]);
@@ -14,7 +14,10 @@ export function MedicationsList() {
   const [isMobile, setIsMobile] = useState(false);
 
   const { auth } = useContext(AuthContext);
-  const { user } = auth;
+  const { user } = auth || {};
+
+  console.log('Auth context:', auth);
+  console.log('User:', user);
 
   const truncateText = (text, maxLength = 20) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
@@ -30,22 +33,33 @@ export function MedicationsList() {
   }, []);
 
   useEffect(() => {
-    if (user && user.id) {
-      fetchMedications(user.id);
+    if (!auth.loading) {
+      if (user && user.id) {
+        console.log('User is available, fetching medications');
+        fetchMedications(user.id);
+      } else {
+        console.log('No user found after loading');
+        setLoading(false); // Stop loading if no user is found
+      }
+    } else {
+      console.log('Auth is still loading');
     }
-  }, [user]);
+  }, [auth.loading, user]);
 
   const fetchMedications = async (userId) => {
     setLoading(true);
     setError(null);
+    console.log('Fetching medications for user:', userId);
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/${userId}`, {
         method: 'GET',
         credentials: 'include',
       });
       const data = await res.json();
+      console.log('Received data:', data);
       if (res.ok && data.status === 'success' && data.data) {
         const medicationsData = data.data.medications;
+        console.log('Medications data:', medicationsData);
         setMedications(medicationsData);
       } else {
         console.error('Failed to fetch medications:', data.message);
@@ -124,7 +138,7 @@ export function MedicationsList() {
 
   return (
     <div className="h-full w-full bg-neutral-900/30 rounded-xl p-4">
-      {loading ? (
+      {auth.loading || loading ? (
         <p className="text-neutral-200">Loading medications...</p>
       ) : error ? (
         <p className="text-red-500">Error: {error}</p>
