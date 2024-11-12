@@ -2,7 +2,7 @@
 import React, { useEffect, useId, useRef, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/outside-click";
-import { AuthContext } from "../../../context/Authcontext"; // Corrected import
+import { AuthContext } from "../../../context/Authcontext"; // Ensure correct casing
 
 export function MedicationsList() {
   const [medications, setMedications] = useState([]);
@@ -18,6 +18,7 @@ export function MedicationsList() {
 
   console.log('Auth context:', auth);
   console.log('User:', user);
+  console.log('User ID:', user?.id);
 
   const truncateText = (text, maxLength = 20) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
@@ -57,8 +58,8 @@ export function MedicationsList() {
       });
       const data = await res.json();
       console.log('Received data:', data);
-      if (res.ok && data.status === 'success' && data.data) {
-        const medicationsData = data.data.medications;
+      if (res.ok && data.status === 'success' && Array.isArray(data.data)) {
+        const medicationsData = data.data; // Now data.data is the medications array
         console.log('Medications data:', medicationsData);
         setMedications(medicationsData);
       } else {

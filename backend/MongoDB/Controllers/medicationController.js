@@ -86,12 +86,18 @@ export const assignMedications = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
+
 export const getMedications = async (req, res) => {
   const { patientId } = req.params;
 
   try {
-    // If requester is patient, ensure they are requesting their own data
+    // Log the authenticated user and patientId
+    logger.info(`Authenticated User: ${JSON.stringify(req.user)}`);
+    logger.info(`Fetching medications for patientId: ${patientId}`);
+
+    // Authorization Check
     if (req.user.role === 'patient' && req.user.userId !== patientId) {
+      logger.warn(`Forbidden access attempt by user ${req.user.userId} to patient ${patientId}`);
       return res.status(403).json({
         status: 'error',
         message: 'Forbidden: Access denied.',
@@ -103,6 +109,13 @@ export const getMedications = async (req, res) => {
       .populate('doctor', 'name lname email')
       .populate('patient', 'name lname email');
 
+    // Log the fetched Medication document
+    if (medicationDoc) {
+      logger.info(`Medication Document Found: ${JSON.stringify(medicationDoc)}`);
+    } else {
+      logger.info(`No Medication Document Found for patientId: ${patientId}`);
+    }
+
     if (!medicationDoc) {
       return res.status(404).json({
         status: 'error',
@@ -110,9 +123,10 @@ export const getMedications = async (req, res) => {
       });
     }
 
+    // **Return medications array directly**
     res.status(200).json({
       status: 'success',
-      data: medicationDoc,
+      data: medicationDoc.medications,
     });
   } catch (error) {
     logger.error(`Error fetching medications: ${error.message}`);
