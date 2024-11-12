@@ -8,45 +8,6 @@ import { MedicationsList } from "@/components/child/medbay";
 import GlassCalendar from "@/components/ui/Calendar/Calendar";
 
 export default function Home() {
-  const medications = [
-    {
-      name: "Amoxicillin",
-      dosage: "500mg",
-      instructions: "Take one capsule every 8 hours for 7 days.",
-      dateAssigned: "2023-10-01",
-    },
-    {
-      name: "Ibuprofew",
-      dosage: "200mg",
-      instructions: "Take two tablets every 6 hours as needed for pain.",
-      dateAssigned: "2023-10-05",
-    },
-    {
-      name: "Ibuprofer",
-      dosage: "200mg",
-      instructions: "Take two tablets every 6 hours as needed for pain.",
-      dateAssigned: "2023-10-05",
-    },
-    {
-      name: "Ibuprofen",
-      dosage: "200mg",
-      instructions: "Take two tablets every 6 hours as needed for pain.",
-      dateAssigned: "2023-10-05",
-    },
-    {
-      name: "Ibuprofej",
-      dosage: "200mg",
-      instructions: "Take two tablets every 6 hours as needed for pain.",
-      dateAssigned: "2023-10-05",
-    },
-    {
-      name: "Ibuprofeg",
-      dosage: "200mg",
-      instructions: "Take two tablets every 6 hours as needed for pain.",
-      dateAssigned: "2023-10-05",
-    },
-    // Add more medications as needed
-  ];
 
   return (
     <ProtectedRoute>
@@ -77,7 +38,7 @@ export default function Home() {
               <div className="flex flex-col md:flex-row md:space-x-4">
                 {/* Left Column */}
                 <div className="w-full md:w-1/2 bg-zinc-800 rounded-lg p-4 text-white mb-4 md:mb-0">
-                  <MedicationsList medications={medications} />
+                  <MedicationsList />
                 </div>
 
                 {/* Right Column */}
