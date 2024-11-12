@@ -17,7 +17,7 @@ import ActionIconsGrid from "./ActionsGrid";
 
 export function DrBento() {
   return (
-    <div className="flex flex-col space-y-6 w-full h-full p-4">
+    <div className="flex flex-col space-y-6 w-full h-full p-2">
       <BentoGrid>
         {items.map((item, i) => (
           <BentoGridItem
