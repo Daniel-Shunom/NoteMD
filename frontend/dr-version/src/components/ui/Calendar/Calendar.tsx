@@ -235,19 +235,19 @@ const GlassCalendar = () => {
   const { days, monthNames, dayNames } = renderCalendarDays();
 
   return (
-    <div className="w-full aspect-[1.2] p-2 sm:p-4 rounded-xl bg-gradient-to-br from-purple-500/30 to-blue-500/30 backdrop-blur-xl border border-white/10 shadow-xl flex flex-col overflow-hidden">
+    <div className="w-full h-[28rem] p-2 sm:p-4 rounded-xl bg-gray-800 border border-white/10 shadow-xl flex flex-col overflow-hidden">
       {/* Calendar Header */}
       <div className="flex-none">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl sm:text-2xl font-light">
+          <h2 className="text-xl sm:text-2xl font-light text-white">
             {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
           </h2>
           <div className="flex gap-2">
             <Button variant="ghost" size="icon" onClick={prevMonth}>
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-4 w-4 text-white" />
             </Button>
             <Button variant="ghost" size="icon" onClick={nextMonth}>
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4 text-white" />
             </Button>
           </div>
         </div>
@@ -273,12 +273,12 @@ const GlassCalendar = () => {
         <div className="flex-none mt-2">
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="w-full bg-white/10 backdrop-blur-sm hover:bg-white/20">
+              <Button className="w-full bg-gray-700 hover:bg-gray-600">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Meeting
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-gradient-to-br from-purple-500/30 to-blue-500/30 backdrop-blur-xl border border-white/10">
+            <DialogContent className="bg-gray-800 border border-white/10">
               <DialogHeader>
                 <DialogTitle>
                   {editingMeeting ? 'Edit Meeting' : 'Add Meeting'} for {selectedDate.toDateString()}

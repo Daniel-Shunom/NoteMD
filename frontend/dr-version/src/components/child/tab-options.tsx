@@ -14,10 +14,10 @@ const ExampleUsage: React.FC = () => {
       id: 'notes',
       label: 'Notes',
       content: (
-        <div className="flex flex-col h-30">
+        <div className="flex flex-col h-full">
           <div className="flex-1">
             <div className="w-full h-full flex items-center justify-center text-gray-500">
-              <DoctorNotesInbox/>
+              <DoctorNotesInbox />
             </div>
           </div>
         </div>
@@ -50,16 +50,18 @@ const ExampleUsage: React.FC = () => {
       ),
     },
     {
-        id: 'notifications',
-        label: 'files',
-        content: (
-          <div className="flex-1 p-4 sm:p-6 bg-white rounded-lg shadow-sm border border-gray-100 flex items-end">
-            <div className="w-full flex items-center justify-center text-gray-500">
-              <DocumentList/>
+      id: 'notifications',
+      label: 'Files',
+      content: (
+        <div className="flex flex-col h-full">
+          <div className="flex-1">
+            <div className="w-full h-full flex items-center justify-center text-gray-500">
+              <DocumentList />
             </div>
           </div>
-        ),
-      },
+        </div>
+      ),
+    },
   ];
 
   // Example of controlled Tabs
@@ -73,11 +75,11 @@ const ExampleUsage: React.FC = () => {
         activeTabId={activeTab}
         onTabChange={setActiveTab}
         className="mb-4 sm:mb-6 flex-none"
-        tabListClassName="bg-blue-800 p-2 sm:p-3 rounded-full"
-        tabClassName="text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2"
+        tabListClassName="bg-blue-800 p-2 sm:p-3 rounded-full flex flex-wrap justify-center"
+        tabClassName="text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2 m-1"
         activeTabClassName="text-red-600"
         tabIndicatorClassName="bg-red-600"
-        tabPanelClassName="flex items-end" // Ensures content starts from the bottom
+        tabPanelClassName="flex items-center justify-center" // Centers content
         animation={{
           initial: { opacity: 0, y: 10 },
           animate: { opacity: 1, y: 0 },

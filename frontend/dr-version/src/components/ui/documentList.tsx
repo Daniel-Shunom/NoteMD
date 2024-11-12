@@ -47,28 +47,28 @@ const DocumentList: React.FC = () => {
   };
 
   if (!selectedPatient) {
-    return <div>Please select a patient to view documents.</div>;
+    return <div className="text-white h-[28rem]">Please select a patient to view documents.</div>;
   }
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[28rem] overflow-y-auto text-white">
       <h2 className="text-xl font-semibold mb-4">Documents for {selectedPatient.name}</h2>
       {loading ? (
-        <div>Loading documents...</div>
+        <div className="text-white">Loading documents...</div>
       ) : error ? (
         <div className="text-red-500">{error}</div>
       ) : documents.length === 0 ? (
-        <div>No documents found.</div>
+        <div className="text-white">No documents found.</div>
       ) : (
         <ul className="space-y-2">
           {documents.map((doc) => (
-            <li key={doc._id} className="flex items-center justify-between bg-gray-100 p-2 rounded">
+            <li key={doc._id} className="flex items-center justify-between bg-gray-700 p-2 rounded">
               <span>{doc.fileName}</span>
               <a
                 href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/documents/${doc._id}/download`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
+                className="text-blue-300 hover:underline"
               >
                 View
               </a>

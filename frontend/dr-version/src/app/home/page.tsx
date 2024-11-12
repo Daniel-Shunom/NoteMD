@@ -9,16 +9,15 @@ export default function Home() {
   return (
     <ProtectedRoute>
       <SelectedPatientProvider>
-        <div className="flex flex-row h-full bg-green-200 rounded-lg">
-          <div className="h-full w-full">
-            <DrBento/>
+        <div className="flex flex-col lg:flex-row h-full bg-neutral-800 rounded-2xl overflow-y-auto lg:overflow-hidden lg:justify-center lg:gap-x-8 p-4 lg:p-0">
+          <div className="w-full lg:w-5/12 p-2">
+            <DrBento />
           </div>
-          <div className=" h-full w-full p-1">
-            <ActivityContainer/>
+          <div className="w-full lg:w-5/12 p-2">
+            <ActivityContainer />
           </div>
         </div>
       </SelectedPatientProvider>
     </ProtectedRoute>
-    
   );
 }
