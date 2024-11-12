@@ -79,17 +79,16 @@ export const chatbotInteraction = async (req, res) => {
 
       // Prepare the prompt
       const prompt = `
-You are a helpful medical assistant. Based on the following documents, answer the patient's question concisely and accurately.
+        You are a helpful medical assistant. Based on the following documents, answer the patient's question concisely and accurately.
 
-Documents:
-${aggregatedContent}
+        Documents:
+        ${aggregatedContent}
 
-Patient's Question:
-${message}
+        Patient's Question:
+        ${message}
 
-Answer:
-`;
-
+        Answer:
+        `;
       // Generate response using OpenAI GPT
       const gptResponse = await openai.chat.completions.create({
         model: 'gpt-4', // Or 'gpt-3.5-turbo' based on your needs

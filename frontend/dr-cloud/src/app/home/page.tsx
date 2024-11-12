@@ -8,7 +8,7 @@ import MedsBay from "@/components/child/medbay";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { AuthProvider } from "../../../context/Authcontext";
 //import { SocketProvider } from "../../../context/Socketcontext";
-import { PrescriptionProvider } from "../../../context/Prescriptioncontext";
+//import { PrescriptionProvider } from "../../../context/Prescriptioncontext";
 
 export default function Home() {
   // const [data, setData] = useState(null); // Ensure correct initialization
