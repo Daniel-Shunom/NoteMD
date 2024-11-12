@@ -126,7 +126,7 @@ const PrescribeMedication: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-[28rem] overflow-hidden bg-gray-200 p-6 rounded-xl shadow-lg">
+    <div className="w-full h-[28rem] overflow-auto bg-gray-200 p-6 rounded-xl shadow-lg">
       {/* Header Section */}
       <div className="max-w-7xl mx-auto mb-6">
         <h1 className="text-3xl font-bold text-gray-900">Medication Management</h1>
