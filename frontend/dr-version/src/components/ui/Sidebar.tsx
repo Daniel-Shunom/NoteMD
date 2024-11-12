@@ -142,53 +142,75 @@ export const MobileSidebar = ({
       {/* Fixed Top Bar */}
       <div
         className={cn(
-          "h-20 px-4 flex lg:hidden items-center bg-neutral-800 dark:bg-neutral-950 w-full fixed top-0 left-0 z-50",
+          "h-12 px-4 flex lg:hidden items-center bg-neutral-800 dark:bg-neutral-950 w-full fixed top-0 left-0 z-50",
           className
         )}
         {...props}
       >
-        <div className="flex justify-end w-full">
-          <IconMenu2
-            className="text-neutral-200 dark:text-neutral-200"
-            size={32} // Increased size for better visibility
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle Sidebar"
-          />
+        <div className="flex justify-start w-full">
+          <motion.div 
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.1 }}
+          >
+            <IconMenu2
+              className="text-neutral-200 dark:text-neutral-200 cursor-pointer transition-transform duration-200 ease-in-out"
+              size={24}
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle Sidebar"
+            />
+          </motion.div>
         </div>
         {/* Sidebar Animation */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {open && (
             <motion.div
               initial={{ x: "-100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "-100%", opacity: 0 }}
               transition={{
-                duration: 0.3,
-                ease: "easeInOut",
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+                duration: 0.3
               }}
               className={cn(
                 "fixed h-full w-[120px] left-0 top-0 bg-neutral-800 dark:bg-neutral-950 flex flex-col z-[100] shadow-lg"
               )}
             >
               {/* Close Icon */}
-              <div className="flex items-center justify-center p-4 border-b dark:border-neutral-800">
-                <IconX
-                  size={32} // Increased size for consistency
-                  onClick={() => setOpen(false)}
-                  className="text-neutral-200 dark:text-neutral-200 cursor-pointer"
-                  aria-label="Close Sidebar"
-                />
-              </div>
+              <motion.div 
+                className="flex items-center justify-center p-4 border-b dark:border-neutral-800"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <motion.div
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.1 }}
+                >
+                  <IconX
+                    size={32}
+                    onClick={() => setOpen(false)}
+                    className="text-neutral-200 dark:text-neutral-200 cursor-pointer transition-transform duration-200 ease-in-out"
+                    aria-label="Close Sidebar"
+                  />
+                </motion.div>
+              </motion.div>
               {/* Sidebar Links */}
-              <div className="flex-1 overflow-y-auto py-3">
+              <motion.div 
+                className="flex-1 overflow-y-auto py-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
                 {children}
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
       {/* Spacer to prevent content from being hidden behind the fixed top bar */}
-      <div className="h-20 lg:hidden" />
+      <div className="h-12 lg:hidden" />
     </>
   );
 };
@@ -210,7 +232,7 @@ export const SidebarLink = ({
     ? "relative text-blue-400 dark:text-blue-300 after:absolute after:inset-0 after:bg-blue-500/10 after:rounded-lg after:-z-10 font-medium"
     : "text-neutral-200 dark:text-neutral-200 hover:text-blue-400 dark:hover:text-blue-300 hover:bg-blue-500/10 dark:hover:bg-blue-900 rounded-lg";
 
-  const iconSize = 32; // Increased icon size for consistency
+  const iconSize = 32;
 
   if (link.onClick) {
     return (
