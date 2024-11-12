@@ -91,7 +91,7 @@ export const getMedications = async (req, res) => {
 
   try {
     // If requester is patient, ensure they are requesting their own data
-    if (req.user.role === 'patient' && req.user.id !== patientId) {
+    if (req.user.role === 'patient' && req.user.userId !== patientId) {
       return res.status(403).json({
         status: 'error',
         message: 'Forbidden: Access denied.',
