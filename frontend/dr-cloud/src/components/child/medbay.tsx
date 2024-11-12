@@ -51,7 +51,7 @@ export function MedicationsList() {
     setError(null);
     console.log('Fetching medications for user:', userId);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/:${userId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/${userId}`, {
         method: 'GET',
         credentials: 'include',
       });
