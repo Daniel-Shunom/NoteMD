@@ -1,5 +1,5 @@
 "use client"
-import MedsBay from "@/components/child/medbay"
+//import MedsBay from "@/components/child/medbay"
 import ProtectedRoute from "@/components/ProtectedRoute"
 import _Calendar from "@/components/ui/_calendar"
 import AnimatedCalendar from "@/components/ui/AnimCalendar"
@@ -11,12 +11,12 @@ export default function ProfilePage () {
         <ProtectedRoute>
             <div>
                < AnimatedCalendar />
-               <PrescriptionProvider>
-                < MedsBay />
-               </PrescriptionProvider>
-               
             </div>
         </ProtectedRoute>
         
     )
 }
+
+/*<PrescriptionProvider>
+                {/*< MedsBay />*}
+               </PrescriptionProvider>*/
