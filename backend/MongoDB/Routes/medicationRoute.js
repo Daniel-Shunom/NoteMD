@@ -14,9 +14,9 @@ router.post(
   assignMedications
 );
 
-// GET /api/medications - Get medications for the authenticated user (Doctor or Patient)
+// GET /api/medications/:patientId? - Get medications for the authenticated user or specified patient
 router.get(
-  '/api/medications',
+  '/api/medications/:patientId?',
   authenticateToken,
   authorizeRoles('doctor', 'patient'),
   getMedications

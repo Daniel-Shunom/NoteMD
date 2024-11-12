@@ -91,13 +91,25 @@ export const assignMedications = async (req, res) => {
 
 export const getMedications = async (req, res) => {
   try {
-    const patientId = req.user.userId; // Get userId from authenticated session
+    let patientId = req.user.userId; // Default to authenticated user
+
+    if (req.user.role === 'doctor') {
+      // For doctors, get patientId from params
+      patientId = req.params.patientId || req.query.patientId || req.body.patientId;
+
+      if (!patientId) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Patient ID is required for doctors.',
+        });
+      }
+    }
 
     // Log the authenticated user and patientId
     logger.info(`Authenticated User: ${JSON.stringify(req.user)}`);
     logger.info(`Fetching medications for patientId: ${patientId}`);
 
-    // Authorization Check
+    // Authorization Check for patients
     if (req.user.role === 'patient' && req.user.userId !== patientId) {
       logger.warn(`Forbidden access attempt by user ${req.user.userId} to patient ${patientId}`);
       return res.status(403).json({

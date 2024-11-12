@@ -165,16 +165,14 @@ export function MedicationsList() {
                 <motion.div
                   ref={ref}
                   className={`
-                    ${isMobile ? 'fixed' : 'absolute'} left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                    w-[calc(100%-2rem)] md:w-[500px] max-h-[90vh] md:max-h-[80vh]
-                    z-[60] p-4
+                    ${isMobile ? 'fixed inset-0 z-[60] flex items-center justify-center p-4' : 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] md:w-[500px] max-h-[90vh] md:max-h-[80vh] z-[60] p-4'}
                   `}
                   variants={modalVariants}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
                 >
-                  <div className="relative w-full bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl">
+                  <div className="relative w-full max-w-md bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl">
                     <motion.button
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}

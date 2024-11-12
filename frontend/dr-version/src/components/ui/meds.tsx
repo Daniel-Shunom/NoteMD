@@ -51,7 +51,8 @@ const PrescribeMedication: React.FC = () => {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/${selectedPatient.id}`,
           { withCredentials: true }
         );
-        setActiveMedications(response.data.data.medications);
+
+        setActiveMedications(response.data.data); // Adjusted here
       } catch (error) {
         console.error("Error fetching medications:", error);
         toast.error("Failed to fetch active medications");
