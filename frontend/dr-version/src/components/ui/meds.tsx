@@ -1,3 +1,7 @@
+// components/PrescribeMedication.tsx
+
+"use client";
+
 import React, { useState, useEffect, ChangeEvent, FormEvent, useContext } from "react";
 import axios from "axios";
 import { SelectedPatientContext } from "../../../context/SelectedPatientContext";
@@ -137,10 +141,29 @@ const PrescribeMedication: React.FC = () => {
         )}
       </div>
 
+      {/* Scrollable Dropdown for Active Medications on Mobile */}
+      <div className="block lg:hidden mb-4">
+        {/* Updated Label: Visible on Mobile with Black Text */}
+        <label htmlFor="activeMedications" className="block text-black mb-2">
+          Active Medications
+        </label>
+        <select
+          id="activeMedications"
+          className="w-full bg-white border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent overflow-y-auto"
+          size={3} // Adjust the number to show more options if needed
+        >
+          {activeMedications.map((med) => (
+            <option key={med._id} value={med._id}>
+              {med.name} - {med.dosage}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {/* Flex Container with Full Height */}
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 h-full">
-        {/* Active Medications Panel */}
-        <div className="w-full lg:w-3/5 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col">
+        {/* Active Medications Panel (Visible Only on Desktop) */}
+        <div className="hidden lg:block w-full lg:w-3/5 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col">
           <div className="p-6 border-b border-gray-100">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">Active Medications</h2>
@@ -191,9 +214,7 @@ const PrescribeMedication: React.FC = () => {
             ) : (
               <div className="text-center py-12">
                 <div className="text-gray-400 text-lg mb-2">No active medications</div>
-                <p className="text-gray-500 text-sm">
-                  Prescriptions will appear here once added
-                </p>
+                <p className="text-gray-500 text-sm">Prescriptions will appear here once added</p>
               </div>
             )}
           </div>
@@ -223,19 +244,14 @@ const PrescribeMedication: React.FC = () => {
                 )}
 
                 <div>
-                  <label
-                    htmlFor="medicationName"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
+                  <label htmlFor="medicationName" className="block text-sm font-medium text-gray-700 mb-2">
                     Medication Name
                   </label>
                   <input
                     type="text"
                     id="medicationName"
                     value={medicationName}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setMedicationName(e.target.value)
-                    }
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setMedicationName(e.target.value)}
                     placeholder="Enter medication name"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
                     required
@@ -261,18 +277,13 @@ const PrescribeMedication: React.FC = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="instructions"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
+                  <label htmlFor="instructions" className="block text-sm font-medium text-gray-700 mb-2">
                     Instructions (Optional)
                   </label>
                   <textarea
                     id="instructions"
                     value={instructions}
-                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                      setInstructions(e.target.value)
-                    }
+                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setInstructions(e.target.value)}
                     placeholder="Enter any specific instructions"
                     rows={1}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200 resize-none"

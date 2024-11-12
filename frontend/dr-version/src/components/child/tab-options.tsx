@@ -1,4 +1,6 @@
-"use client"
+// components/ExampleUsage.tsx
+
+"use client";
 // ExampleUsage.tsx
 import React, { useState } from 'react';
 import Tabs, { Tab } from '../ui/tabs';
@@ -75,8 +77,8 @@ const ExampleUsage: React.FC = () => {
         activeTabId={activeTab}
         onTabChange={setActiveTab}
         className="mb-4 sm:mb-6 flex-none"
-        tabListClassName="bg-blue-800 p-2 sm:p-3 rounded-full flex flex-wrap justify-center"
-        tabClassName="text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2 m-1"
+        tabListClassName="bg-blue-800 p-2 sm:p-3 rounded-full flex flex-nowrap justify-center overflow-x-auto" // Modified here
+        tabClassName="text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2 m-1 whitespace-nowrap" // Optional: Added whitespace-nowrap
         activeTabClassName="text-red-600"
         tabIndicatorClassName="bg-red-600"
         tabPanelClassName="flex items-center justify-center" // Centers content
