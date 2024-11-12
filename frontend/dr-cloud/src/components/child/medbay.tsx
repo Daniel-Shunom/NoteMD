@@ -141,7 +141,7 @@ export function MedicationsList() {
   };
 
   return (
-    <div className="h-full w-full bg-neutral-900/30 rounded-xl p-4">
+    <div className="relative h-full w-full bg-neutral-900/30 rounded-xl p-4">
       {auth.loading || loading ? (
         <p className="text-neutral-200">Loading medications...</p>
       ) : error ? (
@@ -159,13 +159,13 @@ export function MedicationsList() {
                   animate="visible"
                   exit="hidden"
                   transition={{ duration: 0.2 }}
-                  className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+                  className={`inset-0 bg-black/60 z-50 ${isMobile ? 'fixed' : 'absolute'}`}
                   onClick={() => setActive(null)}
                 />
                 <motion.div
                   ref={ref}
                   className={`
-                    fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                    ${isMobile ? 'fixed' : 'absolute'} left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
                     w-[calc(100%-2rem)] md:w-[500px] max-h-[90vh] md:max-h-[80vh]
                     z-[60] p-4
                   `}
