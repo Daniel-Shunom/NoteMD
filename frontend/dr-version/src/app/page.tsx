@@ -1,28 +1,28 @@
 // DrLogin.tsx
 "use client";
 
-import { AuthContainer } from "@/components/ui/authcontainer";
 import React from 'react';
+import { AuthContainer } from "@/components/ui/authcontainer";
 
 export default function DrLogin() {
   return (
     <div className="min-h-screen w-screen flex flex-col lg:flex-row">
-      {/* Left Section - Fixed */}
-      <div className="bg-red-800 flex items-center justify-center w-full lg:w-1/2 p-4 lg:p-8 lg:h-screen">
-        <div className="text-center lg:text-left">
-          <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-bold truncate">
+      {/* Left Section */}
+      <div className="bg-white flex items-center justify-center w-full lg:w-1/2 p-6 lg:p-12 lg:h-screen">
+        <div className="text-center lg:text-left max-w-lg">
+          <h1 className="text-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             Hello Doctor
           </h1>
           {/* Hidden on mobile, visible on desktop */}
-          <p className="text-red-100 mt-2 hidden lg:block text-lg">
-            Welcome to your professional dashboard
+          <p className="text-black text-lg sm:text-xl lg:text-2xl">
+            Welcome to NoteMD
           </p>
         </div>
       </div>
 
-      {/* Right Section - Scrollable */}
+      {/* Right Section */}
       <div className="bg-blue-800 w-full lg:w-1/2 lg:h-screen overflow-y-auto">
-        <div className="flex items-center justify-center min-h-full p-4 lg:p-8">
+        <div className="flex items-center justify-center min-h-full p-6 lg:p-12">
           <div className="w-full max-w-md">
             <AuthContainer initialForm="signup" userType="doctor" />
           </div>

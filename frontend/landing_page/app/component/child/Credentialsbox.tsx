@@ -14,8 +14,8 @@ const CredentialsBox: React.FC = () => {
   const credentials: Credential[] = [
     {
       role: 'Doctor',
-      email: 'dsj11@albion.edu',
-      password: 'Daniel.1502@',
+      email: 'doc@doc.com',
+      password: 'docdoc',
     },
     {
       role: 'Patient',

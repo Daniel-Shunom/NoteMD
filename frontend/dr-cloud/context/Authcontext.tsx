@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         credentials: 'include',
       });
       setAuth({ user: null, loading: false });
-      window.location.href = `/`; // Redirect to login page
+      window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect to login page
     } catch (error) {
       console.error('Error during logout:', error);
     }
