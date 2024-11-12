@@ -2,7 +2,7 @@
 import React, { useEffect, useId, useRef, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/outside-click";
-import { AuthContext } from "../../../context/Authcontext"; // Ensure correct casing
+import { AuthContext } from "../../../context/Authcontext";
 
 export function MedicationsList() {
   const [medications, setMedications] = useState([]);
@@ -14,11 +14,6 @@ export function MedicationsList() {
   const [isMobile, setIsMobile] = useState(false);
 
   const { auth } = useContext(AuthContext);
-  //const { user } = auth || {};
-
-  console.log('Auth context:', auth);
-  //console.log('User:', user);
-  //console.log('User ID:', user?.id);
 
   const truncateText = (text, maxLength = 20) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
@@ -34,20 +29,19 @@ export function MedicationsList() {
   }, []);
 
   useEffect(() => {
-  if (!auth.loading) {
-    if (auth.user) {
-      console.log('User is available, fetching medications');
-      fetchMedications();
+    if (!auth.loading) {
+      if (auth.user) {
+        console.log('User is available, fetching medications');
+        fetchMedications();
+      } else {
+        console.log('No user found after loading');
+        setLoading(false); // Stop loading if no user is found
+      }
     } else {
-      console.log('No user found after loading');
-      setLoading(false); // Stop loading if no user is found
+      console.log('Auth is still loading');
     }
-  } else {
-    console.log('Auth is still loading');
-  }
-}, [auth.loading, auth.user]);
+  }, [auth.loading, auth.user]);
 
-  
   const fetchMedications = async () => {
     setLoading(true);
     setError(null);
@@ -93,17 +87,17 @@ export function MedicationsList() {
 
   // Animation variants for consistent transitions
   const overlayVariants = {
-    closed: { opacity: 0 },
-    open: { opacity: 1 }
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
   };
 
   const modalVariants = {
-    closed: {
+    hidden: {
       opacity: 0,
       scale: 0.95,
       y: isMobile ? 20 : 0,
     },
-    open: {
+    visible: {
       opacity: 1,
       scale: 1,
       y: 0,
@@ -124,8 +118,8 @@ export function MedicationsList() {
   };
 
   const contentVariants = {
-    closed: { opacity: 0, y: 10 },
-    open: { 
+    hidden: { opacity: 0, y: 10 },
+    visible: { 
       opacity: 1, 
       y: 0,
       transition: {
@@ -146,93 +140,86 @@ export function MedicationsList() {
       ) : (
         <>
           <AnimatePresence>
-            {active && typeof active === "object" && (
-              <motion.div
-                variants={overlayVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                transition={{ duration: 0.2 }}
-                className={`fixed inset-0 ${isMobile ? 'bg-black/80' : 'bg-black/60 backdrop-blur-sm'} z-10`}
-                style={{
-                  position: 'fixed',
-                  left: 0,
-                  top: 0,
-                  width: '100%',
-                  height: '100vh',
-                  touchAction: isMobile ? 'none' : 'auto',
-                  overscrollBehavior: 'none'
-                }}
-              />
-            )}
-          </AnimatePresence>
-
-          <AnimatePresence mode="wait">
-            {active && typeof active === "object" ? (
-              <div 
-                className="fixed z-[100] p-4"
-                style={{
-                  position: 'fixed',
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '100%',
-                  maxWidth: '500px',
-                  height: 'auto',
-                  maxHeight: isMobile ? '90vh' : 'auto',
-                  touchAction: isMobile ? 'none' : 'auto',
-                  overscrollBehavior: 'none'
-                }}
-              >
+            {active && (
+              <>
+                {/* Overlay */}
                 <motion.div
-                  layoutId={`card-${active.name}-${id}`}
+                  variants={overlayVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  transition={{ duration: 0.2 }}
+                  className={`fixed inset-0 ${isMobile ? 'bg-black/80' : 'bg-black/60 backdrop-blur-sm'} z-10`}
+                  style={{
+                    touchAction: isMobile ? 'none' : 'auto',
+                    overscrollBehavior: 'none'
+                  }}
+                  onClick={() => setActive(null)}
+                />
+                {/* Modal */}
+                <motion.div
                   ref={ref}
-                  className="relative w-full bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl overflow-hidden"
+                  className="fixed z-[100] p-4"
+                  style={{
+                    position: 'fixed',
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '100%',
+                    maxWidth: '500px',
+                    height: 'auto',
+                    maxHeight: isMobile ? '90vh' : 'auto',
+                    touchAction: isMobile ? 'none' : 'auto',
+                    overscrollBehavior: 'none'
+                  }}
                   variants={modalVariants}
-                  initial="closed"
-                  animate="open"
+                  initial="hidden"
+                  animate="visible"
                   exit="exit"
                 >
-                  <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute right-4 top-4 z-10 flex items-center justify-center bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600 rounded-full h-8 w-8 transition-colors"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActive(null);
-                    }}
+                  <div
+                    className="relative w-full bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl overflow-hidden"
                   >
-                    <CloseIcon />
-                  </motion.button>
-
-                  <div className={`${isMobile ? 'max-h-[70vh]' : 'max-h-[80vh]'} overflow-y-auto overscroll-contain scrollbar-none`}>
-                    <div className="p-6 sm:p-8">
-                      <motion.div 
-                        className="pr-8"
-                        variants={contentVariants}
-                        initial="closed"
-                        animate="open"
-                      >
-                        <h3 className="text-xl sm:text-2xl font-bold text-neutral-800 dark:text-neutral-100">
-                          {active.name}
-                        </h3>
-                        <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 mt-2">
-                          Dosage: {active.dosage}
-                        </p>
-                        <div className="mt-6">
-                          <div className="prose dark:prose-invert max-w-none">
-                            <p className="text-neutral-700 dark:text-neutral-300">
-                              {active.instructions}
-                            </p>
+                    <motion.button
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="absolute right-4 top-4 z-10 flex items-center justify-center bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600 rounded-full h-8 w-8 transition-colors"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActive(null);
+                      }}
+                    >
+                      <CloseIcon />
+                    </motion.button>
+                    <div className={`${isMobile ? 'max-h-[70vh]' : 'max-h-[80vh]'} overflow-y-auto overscroll-contain scrollbar-none`}>
+                      <div className="p-6 sm:p-8">
+                        <motion.div 
+                          className="pr-8"
+                          variants={contentVariants}
+                          initial="hidden"
+                          animate="visible"
+                        >
+                          <h3 className="text-xl sm:text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                            {active.name}
+                          </h3>
+                          <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 mt-2">
+                            Dosage: {active.dosage}
+                          </p>
+                          <div className="mt-6">
+                            <div className="prose dark:prose-invert max-w-none">
+                              <p className="text-neutral-700 dark:text-neutral-300">
+                                {active.instructions}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
+                        </motion.div>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
-              </div>
-            ) : null}
+              </>
+            )}
           </AnimatePresence>
 
           <div className="h-full overflow-hidden">
@@ -246,35 +233,35 @@ export function MedicationsList() {
                 <div className="grid grid-flow-col md:grid-flow-row auto-cols-[250px] md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {medications.map((medication) => (
                     <motion.div
-                      layoutId={`card-${medication.name}-${id}`}
                       key={`medication-${medication.name}-${id}`}
                       onClick={() => setActive(medication)}
                       className="group relative flex flex-col bg-white/5 hover:bg-white/10 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/80 p-5 rounded-xl backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer border border-white/10"
+                      whileHover={{ scale: 1.02 }}
                     >
                       <div className="flex-1 min-h-0 flex flex-col justify-between space-y-4">
                         <div>
-                          <motion.h3
+                          <h3
                             className="text-lg font-semibold text-neutral-200 truncate"
                             title={medication.name}
                           >
                             {truncateText(medication.name, 20)}
-                          </motion.h3>
-                          <motion.p
+                          </h3>
+                          <p
                             className="text-sm text-neutral-400 mt-1 truncate"
                             title={`Dosage: ${medication.dosage}`}
                           >
                             Dosage: {truncateText(medication.dosage, 15)}
-                          </motion.p>
+                          </p>
                           <p className="text-xs text-neutral-500 mt-2 line-clamp-2" title={medication.instructions}>
                             {medication.instructions}
                           </p>
                         </div>
 
-                        <motion.button
+                        <button
                           className="w-full px-4 py-2 text-sm font-medium rounded-lg bg-green-500/20 hover:bg-green-500/30 text-green-400 transition-colors duration-200 backdrop-blur-sm group-hover:text-green-300"
                         >
                           View Details
-                        </motion.button>
+                        </button>
                       </div>
                     </motion.div>
                   ))}
@@ -291,9 +278,6 @@ export function MedicationsList() {
 export const CloseIcon = () => {
   return (
     <motion.svg
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
