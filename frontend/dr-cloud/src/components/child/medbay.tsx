@@ -14,11 +14,11 @@ export function MedicationsList() {
   const [isMobile, setIsMobile] = useState(false);
 
   const { auth } = useContext(AuthContext);
-  const { user } = auth || {};
+  //const { user } = auth || {};
 
   console.log('Auth context:', auth);
-  console.log('User:', user);
-  console.log('User ID:', user?.id);
+  //console.log('User:', user);
+  //console.log('User ID:', user?.id);
 
   const truncateText = (text, maxLength = 20) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
@@ -34,34 +34,32 @@ export function MedicationsList() {
   }, []);
 
   useEffect(() => {
-    if (!auth.loading) {
-      if (user && user.id) {
-        console.log('User is available, fetching medications');
-        fetchMedications(user.id);
-      } else {
-        console.log('No user found after loading');
-        setLoading(false); // Stop loading if no user is found
-      }
+  if (!auth.loading) {
+    if (auth.user) {
+      console.log('User is available, fetching medications');
+      fetchMedications();
     } else {
-      console.log('Auth is still loading');
+      console.log('No user found after loading');
+      setLoading(false); // Stop loading if no user is found
     }
-  }, [auth.loading, user]);
+  } else {
+    console.log('Auth is still loading');
+  }
+}, [auth.loading, auth.user]);
 
-  const fetchMedications = async (userId) => {
+  
+  const fetchMedications = async () => {
     setLoading(true);
     setError(null);
-    console.log('Fetching medications for user:', userId);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications/${userId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medications`, {
         method: 'GET',
-        credentials: 'include',
+        credentials: 'include', // Include cookies
       });
       const data = await res.json();
       console.log('Received data:', data);
       if (res.ok && data.status === 'success' && Array.isArray(data.data)) {
-        const medicationsData = data.data; // Now data.data is the medications array
-        console.log('Medications data:', medicationsData);
-        setMedications(medicationsData);
+        setMedications(data.data);
       } else {
         console.error('Failed to fetch medications:', data.message);
         setError(data.message || 'Failed to fetch medications');

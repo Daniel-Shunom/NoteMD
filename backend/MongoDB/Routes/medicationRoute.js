@@ -1,8 +1,8 @@
-// MongoDB/Routes/medicationRoute.js
+// medicationRoute.js
 
 import express from 'express';
 import { assignMedications, getMedications } from '../Controllers/medicationController.js';
-import { authenticateToken, authorizeRoles } from '../middleware/roleAuth.js'; // Ensure authorizeRoles is imported
+import { authenticateToken, authorizeRoles } from '../middleware/roleAuth.js';
 
 const router = express.Router();
 
@@ -14,9 +14,9 @@ router.post(
   assignMedications
 );
 
-// GET /api/medications/:patientId - Get medications (Doctor or Patient)
+// GET /api/medications - Get medications for the authenticated user (Doctor or Patient)
 router.get(
-  '/api/medications/:patientId',
+  '/api/medications',
   authenticateToken,
   authorizeRoles('doctor', 'patient'),
   getMedications

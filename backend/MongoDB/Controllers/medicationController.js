@@ -87,10 +87,12 @@ export const assignMedications = async (req, res) => {
  * @param {*} res
  */
 
-export const getMedications = async (req, res) => {
-  const { patientId } = req.params;
+// medicationController.js
 
+export const getMedications = async (req, res) => {
   try {
+    const patientId = req.user.userId; // Get userId from authenticated session
+
     // Log the authenticated user and patientId
     logger.info(`Authenticated User: ${JSON.stringify(req.user)}`);
     logger.info(`Fetching medications for patientId: ${patientId}`);
@@ -123,7 +125,7 @@ export const getMedications = async (req, res) => {
       });
     }
 
-    // **Return medications array directly**
+    // Return medications array directly
     res.status(200).json({
       status: 'success',
       data: medicationDoc.medications,
