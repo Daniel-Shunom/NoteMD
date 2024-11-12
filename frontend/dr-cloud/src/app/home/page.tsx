@@ -4,9 +4,10 @@ import HideableChatbox from "@/components/child/chatbox";
 import { HomeBento } from "@/components/child/home-bento";
 import AnimatedCalendar from "@/components/ui/AnimCalendar";
 import ScheduledVisits from "@/components/ui/visits";
-import MedsBay from "@/components/child/medbay";
+//import MedsBay from "@/components/child/medbay";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { AuthProvider } from "../../../context/Authcontext";
+import { ExpandableCardDemo } from "@/components/child/medbay";
 //import { SocketProvider } from "../../../context/Socketcontext";
 //import { PrescriptionProvider } from "../../../context/Prescriptioncontext";
 
@@ -28,7 +29,7 @@ export default function Home() {
                 {/* Left Column */}
                 <div className="w-full md:w-1/2 bg-zinc-800 rounded-lg p-4 text-white mb-4 md:mb-0">
                   {/* Content goes here */}
-                  < MedsBay />
+                  < ExpandableCardDemo />
                 </div>
 
                 {/* Spacer */}

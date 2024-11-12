@@ -1,7 +1,7 @@
 // dr-cloud/hooks/useAuth.tsx
 
 import { useContext } from "react";
-import { AuthContext, AuthContextProps } from "../context/Authcontext";
+import { AuthContext, AuthContextProps } from "../../context/Authcontext";
 
 export const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
