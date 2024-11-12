@@ -1,5 +1,6 @@
 "use client"
 
+import ActionIconsGrid from "@/components/child/ActionsGrid"
 import ProtectedRoute from "@/components/ProtectedRoute"
 
 export default function Profile() {
@@ -7,6 +8,7 @@ export default function Profile() {
         <ProtectedRoute>
             <div>
                 hi Doctor
+                <ActionIconsGrid/>
             </div>
         </ProtectedRoute>
         

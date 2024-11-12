@@ -13,6 +13,7 @@ import SelectPatients from "../ui/select-patients";
 import FileUploader from "../ui/upload-doc";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ActionIconsGrid from "./ActionsGrid";
 
 export function DrBento() {
   return (
@@ -48,10 +49,10 @@ const SkeletonTwo = () => (
 );
 
 const SkeletonThree = () => (
-  <div className="flex items-center w-full h-40 rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 p-2">
+  <div className="flex items-center w-full h-40 rounded-xl bg-gradient-to-br from-neutral-200 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 p-2">
     {/* Placeholder for Call to Action */}
-    <div className="w-full h-full bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-      <p className="text-gray-500 dark:text-gray-300">Call to Action Buttons Here</p>
+    <div className="w-full h-full bg-gray-700/30 dark:bg-gray-700/30 rounded-lg flex items-center justify-center">
+      <ActionIconsGrid />
     </div>
   </div>
 );
