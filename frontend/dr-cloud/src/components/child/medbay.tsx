@@ -73,14 +73,25 @@ export function MedicationsList() {
       }
     }
 
-    if (active && typeof active === "object") {
+    // Update body scroll lock logic
+    if (active) {
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
     }
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      // Cleanup body styles
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    };
   }, [active]);
 
   useOutsideClick(ref, () => setActive(null));
@@ -142,44 +153,28 @@ export function MedicationsList() {
           <AnimatePresence>
             {active && (
               <>
-                {/* Overlay */}
                 <motion.div
                   variants={overlayVariants}
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
                   transition={{ duration: 0.2 }}
-                  className={`fixed inset-0 ${isMobile ? 'bg-black/80' : 'bg-black/60 backdrop-blur-sm'} z-10`}
-                  style={{
-                    touchAction: isMobile ? 'none' : 'auto',
-                    overscrollBehavior: 'none'
-                  }}
+                  className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
                   onClick={() => setActive(null)}
                 />
-                {/* Modal */}
                 <motion.div
                   ref={ref}
-                  className="fixed z-[100] p-4"
-                  style={{
-                    position: 'fixed',
-                    left: '50%',
-                    top: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '100%',
-                    maxWidth: '500px',
-                    height: 'auto',
-                    maxHeight: isMobile ? '90vh' : 'auto',
-                    touchAction: isMobile ? 'none' : 'auto',
-                    overscrollBehavior: 'none'
-                  }}
+                  className={`
+                    fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                    w-[calc(100%-2rem)] md:w-[500px] max-h-[90vh] md:max-h-[80vh]
+                    z-[60] p-4
+                  `}
                   variants={modalVariants}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
                 >
-                  <div
-                    className="relative w-full bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl overflow-hidden"
-                  >
+                  <div className="relative w-full bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl">
                     <motion.button
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -192,7 +187,7 @@ export function MedicationsList() {
                     >
                       <CloseIcon />
                     </motion.button>
-                    <div className={`${isMobile ? 'max-h-[70vh]' : 'max-h-[80vh]'} overflow-y-auto overscroll-contain scrollbar-none`}>
+                    <div className="max-h-[70vh] md:max-h-[80vh] overflow-y-auto overscroll-contain scrollbar-none">
                       <div className="p-6 sm:p-8">
                         <motion.div 
                           className="pr-8"
