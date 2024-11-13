@@ -148,7 +148,7 @@ export const SkeletonTwo = () => {
 export const SkeletonThree = () => {
   return (
     <Link
-      href="https://www.youtube.com/watch?v=RPa3_AD1_Vs"
+      href="https://youtu.be/Gzz7VCvZRtc"
       target="_blank"
       className="relative flex flex-col items-center h-full group/image"
     >
