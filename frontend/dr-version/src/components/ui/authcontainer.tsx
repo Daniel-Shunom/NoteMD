@@ -1,4 +1,4 @@
-// AuthContainer.tsx
+// src/components/ui/AuthContainer.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -7,12 +7,12 @@ import { LoginForm } from "../child/login-form";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface AuthContainerProps {
-  initialForm?: "signup" | "login"; // Determines which form to show first
-  userType?: "doctor" | "patient";  // Determines the user role
+  userType?: "doctor" | "patient"; // Determines the user role
 }
 
-export function AuthContainer({ initialForm = "login", userType }: AuthContainerProps) {
-  const [currentForm, setCurrentForm] = useState<"signup" | "login">(initialForm);
+export function AuthContainer({ userType }: AuthContainerProps) {
+  // Initialize currentForm to "login" to always show the login form first
+  const [currentForm, setCurrentForm] = useState<"signup" | "login">("login");
 
   const toggleForm = () => {
     setCurrentForm((prev) => (prev === "signup" ? "login" : "signup"));

@@ -1,8 +1,10 @@
+// src/pages/DrLogin.tsx
 "use client";
 
 import React from 'react';
 import { AuthContainer } from "@/components/ui/authcontainer";
 import { motion } from 'framer-motion';
+import DoctorLoginBox from '@/components/child/CredentialBox';
 
 export default function DrLogin() {
   // Initial entrance animation variants
@@ -68,9 +70,9 @@ export default function DrLogin() {
   const gradientVariants = {
     animate: {
       background: [
-        "linear-gradient(45deg, #ffffff 0%, #f8f9fa 100%)",
-        "linear-gradient(45deg, #f8f9fa 0%, #ffffff 100%)",
-        "linear-gradient(45deg, #ffffff 0%, #f8f9fa 100%)"
+        "linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%)",
+        "linear-gradient(135deg, #d9e2ec 0%, #f0f4f8 100%)",
+        "linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%)"
       ],
       transition: {
         duration: 8,
@@ -90,9 +92,9 @@ export default function DrLogin() {
       >
         {/* Decorative background elements */}
         <motion.div 
-          className="absolute top-0 left-0 w-full h-full opacity-30"
+          className="absolute top-0 left-0 w-full h-full opacity-20"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
+          animate={{ opacity: 0.2 }}
           transition={{ duration: 1 }}
         >
           <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-blue-100" />
@@ -107,7 +109,7 @@ export default function DrLogin() {
           variants={containerVariants}
         >
           <motion.h1 
-            className="text-black text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
+            className="text-gray-800 text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
             initial="initial"
             animate={["animate", "float"]}
             variants={floatingVariants}
@@ -115,18 +117,20 @@ export default function DrLogin() {
             Hello Doctor
           </motion.h1>
           <motion.p 
-            className="text-black text-lg sm:text-xl lg:text-2xl"
+            className="text-gray-600 text-lg sm:text-xl lg:text-2xl mb-6"
             initial="initial"
             animate={["animate", "pulse"]}
             variants={pulseVariants}
           >
             Welcome to NoteMD
           </motion.p>
+          <DoctorLoginBox/>
         </motion.div>
+        
       </motion.div>
 
       {/* Right Section */}
-      <div className="bg-blue-800 w-full lg:w-1/2 lg:h-screen overflow-y-auto">
+      <div className="bg-gray-100 w-full lg:w-1/2 lg:h-screen overflow-y-auto">
         <div className="flex items-center justify-center min-h-full p-6 lg:p-12">
           <div className="w-full max-w-md">
             <AuthContainer initialForm="signup" userType="doctor" />
@@ -146,14 +150,14 @@ export default function DrLogin() {
         }
 
         .overflow-y-auto::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(0, 0, 0, 0.1);
           border-radius: 2px;
         }
 
         /* Firefox */
         .overflow-y-auto {
           scrollbar-width: thin;
-          scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+          scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
         }
       `}</style>
     </div>
