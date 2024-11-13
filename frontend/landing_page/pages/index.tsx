@@ -31,8 +31,8 @@ export default function Home() {
           />
         }
         links={[
-          { name: 'Try Demo', href: '/try-demo' },
-          { name: 'Contact', href: '/contact' },
+          { name: 'Try Demo', href: '/#' },
+          { name: 'Contact', href: '/#' },
         ]}
       />
 
