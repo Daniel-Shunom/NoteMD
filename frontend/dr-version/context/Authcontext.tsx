@@ -66,12 +66,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
         method: 'POST',
-        credentials: 'include',
+        credentials: 'include', // Ensure cookies are included
       });
-      setAuth({ user: null, loading: false });
-      window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect to login page
+
+      if (response.ok) {
+        setAuth({ user: null, loading: false });
+        window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect to login page
+      } else {
+        const errorData = await response.json();
+        console.error('Failed to logout:', errorData);
+      }
     } catch (error) {
       console.error('Error during logout:', error);
     }
