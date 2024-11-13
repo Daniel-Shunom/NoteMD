@@ -1,12 +1,12 @@
 <p align="center">
-  # 🏥 Dr-Cloud
+  # 🏥 NoteMD
   
   _A Modern Patient Management System_
 </p>
 
 ---
 
-> **Dr-Cloud** empowers healthcare professionals with a streamlined, intuitive platform for managing patient data and workflows. Built with modern web technologies for exceptional performance and user experience.
+> **NoteMD** empowers healthcare professionals with a streamlined, intuitive platform for managing patient data and workflows. Built with modern web technologies for exceptional performance and user experience.
 
 ---
 
