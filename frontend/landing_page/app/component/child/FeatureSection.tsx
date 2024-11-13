@@ -14,7 +14,7 @@ import Link from "next/link";
 export function FeaturesSectionDemo() {
   const features = [
     {
-      title: "Track issues effectively",
+      title: "Easy to use",
       description:
         "Track and manage patient status with ease using our intuitive interface.",
       skeleton: <SkeletonOne />,
@@ -22,14 +22,14 @@ export function FeaturesSectionDemo() {
         "col-span-1 lg:col-span-4 border-b lg:border-r dark:border-neutral-800",
     },
     {
-      title: "Capture pictures with AI",
+      title: "Track prescriptions",
       description:
         "Manage patient prescriptions with ease.",
       skeleton: <SkeletonTwo />,
       className: "border-b col-span-1 lg:col-span-2 dark:border-neutral-800",
     },
     {
-      title: "Watch our AI on YouTube",
+      title: "Intuitive interface",
       description:
         "Enjoy seamless interactions with your doctor, away or not",
       skeleton: <SkeletonThree />,
@@ -37,7 +37,7 @@ export function FeaturesSectionDemo() {
         "col-span-1 lg:col-span-3 lg:border-r  dark:border-neutral-800",
     },
     {
-      title: "Deploy in seconds",
+      title: "Made for everyone",
       description:
         "Designed to be used for medical industries all over the world, NoteMD uses fast and scalable technology to boost productivity.",
       skeleton: <SkeletonFour />,
