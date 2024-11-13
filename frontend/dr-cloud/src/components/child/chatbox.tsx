@@ -246,7 +246,7 @@ export function ChatBox() {
   };*/
 
   return (
-    <div className="flex flex-col max-h-80">
+    <div className="flex flex-col h-80">
       <AnimatePresence mode="wait">
         {chatMode === 'text' ? (
           <motion.div
@@ -255,29 +255,41 @@ export function ChatBox() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 100 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col flex-grow"
+            className="flex flex-col h-full"
           >
-            {/* Text Chat UI */}
-            <div className="flex-grow overflow-y-auto p-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`mb-4 ${
-                    message.role === "user" ? "text-right" : "text-left"
-                  }`}
-              >
+            <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+              <div className="p-4 space-y-4">
+                {messages.map((message, index) => (
                   <div
-                    className={`inline-block p-2 rounded-lg ${
-                      message.role === "user"
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200 text-black"
+                    key={index}
+                    className={`flex ${
+                      message.role === "user" ? "justify-end" : "justify-start"
                     }`}
                   >
-                    {message.content}
+                    <div
+                      className={`max-w-[80%] break-words ${
+                        message.role === "user"
+                          ? "bg-blue-500 text-white rounded-2xl rounded-tr-sm shadow-md hover:bg-blue-600 transition-colors"
+                          : "bg-gray-100 text-gray-800 rounded-2xl rounded-tl-sm shadow-sm border border-gray-200 hover:bg-gray-50 transition-colors"
+                      } px-4 py-2 relative`}
+                    >
+                      <div className="text-sm md:text-base">{message.content}</div>
+                      <div 
+                        className={`absolute top-0 ${
+                          message.role === "user" 
+                            ? "right-0 border-blue-500" 
+                            : "left-0 border-gray-100"
+                        } transform ${
+                          message.role === "user"
+                            ? "translate-x-1/4"
+                            : "-translate-x-1/4"
+                        }`}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
-              <div ref={messagesEndRef} />
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
             </div>
             <div className="p-4 flex items-center">
               <PlaceholdersAndVanishInput
