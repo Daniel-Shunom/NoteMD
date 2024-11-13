@@ -6,6 +6,7 @@ import { AuthProvider } from "../../../context/Authcontext";
 import _PatientDashboard from "@/components/child/ImplDashboard/PatientDashboard";
 
 export default function Home() {
+  
   return (
     <ProtectedRoute>
       <AuthProvider>

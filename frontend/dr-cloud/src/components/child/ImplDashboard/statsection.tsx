@@ -7,7 +7,7 @@ const StatsSection: React.FC = () => {
   const stats: Stat[] = [
     { 
       label: "Next Appointment", 
-      value: "June 15", 
+      value: "Nov 29", 
       icon: Calendar, 
       color: "text-indigo-700",  // Darker indigo for better contrast
       bg: "bg-indigo-100",       // Slightly darker background
@@ -15,7 +15,7 @@ const StatsSection: React.FC = () => {
     },
     { 
       label: "Active Prescriptions", 
-      value: "2 Active", 
+      value: "4 Active", 
       icon: Pill, 
       color: "text-rose-700",    // Changed to rose for better medical association
       bg: "bg-rose-100",         // Matching rose background
@@ -31,7 +31,7 @@ const StatsSection: React.FC = () => {
     },
     { 
       label: "Pending Reports", 
-      value: "1 New", 
+      value: "2 New", 
       icon: FileText, 
       color: "text-cyan-700",    // Changed to cyan for better distinction
       bg: "bg-cyan-100",         // Matching cyan background

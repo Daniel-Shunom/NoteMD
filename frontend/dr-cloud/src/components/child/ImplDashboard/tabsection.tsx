@@ -53,7 +53,7 @@ const TabsSection: React.FC = () => {
     <Tabs defaultValue="complaint" className="flex flex-col h-full">
       <TabsList className="grid w-full grid-cols-3 mb-4 lg:mb-2 bg-gray-100/80 p-1.5 rounded-lg">
         <TabsTrigger value="complaint" className="rounded-md font-medium text-sm lg:text-base text-gray-600 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm">
-          Complaint
+          MedBay
         </TabsTrigger>
         <TabsTrigger value="chat" className="rounded-md font-medium text-sm lg:text-base text-gray-600 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm">
           Medical Chat

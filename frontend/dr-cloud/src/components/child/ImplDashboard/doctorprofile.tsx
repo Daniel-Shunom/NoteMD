@@ -15,7 +15,7 @@ const DoctorProfile = () => {
           </Avatar>
           
           <div className="space-y-1">
-            <h3 className="font-bold text-xl">Dr. Sarah Johnson</h3>
+            <h3 className="font-bold text-xl">Dr. Daniel J</h3>
             <p className="text-indigo-300 text-sm font-medium">General Practitioner</p>
             <Badge 
               variant="secondary" 

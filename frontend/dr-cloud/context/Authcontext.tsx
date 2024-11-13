@@ -4,13 +4,30 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 
+interface Doctor {
+  id: string;
+  name: string;
+  lname: string;
+  email: string;
+  licenseNumber?: string;
+}
+
+interface Patient {
+  id: string;
+  name: string;
+  lname: string;
+  email: string;
+}
+
 interface User {
   id: string;
   name: string;
   lname: string;
   email: string;
-  role: string;
+  role: 'doctor' | 'patient';
   licenseNumber?: string;
+  doctor?: Doctor; // Included for patients
+  patients?: Patient[]; // Included for doctors if populated
 }
 
 interface AuthState {
@@ -48,7 +65,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const data = await res.json();
         console.log('AuthProvider: Received data:', data);
 
-        if (res.ok && data.user) {
+        if (res.ok && data.status === 'ok' && data.user) {
           console.log('AuthProvider: User is authenticated:', data.user);
           setAuth({ user: data.user, loading: false });
         } else {
@@ -66,14 +83,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/logout`, {
         method: 'POST',
         credentials: 'include',
       });
-      setAuth({ user: null, loading: false });
-      window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect to login page
+
+      if (res.ok) {
+        setAuth({ user: null, loading: false });
+        window.location.href = `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}`; // Redirect to login page
+      } else {
+        console.error('AuthProvider: Logout failed');
+      }
     } catch (error) {
-      console.error('Error during logout:', error);
+      console.error('AuthProvider: Error during logout:', error);
     }
   };
 

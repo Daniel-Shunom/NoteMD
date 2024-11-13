@@ -24,7 +24,6 @@ const SideBarWrapper: React.FC = () => {
   const links = [
     { label: "Home", href: "/home", icon: <IconHome /> },
     { label: "Profile", href: "/profile", icon: <IconUserBolt /> },
-    { label: "Settings", href: "/Settings", icon: <IconSettings /> },
     { label: "Logout", onClick: handleLogout, icon: <IconLogout /> },
   ];
 

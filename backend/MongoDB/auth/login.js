@@ -36,7 +36,15 @@ router.post(
       console.log(`Searching for user with email: ${email} and role: ${userType}`);
 
       // Find the user by email and role
-      const user = await User.findOne({ email, role: userType });
+      let userQuery = User.findOne({ email, role: userType });
+
+      // If the user is a patient, populate the 'doctor' field
+      if (userType === 'patient') {
+        userQuery = userQuery.populate('doctor', 'name lname email licenseNumber');
+      }
+
+      const user = await userQuery.exec();
+
       if (!user) {
         console.log('User Not Found:', { email, userType });
         return res.status(401).json({ status: 'error', message: 'Invalid email or password.' });
@@ -77,11 +85,6 @@ router.post(
         path: '/',
       };
 
-      // Only set the domain if in production
-      /*if (process.env.NODE_ENV === 'production') {
-        cookieOptions.domain = `${process.env.COOKIE_DOMAIN_URL}`; // Replace with your main domain
-      }*/
-
       console.log('Setting JWT Token as cookie with options:', cookieOptions);
 
       res.cookie('token', token, cookieOptions);
@@ -89,17 +92,33 @@ router.post(
       // Log successful login response
       console.log('Login Successful for User:', { userId: user._id, email: user.email });
 
+      // Construct the user data to send to the frontend
+      const userData = {
+        id: user._id,
+        name: user.name,
+        lname: user.lname,
+        email: user.email,
+        role: user.role,
+      };
+
+      if (user.role === 'doctor') {
+        userData.licenseNumber = user.licenseNumber;
+      }
+
+      if (user.role === 'patient' && user.doctor) {
+        userData.doctor = {
+          id: user.doctor._id,
+          name: user.doctor.name,
+          lname: user.doctor.lname,
+          email: user.doctor.email,
+          licenseNumber: user.doctor.licenseNumber,
+        };
+      }
+
       res.status(200).json({
         status: 'ok',
         message: 'Login successful.',
-        user: {
-          id: user._id,
-          name: user.name,
-          lname: user.lname,
-          email: user.email,
-          role: user.role,
-          ...(user.role === 'doctor' && { licenseNumber: user.licenseNumber }),
-        },
+        user: userData,
       });
     } catch (error) {
       // Log any unexpected errors
