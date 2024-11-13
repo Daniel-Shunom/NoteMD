@@ -34,7 +34,7 @@ const CredentialsBox: React.FC = () => {
 
   return (
     <div className="w-11/12 max-w-4xl  mt-12 p-6 bg-white shadow-lg rounded-xl border border-gray-200">
-      <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-left">Credentials</h3>
+      <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-left">For Demo</h3>
       <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
         {credentials.map((cred, index) => (
           <div key={index} className="w-full md:w-1/2 bg-gradient-to-r from-blue-50 to-indigo-100 p-4 rounded-lg shadow-inner">
