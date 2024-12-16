@@ -214,9 +214,9 @@ app.use(limiter);
 app.use(
   cors({
     origin: [
-      `${process.env.DOCTOR_URL}`, // Replace with your frontend URL
+      `${process.env.DOCTOR_URL}`, 
       `${process.env.PATIENT_URL}`,
-      `${process.env.LANDINGPAGE_URL}`, // Add other allowed origins
+      `${process.env.LANDINGPAGE_URL}`, 
     ],
     credentials: true, // Allow cookies to be sent
   })
@@ -243,7 +243,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server with WebSocket support
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT ;
 server.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
 });

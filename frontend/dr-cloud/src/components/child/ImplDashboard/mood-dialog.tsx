@@ -37,7 +37,7 @@ const MoodDialog: React.FC<MoodDialogProps> = ({
     { label: "Very Happy", emoji: "😊" },
   ];
 
-  // Handler for mood selection
+  // Handler for mood selection 
   const handleMoodSelect = (moodIndex: number) => {
     setSelectedMood(moodIndex);
     setIsThankYou(true);
@@ -55,7 +55,7 @@ const MoodDialog: React.FC<MoodDialogProps> = ({
 
   return (
     <AlertDialog open={open} setOpen={setOpen}>
-      <AlertDialogContent className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6 relative">
+      <AlertDialogContent className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6 absolute">
         {!isThankYou ? (
           <div>
             <AlertDialogHeader>
