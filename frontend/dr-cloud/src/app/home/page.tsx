@@ -27,24 +27,3 @@ export default function Home() {
     </ProtectedRoute>
   );
 }
-
-
-/*
-
-<div className="w-full lg:max-w-4xl rounded-xl bg-opacity-80 backdrop-blur-md p-3 lg:p-5">
-  <div className="flex flex-col md:flex-row md:space-x-4">
-    
-    <div className="w-full md:w-1/2 bg-zinc-800 rounded-lg p-4 text-white mb-4 md:mb-0">
-      <MedicationsList />
-    </div>
-
-    
-    <div className="flex flex-col w-full md:w-1/2 space-y-4">
-      <div className="bg-slate-800 rounded-lg p-4 text-white">
-      </div>
-      <GlassCalendar />
-    </div>
-  </div>
-</div>
-
-*/
