@@ -1803,3 +1803,15 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-12-16 11:09:33 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
 2024-12-16 11:09:33 [INFO]: getPatients Controller Invoked
 2024-12-16 11:09:33 [INFO]: Fetched 7 patients
+2024-12-17 21:39:02 [INFO]: authenticateToken invoked
+2024-12-17 21:39:02 [INFO]: Authenticated User: UserID=671c027e7e2813b246574450, Role=doctor
+2024-12-17 21:39:02 [INFO]: getPatients Controller Invoked
+2024-12-17 21:39:02 [INFO]: Fetched 7 patients
+2024-12-17 21:40:06 [INFO]: authenticateToken invoked
+2024-12-17 21:40:06 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-12-17 21:40:06 [INFO]: authenticateToken invoked
+2024-12-17 21:40:06 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-12-17 21:40:28 [INFO]: authenticateToken invoked
+2024-12-17 21:40:28 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2024-12-17 21:40:28 [INFO]: authenticateToken invoked
+2024-12-17 21:40:28 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
