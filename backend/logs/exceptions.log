@@ -435,3 +435,11 @@ Error: The OPENAI_API_KEY environment variable is missing or empty; either provi
     at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
     at async loadESM (node:internal/process/esm_loader:28:7)
     at async handleMainPromise (node:internal/modules/run_main:120:12)
+2024-12-17 21:32:42 [ERROR]: uncaughtException: The OPENAI_API_KEY environment variable is missing or empty; either provide it, or instantiate the OpenAI client with an apiKey option, like new OpenAI({ apiKey: 'My API Key' }).
+Error: The OPENAI_API_KEY environment variable is missing or empty; either provide it, or instantiate the OpenAI client with an apiKey option, like new OpenAI({ apiKey: 'My API Key' }).
+    at new OpenAI (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/node_modules/openai/index.mjs:30:19)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/MongoDB/Routes/uploadDocuments.js:21:16
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)

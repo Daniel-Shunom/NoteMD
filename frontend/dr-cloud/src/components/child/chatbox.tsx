@@ -18,7 +18,7 @@ type Message = {
 
 export function ChatBox() {
   const { auth } = useContext(AuthContext);
-  const user = auth.user;
+  //const user = auth.user;
   
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
