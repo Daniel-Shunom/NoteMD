@@ -66,7 +66,7 @@ const PatientDashboard: React.FC = () => {
       </header>
 
       {/* Main Dashboard */}
-      <main className="flex-1 flex flex-col overflow-hidden">
+      <main className="flex-1 flex flex-col overflow-hidden rounded-b-xl">
         <Card className="bg-white shadow-xl rounded-b-xl border-0 flex-1 flex flex-col">
           
           {/* Card Header */}
