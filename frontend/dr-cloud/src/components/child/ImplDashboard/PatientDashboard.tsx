@@ -56,18 +56,18 @@ const PatientDashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
+    <div className="min-h-screen flex flex-col">
       
       {/* Top Bar */}
-      <header className="bg-white shadow-lg rounded-b-none">
-        <div className="p-4">
+      <header className="bg-white shadow-lg rounded-t-xl">
+        <div className="p-4 rounded-t-xl">
           <TopBar />
         </div>
       </header>
 
       {/* Main Dashboard */}
       <main className="flex-1 flex flex-col overflow-hidden">
-        <Card className="bg-white shadow-xl rounded-t-none border-0 flex-1 flex flex-col">
+        <Card className="bg-white shadow-xl rounded-b-xl border-0 flex-1 flex flex-col">
           
           {/* Card Header */}
           <CardHeader className="border-b border-gray-100 bg-white p-4">
