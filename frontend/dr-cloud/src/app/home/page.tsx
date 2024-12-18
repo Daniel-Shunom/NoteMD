@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <ProtectedRoute>
       <AuthProvider>
-        <div className="relative h-screen flex flex-col">
+        <div className="relative h-screen">
           {/* Main Content Area */}
           <main className="flex-1 w-full">
-            <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 overflow-y-auto">
+            <div className="h-full mx-auto sm:px-6 lg:px-0 py-4 overflow-y-auto">
               <_PatientDashboard />
             </div>
           </main>
