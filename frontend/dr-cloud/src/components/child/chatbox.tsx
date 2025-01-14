@@ -93,10 +93,15 @@ export function ChatBox() {
         return;
       }
 
-      const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/audio-chat`;
+      const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}?model=${process.env.NEXT_PUBLIC_MODEL}`;
       console.log('WebSocket URL:', websocketUrl);
 
-      const newSocket = new WebSocket(websocketUrl);
+      const newSocket = new WebSocket(websocketUrl, {
+        headers: {
+          "Authorization": "Bearer " + process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+          "OpenAI-Beta": "realtime=v1"
+        }
+      });
       setSocket(newSocket);
 
       newSocket.onopen = () => {
