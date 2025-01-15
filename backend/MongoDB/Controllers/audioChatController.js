@@ -14,7 +14,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export default function audioChatHandler(wss, request) {
+export const audioChatHandler = (wss, request) => {
   // Authenticate the connection
   const token = request.headers['sec-websocket-protocol'];
   if (!token) {
@@ -33,12 +33,12 @@ export default function audioChatHandler(wss, request) {
 
   const wsURL = `${process.env.WSS_URL}?model=${process.env.MODEL}`;
 
-  const wss = new WebSocket(wsURL, {
-    headers: {
-      "Authorization": "Bearer " + process.env.OPENAI_API_KEY,
-      "OpenAI-Beta": "realtime=v1",
-    }
-  });
+  //const wss = new WebSocket(wsURL, {
+  //  headers: {
+  //    "Authorization": "Bearer " + process.env.OPENAI_API_KEY,
+  //    "OpenAI-Beta": "realtime=v1",
+  //  }
+  //});
 
   wss.on("open", function open() {
     console.log("Connected to WebSocket Server");
