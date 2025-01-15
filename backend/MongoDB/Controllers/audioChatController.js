@@ -14,11 +14,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export default function audioChatHandler(ws, request) {
+export default function audioChatHandler(wss, request) {
   // Authenticate the connection
   const token = request.headers['sec-websocket-protocol'];
   if (!token) {
-    ws.close(1008, 'Authentication Error');
+    wss.close(1008, 'Authentication Error');
     return;
   }
 
@@ -27,11 +27,11 @@ export default function audioChatHandler(ws, request) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     userId = decoded.userId;
   } catch (err) {
-    ws.close(1008, 'Authentication Error');
+    wss.close(1008, 'Authentication Error');
     return;
   }
 
-  const wsURL = `${process.env.WSS_URL}?model=${process.env.MODEL}`
+  const wsURL = `${process.env.WSS_URL}?model=${process.env.MODEL}`;
 
   const wss = new WebSocket(wsURL, {
     headers: {
@@ -41,11 +41,15 @@ export default function audioChatHandler(ws, request) {
   });
 
   wss.on("open", function open() {
-    console.log("Connected to WebSocket Server")
-  })
+    console.log("Connected to WebSocket Server");
+  });
 
   wss.on("open", function incoming(message) {
-    console.log(JSON.parse(message.data))
-  })
+    console.log(JSON.parse(message.data));
+  });
+
+  wss.close("close", function outgoing() {
+    console.log("WebSocket Connection is now closed");
+  });
 
 }
