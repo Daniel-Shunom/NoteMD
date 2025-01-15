@@ -17,6 +17,7 @@ import loginRoute from './MongoDB/auth/login.js';
 import registerRoute from './MongoDB/auth/signup.js';
 import assignPatientRoute from './MongoDB/Routes/assignPatient.js';
 import medicationRoute from './MongoDB/Routes/medicationRoute.js';
+import audioChatRoute from './MongoDB/Routes/audioChatRoute.js';
 import currentUserRoute from './MongoDB/auth/currentUser.js';
 import uploadDocumentRoute from './MongoDB/Routes/uploadDocuments.js';
 import documentRoutes from './MongoDB/Routes/documentRoute.js';
@@ -50,140 +51,140 @@ const app = express();
 // Create HTTP server
 const server = http.createServer(app);
 
-// Initialize WebSocket Server
-const wss = new WebSocketServer({ noServer: true });
-
-// In-memory storage for user sockets
-const userSockets = {};
-
-// Utility function to authenticate WebSocket connections
-// In server.js
-
-function authenticateWebSocket(request, callback) {
-  const cookies = request.headers.cookie;
-  let token;
-
-  if (cookies) {
-    const parsedCookies = {};
-    cookies.split(';').forEach(cookie => {
-      const [name, ...rest] = cookie.trim().split('=');
-      const value = rest.join('=');
-      parsedCookies[name] = decodeURIComponent(value);
-    });
-
-    token = parsedCookies['token']; // Replace 'token' with the actual name of your auth cookie
-  }
-
-  if (!token) {
-    logger.warn('WebSocket connection attempt without token.');
-    return callback(new Error('Authentication error'), null);
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    callback(null, decoded);
-  } catch (error) {
-    logger.error(`WebSocket token verification failed: ${error.message}`);
-    callback(new Error('Authentication error'), null);
-  }
-}
-
-
-// Broadcast message to all chat clients
-function broadcastToChatClients(message) {
-  wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN && client.path === '/chat') {
-      client.send(message);
-    }
-  });
-}
-
-// Chat Handler
-function chatHandler(ws, request) {
-  // Authenticate the connection
-  authenticateWebSocket(request, (err, decoded) => {
-    if (err) {
-      ws.close(1008, 'Authentication Error');
-      return;
-    }
-
-    const userId = decoded.userId;
-    ws.userId = userId; // Attach userId to WebSocket instance
-    userSockets[userId] = ws;
-    logger.info(`User connected to Chat WebSocket: ${userId}`);
-
-    ws.on('message', (message) => {
-      // Handle incoming chat messages
-      const parsedMessage = JSON.parse(message);
-      // Broadcast the message to all connected chat clients
-      broadcastToChatClients(JSON.stringify({ user: userId, message: parsedMessage }));
-    });
-
-    ws.on('close', () => {
-      delete userSockets[userId];
-      logger.info(`User disconnected from Chat WebSocket: ${userId}`);
-    });
-  });
-}
-
-// Notifications Handler
-function notificationsHandler(ws, request) {
-  // Authenticate the connection
-  authenticateWebSocket(request, (err, decoded) => {
-    if (err) {
-      ws.close(1008, 'Authentication Error');
-      return;
-    }
-
-    const userId = decoded.userId;
-    ws.userId = userId; // Attach userId to WebSocket instance
-    userSockets[userId] = ws;
-    logger.info(`User connected to Notifications WebSocket: ${userId}`);
-
-    ws.on('message', (message) => {
-      // Handle incoming notification messages if needed
-      logger.info(`Notification message from ${userId}: ${message}`);
-    });
-
-    ws.on('close', () => {
-      delete userSockets[userId];
-      logger.info(`User disconnected from Notifications WebSocket: ${userId}`);
-    });
-  });
-}
-
-// Handle Upgrade Requests for WebSockets
-server.on('upgrade', (request, socket, head) => {
-  const { url } = request;
-
-  // Define routes for WebSocket connections
-  if (url.startsWith('/chat')) {
-    request.url = '/chat'; // Ensure the path is correctly set
-    wss.handleUpgrade(request, socket, head, (ws) => {
-      ws.path = '/chat';
-      chatHandler(ws, request);
-    });
-  } else if (url.startsWith('/notifications')) {
-    request.url = '/notifications'; // Ensure the path is correctly set
-    wss.handleUpgrade(request, socket, head, (ws) => {
-      ws.path = '/notifications';
-      notificationsHandler(ws, request);
-    });
-  } else if (url.startsWith('/audio-chat')) { // Added this block
-    request.url = '/audio-chat'; // Ensure the path is correctly set
-    wss.handleUpgrade(request, socket, head, (ws) => {
-      ws.path = '/audio-chat';
-      audioChatHandler(ws, request);
-    });
-  } else {
-    // Reject other routes
-    socket.destroy();
-  }
-});
-
-// Attach WebSocket server and userSockets to app for use in routes (optional)
-app.set('wss', wss);
-app.set('userSockets', userSockets);
+//// Initialize WebSocket Server
+//const wss = new WebSocketServer({ noServer: true });
+//
+//// In-memory storage for user sockets
+//const userSockets = {};
+//
+//// Utility function to authenticate WebSocket connections
+//// In server.js
+//
+//function authenticateWebSocket(request, callback) {
+//  const cookies = request.headers.cookie;
+//  let token;
+//
+//  if (cookies) {
+//    const parsedCookies = {};
+//    cookies.split(';').forEach(cookie => {
+//      const [name, ...rest] = cookie.trim().split('=');
+//      const value = rest.join('=');
+//      parsedCookies[name] = decodeURIComponent(value);
+//    });
+//
+//    token = parsedCookies['token']; // Replace 'token' with the actual name of your auth cookie
+//  }
+//
+//  if (!token) {
+//    logger.warn('WebSocket connection attempt without token.');
+//    return callback(new Error('Authentication error'), null);
+//  }
+//
+//  try {
+//    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//    callback(null, decoded);
+//  } catch (error) {
+//    logger.error(`WebSocket token verification failed: ${error.message}`);
+//    callback(new Error('Authentication error'), null);
+//  }
+//}
+//
+//
+//// Broadcast message to all chat clients
+//function broadcastToChatClients(message) {
+//  wss.clients.forEach((client) => {
+//    if (client.readyState === WebSocket.OPEN && client.path === '/chat') {
+//      client.send(message);
+//    }
+//  });
+//}
+//
+//// Chat Handler
+//function chatHandler(ws, request) {
+//  // Authenticate the connection
+//  authenticateWebSocket(request, (err, decoded) => {
+//    if (err) {
+//      ws.close(1008, 'Authentication Error');
+//      return;
+//    }
+//
+//    const userId = decoded.userId;
+//    ws.userId = userId; // Attach userId to WebSocket instance
+//    userSockets[userId] = ws;
+//    logger.info(`User connected to Chat WebSocket: ${userId}`);
+//
+//    ws.on('message', (message) => {
+//      // Handle incoming chat messages
+//      const parsedMessage = JSON.parse(message);
+//      // Broadcast the message to all connected chat clients
+//      broadcastToChatClients(JSON.stringify({ user: userId, message: parsedMessage }));
+//    });
+//
+//    ws.on('close', () => {
+//      delete userSockets[userId];
+//      logger.info(`User disconnected from Chat WebSocket: ${userId}`);
+//    });
+//  });
+//}
+//
+//// Notifications Handler
+//function notificationsHandler(ws, request) {
+//  // Authenticate the connection
+//  authenticateWebSocket(request, (err, decoded) => {
+//    if (err) {
+//      ws.close(1008, 'Authentication Error');
+//      return;
+//    }
+//
+//    const userId = decoded.userId;
+//    ws.userId = userId; // Attach userId to WebSocket instance
+//    userSockets[userId] = ws;
+//    logger.info(`User connected to Notifications WebSocket: ${userId}`);
+//
+//    ws.on('message', (message) => {
+//      // Handle incoming notification messages if needed
+//      logger.info(`Notification message from ${userId}: ${message}`);
+//    });
+//
+//    ws.on('close', () => {
+//      delete userSockets[userId];
+//      logger.info(`User disconnected from Notifications WebSocket: ${userId}`);
+//    });
+//  });
+//}
+//
+//// Handle Upgrade Requests for WebSockets
+//server.on('upgrade', (request, socket, head) => {
+//  const { url } = request;
+//
+//  // Define routes for WebSocket connections
+//  if (url.startsWith('/chat')) {
+//    request.url = '/chat'; // Ensure the path is correctly set
+//    wss.handleUpgrade(request, socket, head, (ws) => {
+//      ws.path = '/chat';
+//      chatHandler(ws, request);
+//    });
+//  } else if (url.startsWith('/notifications')) {
+//    request.url = '/notifications'; // Ensure the path is correctly set
+//    wss.handleUpgrade(request, socket, head, (ws) => {
+//      ws.path = '/notifications';
+//      notificationsHandler(ws, request);
+//    });
+//  } else if (url.startsWith('/audio-chat')) { // Added this block
+//    request.url = '/audio-chat'; // Ensure the path is correctly set
+//    wss.handleUpgrade(request, socket, head, (ws) => {
+//      ws.path = '/audio-chat';
+//      audioChatHandler(ws, request);
+//    });
+//  } else {
+//    // Reject other routes
+//    socket.destroy();
+//  }
+//});
+//
+//// Attach WebSocket server and userSockets to app for use in routes (optional)
+//app.set('wss', wss);
+//app.set('userSockets', userSockets);
 
 // Connect to MongoDB
 mongoose
@@ -195,7 +196,8 @@ mongoose
   .catch((err) => {
     logger.error(`MongoDB connection error: ${err.message}`);
     process.exit(1);
-  });
+  }
+);
 
 // Middleware
 app.use(express.json());
@@ -235,6 +237,7 @@ app.use(uploadDocumentRoute); // Use the new upload route
 app.use(documentRoutes);
 app.use(chatbotRoutes);
 app.use(logoutRoute);
+app.use(audioChatRoute);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
