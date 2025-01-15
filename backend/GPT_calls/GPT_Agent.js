@@ -17,3 +17,12 @@ async function semanticSearch(userInput) {
         {},
     ]);
 }
+
+async function note_taker() {
+    const assistant = await openai.beta.assitants.create({
+        name: "Note_Taker",
+        instructions: "You are a doctor's assistant. You are to take medical complaints and make doctors notes in a standard output format",
+        tools: [{type: "code_intepreter"}],
+        model: "gpt-4o",
+    })
+}
