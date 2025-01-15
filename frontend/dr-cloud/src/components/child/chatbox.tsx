@@ -6,6 +6,7 @@ import { ChevronUp, Mic } from "lucide-react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholder";
 import { AnimatePresence, motion } from "framer-motion";
 import { AuthContext } from '../../../context/Authcontext'; 
+import useWebSocket from "../../../Sockets/sockets";
 import axios from 'axios';
 import dotenv from 'dotenv';
 
@@ -93,50 +94,10 @@ export function ChatBox() {
         return;
       }
 
-      const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}?model=${process.env.NEXT_PUBLIC_MODEL}`;
+      const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`;
       console.log('WebSocket URL:', websocketUrl);
+      useWebSocket(websocketUrl);
 
-      const newSocket = new WebSocket(websocketUrl, {
-        headers: {
-          "Authorization": "Bearer " + process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-          "OpenAI-Beta": "realtime=v1"
-        }
-      });
-      setSocket(newSocket);
-
-      newSocket.onopen = () => {
-        console.log('WebSocket connection established..');
-        // Start speech recognition here
-        startSpeechRecognition();
-      };
-
-      newSocket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data.type === 'assistant_response') {
-          setMessages((prev) => [...prev, { role: 'assistant', content: data.content }]);
-          setLoading(false);
-        } else if (data.type === 'error') {
-          console.error('Error from server:', data.content);
-          setLoading(false);
-          alert(`Error: ${data.content}`);
-        }
-      };
-
-      newSocket.onerror = (error) => {
-        console.error('WebSocket error:', error);
-        alert('WebSocket error occurred.');
-        setChatMode('text');
-      };
-
-      newSocket.onclose = (event) => {
-        console.log('WebSocket connection closed:', event);
-      };
-
-      return () => {
-        if (newSocket && newSocket.readyState === WebSocket.OPEN) {
-          newSocket.close();
-        }
-      };
     }
   }, [chatMode]);
 
