@@ -94,7 +94,7 @@ export function ChatBox() {
         return;
       }
 
-      const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`;
+      const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/api/audio-chat`;
       console.log('WebSocket URL:', websocketUrl);
       useWebSocket(websocketUrl);
 
