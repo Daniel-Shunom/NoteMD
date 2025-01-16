@@ -9,13 +9,14 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
 import http from 'http';
+import { WebSocketServer, WebSocket } from 'ws';
 
 // Import Routes
 import loginRoute from './MongoDB/auth/login.js';
 import registerRoute from './MongoDB/auth/signup.js';
 import assignPatientRoute from './MongoDB/Routes/assignPatient.js';
 import medicationRoute from './MongoDB/Routes/medicationRoute.js';
-import audioChatRoute from './MongoDB/Routes/audioChatRoute.js';
+//import audioChatRoute from './MongoDB/Routes/audioChatRoute.js';
 import currentUserRoute from './MongoDB/auth/currentUser.js';
 import uploadDocumentRoute from './MongoDB/Routes/uploadDocuments.js';
 import documentRoutes from './MongoDB/Routes/documentRoute.js';
@@ -24,6 +25,7 @@ import logoutRoute from './MongoDB/auth/logout.js';
 
 // Import Logger
 import winston from 'winston';
+import { audioChatHandler } from './MongoDB/Controllers/audioChatController.js';
 
 dotenv.config();
 
@@ -38,22 +40,20 @@ const logger = winston.createLogger({
 });
 
 const app = express();
-
-//HTTP server
 const server = http.createServer(app);
 
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => logger.info('MongoDB Connected'))
-  .catch((err) => {
-    logger.error(`MongoDB connection error: ${err.message}`);
-    process.exit(1);
-  }
+.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => logger.info('MongoDB Connected'))
+.catch((err) => {
+  logger.error(`MongoDB connection error: ${err.message}`);
+  process.exit(1);
+}
 );
 
 // Middleware
@@ -81,9 +81,8 @@ app.use(
   })
 );
 
-// Serve uploaded files statically
-app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
-
+//so apparently this is used only for regular http protocol
+//and not WebSocket protocol.
 app.use(loginRoute);
 app.use(registerRoute);
 app.use(assignPatientRoute);
@@ -93,7 +92,7 @@ app.use(uploadDocumentRoute);
 app.use(documentRoutes);
 app.use(chatbotRoutes);
 app.use(logoutRoute);
-app.use(audioChatRoute);
+//app.use(audioChatRoute);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
@@ -101,9 +100,52 @@ app.use((err, req, res, next) => {
   res.status(500).json({ status: 'error', message: 'Internal Server Error' });
 });
 
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT;
+
 server.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
 });
+
+const wss = new WebSocketServer({server: server}, () => {
+  console.log("WEBSOCKET ON")
+});
+
+wss.on('connection', (ws, request) => {
+  // Authentication
+  console.log("ESTABLISHED WS CONNECTIO WITH CLIENT SIDE: ", request.headers)
+  const token = request.headers['sec-websocket-protocol'];
+  if (!token) {
+    ws.close(1008, 'Authentication Error');
+    return;
+  }
+
+  let userId;
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    userId = decoded.userId;
+  } catch (err) {
+    ws.close(1008, 'Authentication Error');
+    return;
+  }
+
+  // Delegate to controller
+  audioChatHandler(ws, userId);
+
+  ws.on('close', () => {
+    console.log('WebSocket connection closed');
+  });
+
+  ws.on('error', (error) => {
+    console.error('WebSocket error:', error);
+  });
+});
+
+wss.on('open', (ws, request) => {
+  console.log("SOCKET IS OPEN!")
+})
+
+wss.on('message', (ws, message) => {
+  console.log("SOCKET RECIEVED MESSAGE: ", message)
+})
 
 export default app;

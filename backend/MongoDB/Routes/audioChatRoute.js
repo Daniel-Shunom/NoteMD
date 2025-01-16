@@ -7,6 +7,6 @@ import { audioChatHandler } from '../Controllers/audioChatController.js'; // Ens
 const router = express.Router();
 
 // POST /api/audio-chat
-router.post('/api/audio-chat', authenticateToken, audioChatHandler);
+router.get('/api/audio-chat', authenticateToken, audioChatHandler);
 
 export default router;
