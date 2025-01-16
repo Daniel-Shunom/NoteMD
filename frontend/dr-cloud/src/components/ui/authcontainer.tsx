@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface AuthContainerProps {
   userType?: "doctor" | "patient"; // Determines the user role
+  initialForm?: "login" | "signup" ;
 }
 
 export function AuthContainer({ userType }: AuthContainerProps) {
