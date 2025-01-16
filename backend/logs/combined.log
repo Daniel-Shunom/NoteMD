@@ -1945,3 +1945,133 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2025-01-15 17:55:07 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
 2025-01-15 17:55:07 [INFO]: authenticateToken invoked
 2025-01-15 17:55:07 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 20:38:37 [INFO]: authenticateToken invoked
+2025-01-15 20:38:37 [WARN]: No token provided in cookies.
+2025-01-15 20:48:06 [INFO]: authenticateToken invoked
+2025-01-15 20:48:06 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 20:48:06 [INFO]: authenticateToken invoked
+2025-01-15 20:48:06 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 20:49:55 [INFO]: authenticateToken invoked
+2025-01-15 20:49:55 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 20:49:55 [INFO]: authenticateToken invoked
+2025-01-15 20:49:55 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 20:50:18 [INFO]: authenticateToken invoked
+2025-01-15 20:50:18 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 20:50:18 [INFO]: authenticateToken invoked
+2025-01-15 20:50:18 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 21:01:56 [INFO]: authenticateToken invoked
+2025-01-15 21:01:56 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 21:01:56 [INFO]: authenticateToken invoked
+2025-01-15 21:01:56 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 22:08:32 [INFO]: authenticateToken invoked
+2025-01-15 22:08:32 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-15 22:08:32 [INFO]: authenticateToken invoked
+2025-01-15 22:08:32 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 00:33:52 [INFO]: authenticateToken invoked
+2025-01-16 00:33:52 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 00:33:52 [INFO]: authenticateToken invoked
+2025-01-16 00:33:52 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:20:00 [INFO]: authenticateToken invoked
+2025-01-16 01:20:00 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:20:00 [INFO]: authenticateToken invoked
+2025-01-16 01:20:00 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:29:17 [INFO]: authenticateToken invoked
+2025-01-16 01:29:17 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:29:17 [INFO]: authenticateToken invoked
+2025-01-16 01:29:17 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:39:45 [INFO]: authenticateToken invoked
+2025-01-16 01:39:45 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:39:45 [INFO]: authenticateToken invoked
+2025-01-16 01:39:45 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:43:25 [INFO]: authenticateToken invoked
+2025-01-16 01:43:25 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:43:26 [INFO]: authenticateToken invoked
+2025-01-16 01:43:26 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:47:10 [INFO]: authenticateToken invoked
+2025-01-16 01:47:10 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:47:10 [INFO]: authenticateToken invoked
+2025-01-16 01:47:10 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:55:32 [INFO]: authenticateToken invoked
+2025-01-16 01:55:32 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 01:55:32 [INFO]: authenticateToken invoked
+2025-01-16 01:55:32 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:14:40 [INFO]: authenticateToken invoked
+2025-01-16 10:14:40 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:14:41 [INFO]: authenticateToken invoked
+2025-01-16 10:14:41 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:16:04 [INFO]: authenticateToken invoked
+2025-01-16 10:16:04 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:16:05 [INFO]: authenticateToken invoked
+2025-01-16 10:16:05 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:16:46 [INFO]: authenticateToken invoked
+2025-01-16 10:16:46 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:16:46 [INFO]: authenticateToken invoked
+2025-01-16 10:16:46 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:46:48 [INFO]: authenticateToken invoked
+2025-01-16 10:46:48 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:46:49 [INFO]: authenticateToken invoked
+2025-01-16 10:46:49 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:48:57 [INFO]: authenticateToken invoked
+2025-01-16 10:48:57 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 10:48:57 [INFO]: authenticateToken invoked
+2025-01-16 10:48:57 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:30:47 [INFO]: authenticateToken invoked
+2025-01-16 11:30:47 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:30:47 [INFO]: authenticateToken invoked
+2025-01-16 11:30:47 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:32:29 [INFO]: authenticateToken invoked
+2025-01-16 11:32:29 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:32:29 [INFO]: authenticateToken invoked
+2025-01-16 11:32:29 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:32:56 [INFO]: authenticateToken invoked
+2025-01-16 11:32:56 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:32:56 [INFO]: authenticateToken invoked
+2025-01-16 11:32:56 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:36:22 [INFO]: authenticateToken invoked
+2025-01-16 11:36:22 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:36:22 [INFO]: authenticateToken invoked
+2025-01-16 11:36:22 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:37:15 [INFO]: authenticateToken invoked
+2025-01-16 11:37:15 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:37:15 [INFO]: authenticateToken invoked
+2025-01-16 11:37:15 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:37:58 [INFO]: authenticateToken invoked
+2025-01-16 11:37:58 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:37:58 [INFO]: authenticateToken invoked
+2025-01-16 11:37:58 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:39:37 [INFO]: authenticateToken invoked
+2025-01-16 11:39:37 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 11:39:37 [INFO]: authenticateToken invoked
+2025-01-16 11:39:37 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:24:16 [INFO]: authenticateToken invoked
+2025-01-16 12:24:16 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:24:16 [INFO]: authenticateToken invoked
+2025-01-16 12:24:16 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:40:24 [INFO]: authenticateToken invoked
+2025-01-16 12:40:24 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:40:24 [INFO]: authenticateToken invoked
+2025-01-16 12:40:24 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:50:23 [INFO]: authenticateToken invoked
+2025-01-16 12:50:23 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:50:23 [INFO]: authenticateToken invoked
+2025-01-16 12:50:23 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:51:43 [INFO]: authenticateToken invoked
+2025-01-16 12:51:43 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:51:43 [INFO]: authenticateToken invoked
+2025-01-16 12:51:43 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:53:13 [INFO]: authenticateToken invoked
+2025-01-16 12:53:13 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:53:13 [INFO]: authenticateToken invoked
+2025-01-16 12:53:13 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:57:21 [INFO]: authenticateToken invoked
+2025-01-16 12:57:21 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:57:21 [INFO]: authenticateToken invoked
+2025-01-16 12:57:21 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:59:19 [INFO]: authenticateToken invoked
+2025-01-16 12:59:19 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 12:59:19 [INFO]: authenticateToken invoked
+2025-01-16 12:59:19 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 13:07:02 [INFO]: authenticateToken invoked
+2025-01-16 13:07:02 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient
+2025-01-16 13:07:02 [INFO]: authenticateToken invoked
+2025-01-16 13:07:02 [INFO]: Authenticated User: UserID=671c04d1c5594680ce895bf2, Role=patient

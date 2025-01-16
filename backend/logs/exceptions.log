@@ -467,3 +467,302 @@ Error: The OPENAI_API_KEY environment variable is missing or empty; either provi
     at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
     at async loadESM (node:internal/process/esm_loader:28:7)
     at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 22:28:46 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:43:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 22:51:21 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:43:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:25:30 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:25:48 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:26:15 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:26:35 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:27:59 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:28:12 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:28:14 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:28:23 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:30:43 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:31:05 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:31:21 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:32:14 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:33:04 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:34:18 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:35:38 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:35:48 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:36:22 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:37:05 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-15 23:37:45 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 00:29:34 [ERROR]: uncaughtException: wss is not defined
+ReferenceError: wss is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:124:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 00:29:49 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 00:33:57 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at Server.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:112:15)
+    at Server.emit (node:events:519:28)
+    at onParserExecuteCommon (node:_http_server:942:14)
+    at onParserExecute (node:_http_server:836:3)
+2025-01-16 00:48:51 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:110:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 00:50:25 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:110:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 00:51:33 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:110:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 00:55:31 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:110:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 00:57:05 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 01:09:36 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:44:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 01:11:00 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:123:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 01:12:01 [ERROR]: uncaughtException: Invalid URL: [object Object]
+SyntaxError: Invalid URL: [object Object]
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:123:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-16 01:13:32 [ERROR]: uncaughtException: WSS_PORT is not defined
+ReferenceError: WSS_PORT is not defined
+    at Server.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:124:53)
+    at Object.onceWrapper (node:events:633:28)
+    at Server.emit (node:events:531:35)
+    at emitListeningNT (node:net:1906:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)
+2025-01-16 01:14:16 [ERROR]: uncaughtException: Cannot access 'wss' before initialization
+ReferenceError: Cannot access 'wss' before initialization
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:124:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
