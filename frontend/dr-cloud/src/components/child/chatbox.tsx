@@ -108,20 +108,20 @@ export function ChatBox() {
   // Speech Recognition Effect
   useEffect(() => {
     let recognition: any;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
 
-    if (chatMode === 'microphone' && !isListening) {
-        setIsListening(true);
-        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    setIsListening(true);
+    if (chatMode === 'microphone' && isListening) {
         if (!SpeechRecognition) {
             alert('Speech recognition is not supported in this browser.');
             setChatMode('text');
             return;
         }
 
-        recognition = new SpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
-        recognition.lang = 'en-US';
 
         recognition.onresult = (event: any) => {
           const result = event.results[event.results.length - 1];
@@ -133,9 +133,10 @@ export function ChatBox() {
           console.log('WebSocket URL:', websocketUrl);
         };
 
-        recognition.onend = () => {
-          if (isListening == true) {
-              recognition.start();
+        recognition.onend = (x) => {
+          if (isListening) {
+            x = new SpeechRecognition()
+            x.start();
           }
         };
 
@@ -151,10 +152,17 @@ export function ChatBox() {
             if (recognition) {
                 recognition.stop();
                 recognition = null;
+                setIsListening(false);
             }
         };
-    }
-}, [chatMode, isListening]);
+    } 
+
+    if (chatMode === 'text') {
+      recognition.abort();
+      recognition = null;
+      setIsListening(false);
+    } 
+  }, [chatMode, isListening]);
 
   return (
     <div className="flex flex-col h-80">
