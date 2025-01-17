@@ -46,7 +46,7 @@ export function ChatBox() {
     setCurrentMessage(e.target.value);
   };
   
-  let audiotxt: string;
+  //let audiotxt: string;
 
   const onSubmit = async (
     e?: FormEvent<HTMLFormElement>,
@@ -95,8 +95,8 @@ export function ChatBox() {
   // Initialize WebSocket connection when entering microphone mode
   useEffect( ()=> {
     if (chatMode === 'microphone') {
-      if (!process.env.NEXT_PUBLIC_BACKEND_URL) {
-        console.error('NEXT_PUBLIC_BACKEND_URL is not defined.');
+      if (!process.env.NEXT_PUBLIC_WEBSOCKET) {
+        console.error('WEBSOCKET URL IS NOT DEFINED.');
         alert('WebSocket URL is not configured.');
         setChatMode('text');
         return;
@@ -105,57 +105,56 @@ export function ChatBox() {
   }, [chatMode]);
 
   const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET}/api/audio-chat`;
-  const ws_socket = new WebSocket(websocketUrl)
   // Speech Recognition Effect
   useEffect(() => {
     let recognition: any;
 
     if (chatMode === 'microphone' && !isListening) {
-      setIsListening(true);
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      if (!SpeechRecognition) {
-        alert('Speech recognition is not supported in this browser.');
-        setChatMode('text');
-        return;
-      }
+        setIsListening(true);
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert('Speech recognition is not supported in this browser.');
+            setChatMode('text');
+            return;
+        }
 
-      recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
+        recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
 
-      recognition.start();
+        recognition.onresult = (event: any) => {
+          const result = event.results[event.results.length - 1];
+          const transcript = result[0].transcript;
+          if (result.isFinal) {
+            setMessages((prev) => [...prev, { role: "user", content: transcript }]);
+          }
+          //setCurrentMessage(transcript);
+          console.log('WebSocket URL:', websocketUrl);
+        };
 
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        setMessages((prev) => [...prev, { role: "user", content: transcript }]);
-        setCurrentMessage("");
-        // Send the transcript via WebSocket
-        console.log('WebSocket URL:', websocketUrl);
+        recognition.onend = () => {
+          if (isListening == true) {
+              recognition.start();
+          }
+        };
 
-        nws.useWebSocket(websocketUrl, () => {})
-      
-      //setIsListening(false);
-      };
+        recognition.onerror = (event: any) => {
+            console.error('Speech recognition error', event);
+            setIsListening(false);
+            setChatMode('text');
+        };
 
-      recognition.onerror = (event: any) => {
-        console.error('Speech recognition error', event);
-        setIsListening(false);
-        setChatMode('text');
-      };
+        recognition.start();
 
-      //recognition.onend = () => {
-      //  setIsListening(false);
-      //  //setChatMode('text');
-      //};
+        return () => {
+            if (recognition) {
+                recognition.stop();
+                recognition = null;
+            }
+        };
     }
-
-    return () => {
-      if (recognition && recognition.abort) {
-        recognition.abort();
-      }
-    };
-  }, [chatMode]);
+}, [chatMode, isListening]);
 
   return (
     <div className="flex flex-col h-80">
