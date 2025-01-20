@@ -142,17 +142,18 @@ export function ChatBox() {
       };
       
       wsRef.current.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        console.log('📩 Received server response:', data);
+        const r_data = JSON.parse(event.data);
+        const transcript = r_data.content[0].transcript;
+        console.log('📩 Received server response:', r_data);
         setMessages((prev) => [...prev, { 
           role: 'assistant', 
-          content: event.data.type 
+          content: transcript 
         }]);
 
-        if (data.type === "audio") {
-          //const audioBuffer = base64ToArrayBuffer(data.payload)
-          playAudio(event.data.payload);
-        }
+        ///if (r_data.contenttype === "audio") {
+        ///  //const audioBuffer = base64ToArrayBuffer(data.payload)
+        ///  playAudio(event.data.payload);
+        ///}
       };
       
       wsRef.current.onerror = (error) => {
