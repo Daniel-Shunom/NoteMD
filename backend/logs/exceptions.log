@@ -946,3 +946,53 @@ SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
     at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
     at async loadESM (node:internal/process/esm_loader:28:7)
     at async handleMainPromise (node:internal/modules/run_main:113:12)
+2025-01-20 12:29:30 [ERROR]: uncaughtException: Speaker is not defined
+ReferenceError: Speaker is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:137:17
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2025-01-20 12:29:35 [ERROR]: uncaughtException: Speaker is not defined
+ReferenceError: Speaker is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:137:17
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
+2025-01-20 12:31:14 [ERROR]: uncaughtException: The "chunk" argument must be of type string or an instance of Buffer or Uint8Array. Received type number (0)
+TypeError [ERR_INVALID_ARG_TYPE]: The "chunk" argument must be of type string or an instance of Buffer or Uint8Array. Received type number (0)
+    at _write (node:internal/streams/writable:474:13)
+    at Writable.write (node:internal/streams/writable:502:10)
+    at WebSocket.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:176:21)
+    at WebSocket.emit (node:events:518:28)
+    at Receiver.receiverOnMessage (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\websocket.js:1220:20)
+    at Receiver.emit (node:events:518:28)
+    at Receiver.dataMessage (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\receiver.js:596:14)
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\receiver.js:530:12
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\permessage-deflate.js:309:9
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\permessage-deflate.js:392:7
+2025-01-20 13:25:19 [ERROR]: uncaughtException: audio_transcript is not defined
+ReferenceError: audio_transcript is not defined
+    at WebSocket.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:174:19)
+    at WebSocket.emit (node:events:518:28)
+    at Receiver.receiverOnMessage (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\websocket.js:1220:20)
+    at Receiver.emit (node:events:518:28)
+    at Receiver.dataMessage (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\receiver.js:596:14)
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\receiver.js:530:12
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\permessage-deflate.js:309:9
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\permessage-deflate.js:392:7
+    at afterWrite (node:internal/streams/writable:701:5)
+    at onwrite (node:internal/streams/writable:679:7)
+2025-01-20 13:25:48 [ERROR]: uncaughtException: audio_transcript is not defined
+ReferenceError: audio_transcript is not defined
+    at WebSocket.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:174:19)
+    at WebSocket.emit (node:events:518:28)
+    at Receiver.receiverOnMessage (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\websocket.js:1220:20)
+    at Receiver.emit (node:events:518:28)
+    at Receiver.dataMessage (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\receiver.js:596:14)
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\receiver.js:530:12
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\permessage-deflate.js:309:9
+    at C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\permessage-deflate.js:392:7
+    at afterWrite (node:internal/streams/writable:701:5)
+    at onwrite (node:internal/streams/writable:679:7)
