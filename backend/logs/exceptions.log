@@ -766,3 +766,174 @@ ReferenceError: Cannot access 'wss' before initialization
     at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
     at async loadESM (node:internal/process/esm_loader:28:7)
     at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-17 01:41:00 [ERROR]: uncaughtException: WebSocket.Server is not a constructor
+TypeError: WebSocket.Server is not a constructor
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:108:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-17 01:41:46 [ERROR]: uncaughtException: WebSocket.Server is not a constructor
+TypeError: WebSocket.Server is not a constructor
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:108:13
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 16:22:22 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:117:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 16:23:54 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:118:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 16:26:12 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:118:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 16:36:16 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:118:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 18:24:10 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:118:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 18:46:42 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:118:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 18:47:39 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:119:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 18:47:48 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:119:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 19:09:00 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:133:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 19:10:16 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:133:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 19:11:54 [ERROR]: uncaughtException: openai_ws is not defined
+ReferenceError: openai_ws is not defined
+    at file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:129:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:120:12)
+2025-01-18 20:31:12 [ERROR]: uncaughtException: Unexpected token 'h', "hey my nam"... is not valid JSON
+SyntaxError: Unexpected token 'h', "hey my nam"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at WebSocket.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:171:30)
+    at WebSocket.emit (node:events:531:35)
+    at Receiver.receiverOnMessage (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:1220:20)
+    at Receiver.emit (node:events:519:28)
+    at Receiver.dataMessage (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:596:14)
+    at Receiver.getData (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:496:10)
+    at Receiver.startLoop (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:167:16)
+    at Receiver._write (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:94:10)
+    at writeOrBuffer (node:internal/streams/writable:564:12)
+2025-01-18 20:50:26 [ERROR]: uncaughtException: Unexpected token 'h', "hey my nam"... is not valid JSON
+SyntaxError: Unexpected token 'h', "hey my nam"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at WebSocket.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:150:33)
+    at WebSocket.emit (node:events:531:35)
+    at Receiver.receiverOnMessage (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:1220:20)
+    at Receiver.emit (node:events:519:28)
+    at Receiver.dataMessage (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:596:14)
+    at Receiver.getData (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:496:10)
+    at Receiver.startLoop (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:167:16)
+    at Receiver._write (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:94:10)
+    at writeOrBuffer (node:internal/streams/writable:564:12)
+2025-01-18 21:10:32 [ERROR]: uncaughtException: Unexpected token 'h', "hey my nam"... is not valid JSON
+SyntaxError: Unexpected token 'h', "hey my nam"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at WebSocket.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:150:33)
+    at WebSocket.emit (node:events:531:35)
+    at Receiver.receiverOnMessage (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:1220:20)
+    at Receiver.emit (node:events:519:28)
+    at Receiver.dataMessage (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:596:14)
+    at Receiver.getData (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:496:10)
+    at Receiver.startLoop (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:167:16)
+    at Receiver._write (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:94:10)
+    at writeOrBuffer (node:internal/streams/writable:564:12)
+2025-01-18 21:11:22 [ERROR]: uncaughtException: Unexpected token 'h', "hey what's"... is not valid JSON
+SyntaxError: Unexpected token 'h', "hey what's"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at WebSocket.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:150:33)
+    at WebSocket.emit (node:events:531:35)
+    at Receiver.receiverOnMessage (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:1220:20)
+    at Receiver.emit (node:events:519:28)
+    at Receiver.dataMessage (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:596:14)
+    at Receiver.getData (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:496:10)
+    at Receiver.startLoop (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:167:16)
+    at Receiver._write (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\receiver.js:94:10)
+    at writeOrBuffer (node:internal/streams/writable:564:12)
+2025-01-18 22:24:17 [ERROR]: uncaughtException: ws is not defined
+ReferenceError: ws is not defined
+    at WebSocket.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:119:3)
+    at WebSocket.emit (node:events:519:28)
+    at WebSocket.setSocket (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:251:10)
+    at ClientRequest.<anonymous> (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket.js:1012:15)
+    at ClientRequest.emit (node:events:519:28)
+    at TLSSocket.socketOnData (node:_http_client:575:11)
+    at TLSSocket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)

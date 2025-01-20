@@ -105,3 +105,33 @@ Error: ENOENT: no such file or directory, open 'C:\Users\danie\OneDrive\Desktop\
 2024-11-03 14:19:15 [ERROR]: Error retrieving documents: document is not defined
 2024-11-03 14:19:15 [ERROR]: Error retrieving documents: document is not defined
 2024-11-03 16:13:25 [ERROR]: Error retrieving documents: read ECONNRESET
+2025-01-18 15:03:17 [ERROR]: unhandledRejection: userId is not defined
+ReferenceError: userId is not defined
+    at WebSocketServer.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:148:15)
+    at WebSocketServer.emit (node:events:519:28)
+    at WebSocketServer.completeUpgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:436:5)
+    at WebSocketServer.handleUpgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:344:10)
+    at Server.upgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:119:16)
+    at Server.emit (node:events:519:28)
+    at onParserExecuteCommon (node:_http_server:942:14)
+    at onParserExecute (node:_http_server:836:3)
+2025-01-18 15:06:21 [ERROR]: unhandledRejection: userId is not defined
+ReferenceError: userId is not defined
+    at WebSocketServer.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:151:24)
+    at WebSocketServer.emit (node:events:519:28)
+    at WebSocketServer.completeUpgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:436:5)
+    at WebSocketServer.handleUpgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:344:10)
+    at Server.upgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:119:16)
+    at Server.emit (node:events:519:28)
+    at onParserExecuteCommon (node:_http_server:942:14)
+    at onParserExecute (node:_http_server:836:3)
+2025-01-18 15:06:56 [ERROR]: unhandledRejection: userId is not defined
+ReferenceError: userId is not defined
+    at WebSocketServer.<anonymous> (file:///C:/Users/danie/OneDrive/Desktop/NoteMD/NoteMD/backend/index.js:148:15)
+    at WebSocketServer.emit (node:events:519:28)
+    at WebSocketServer.completeUpgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:436:5)
+    at WebSocketServer.handleUpgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:344:10)
+    at Server.upgrade (C:\Users\danie\OneDrive\Desktop\NoteMD\NoteMD\backend\node_modules\ws\lib\websocket-server.js:119:16)
+    at Server.emit (node:events:519:28)
+    at onParserExecuteCommon (node:_http_server:942:14)
+    at onParserExecute (node:_http_server:836:3)
