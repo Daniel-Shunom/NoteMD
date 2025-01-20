@@ -97,7 +97,6 @@ server.listen(PORT, () => {
 });
 
 // WebSocket Server to OpenAI API
-//const openai_ws_url = `${process.env.OPENAI_WSS_URL}?model=${process.env.MODEL}`;
 const openai_ws_url = `${process.env.OPENAI_WSS_URL}?model=${process.env.MODEL}`;
 
 const openai_ws = new WebSocket(openai_ws_url, {
@@ -113,7 +112,7 @@ openai_ws.on('open', () => {
     "type": "session.update",
     "session": {
       "voice": "alloy",
-      "instructions": "You are a helpful assistant to act like a medical scribe. You are joyful and happy and ready to take notes",
+      "instructions": "You are a helpful assistant to act like a medical scribe. You are joyful and jovial and happy and ready to take notes. You are to make the patient feel warm and welcome and in a safe space. ",
       "turn_detection": null,
       "temperature": 0.8,
       "max_response_output_tokens": "inf",
@@ -145,7 +144,7 @@ function processAudioDelta(base64Audio) {
 
 openai_ws.on('message', (data) => {
   const serverEvent = JSON.parse(data);
-  console.log(serverEvent.types);
+  console.log(serverEvent.type);
 
   let audioChunks = [];
 
@@ -173,19 +172,29 @@ openai_ws.on('message', (data) => {
         case "response.audio.delta":
           audioChunks.push(serverEvent.delta)
           break;
+        
+        case "response.done":
+          console.log(serverEvent.response.output[0])
+          client.send(JSON.stringify(serverEvent.response.output[0]))
+          //client.send(JSON.stringify({
+          //  type: "audio",
+          //  payload: serverEvent.response.output[0],
+          //  format: text
+          //}))
+          break
 
         case "response.audio.done":
           try {
             const audioDelta = serverEvent.delta;
             const processedAudio = processAudioDelta(audioDelta);
   
-            client.send(JSON.stringify({
-              type: "audio",
-              payload: processedAudio,
-              format: "pcm16",
-              sampleRate: 24000,
-              channels: 1
-            }));
+            //client.send(JSON.stringify({
+            //  type: "audio",
+            //  payload: processedAudio,
+            //  format: "pcm16",
+            //  sampleRate: 24000,
+            //  channels: 1
+            //}));
 
             audioChunks = [];
           } catch (error) {
