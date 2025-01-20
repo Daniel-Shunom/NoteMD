@@ -9,7 +9,7 @@ import http from 'http';
 import { WebSocketServer, WebSocket } from 'ws';
 import winston from 'winston';
 import { audioChatHandler } from './MongoDB/Controllers/audioChatController.js';
-
+import Speaker from 'speaker';
 dotenv.config();
 
 // Initialize Logger
@@ -112,7 +112,7 @@ openai_ws.on('open', () => {
     "type": "session.update",
     "session": {
       "voice": "alloy",
-      "instructions": "You are a helpful assistant to act like a medical scribe. You are joyful and jovial and happy and ready to take notes. You are to make the patient feel warm and welcome and in a safe space. ",
+      "instructions": "You are a helpful assistant to act like a medical scribe. You are joyful and jovial and happy and ready to take notes. You are to make the patient feel warm and welcome and in a safe space. If you are asked about the 2024 elections, give your emotionally charged opinion on it and talk about the gloomy future of the economy ",
       "turn_detection": null,
       "temperature": 0.8,
       "max_response_output_tokens": "inf",
@@ -126,21 +126,19 @@ openai_ws.on('open', () => {
 
 function processAudioDelta(base64Audio) {
   try {
-    // Decode Base64 to Buffer
     const audioBuffer = Buffer.from(base64Audio, 'base64');
-    
-    // Optional: Additional audio processing
-    // For example, you might want to:
-    // - Normalize audio levels
-    // - Apply audio effects
-    // - Validate audio data
-
-    return base64Audio; // Return original or processed Base64
+    return audioBuffer;
   } catch (error) {
     console.error('Audio delta processing error:', error);
     return null;
   }
 }
+
+const speaker = new Speaker({
+  channels: 1,
+  bitDepth: 16,
+  sampleRate: 24000
+});
 
 openai_ws.on('message', (data) => {
   const serverEvent = JSON.parse(data);
@@ -170,54 +168,39 @@ openai_ws.on('message', (data) => {
     if (client.isAlive) {
       switch (serverEvent.type) {
         case "response.audio.delta":
-          audioChunks.push(serverEvent.delta)
+          console.log(serverEvent);
+          const processedAudio = processAudioDelta(serverEvent.delta);
+
+          try {
+            client.send(JSON.stringify({
+              type: "audio_transcript",
+              audio: processedAudio
+            }));
+          } catch (error) {
+            console.log("Error sending processed audio", error)
+          }
+
+          console.log(processedAudio);
+          audioChunks.push(processedAudio);
+          //speaker.write(processedAudio);
           break;
         
         case "response.done":
-          console.log(serverEvent.response.output[0])
-          client.send(JSON.stringify(serverEvent.response.output[0]))
-          //client.send(JSON.stringify({
-          //  type: "audio",
-          //  payload: serverEvent.response.output[0],
-          //  format: text
-          //}))
-          break
+          console.log(serverEvent.response.output[0]);
+          client.send(JSON.stringify(serverEvent.response.output[0]));
+          break;
 
         case "response.audio.done":
           try {
             const audioDelta = serverEvent.delta;
-            const processedAudio = processAudioDelta(audioDelta);
-  
-            //client.send(JSON.stringify({
-            //  type: "audio",
-            //  payload: processedAudio,
-            //  format: "pcm16",
-            //  sampleRate: 24000,
-            //  channels: 1
-            //}));
 
             audioChunks = [];
+            //client.send(processedAudio)
           } catch (error) {
             console.error('Error processing audio:', error);
           };
           break;
       }
-      //if (serverEvent.type === "response.audio.delta") {
-      //  audioChunks
-      //  try {
-      //    const audioDelta = serverEvent.delta;
-      //    const processedAudio = processAudioDelta(audioDelta);
-      //    client.send(JSON.stringify({
-      //      type: "audio",
-      //      payload: processedAudio,
-      //      format: "pcm16",
-      //      sampleRate: 24000,
-      //      channels: 1
-      //    }));
-      //  } catch (error) {
-      //    console.error('Error processing audio:', error);
-      //  }
-      //}
     }
   }
 });
