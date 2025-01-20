@@ -937,3 +937,12 @@ ReferenceError: ws is not defined
     at addChunk (node:internal/streams/readable:559:12)
     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
     at Readable.push (node:internal/streams/readable:390:5)
+2025-01-19 21:30:55 [ERROR]: uncaughtException: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+SyntaxError: Invalid URL: undefined?model=gpt-4o-realtime-preview-2024-12-17
+    at initAsClient (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\websocket.js:692:13)
+    at new WebSocket (C:\Users\danie\OneDrive\Desktop\MONGODB_AI_HACKATHON\backend\node_modules\ws\lib\websocket.js:88:7)
+    at file:///C:/Users/danie/OneDrive/Desktop/MONGODB_AI_HACKATHON/backend/index.js:103:19
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:28:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12)
