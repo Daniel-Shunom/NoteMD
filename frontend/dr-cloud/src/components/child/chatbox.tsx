@@ -1,5 +1,3 @@
-// ChatBox.js
-
 "use client";
 import React, { useState, useEffect, useRef, FormEvent, useContext } from "react";
 import { ChevronUp, Mic } from "lucide-react";
@@ -19,19 +17,17 @@ type Message = {
 };
 
 export function ChatBox() {
-  const { auth } = useContext(AuthContext);
-  //const user = auth.user;
-  
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("");
   const [chatMode, setChatMode] = useState<'text' | 'microphone'>('text');
   const [isListening, setIsListening] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
 
   const wsRef = useRef<WebSocket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
-  const WSS_URL = process.env.NEXT_PUBLIC_WEBSOCKET_URL
+  const WSS_URL = `${process.env.NEXT_PUBLIC_WEBSOCKET}/api/audio-chat`;
   const nws = new WS_Module();
 
   const placeholders = [
@@ -45,15 +41,12 @@ export function ChatBox() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentMessage(e.target.value);
   };
-  
-  //let audiotxt: string;
 
   const onSubmit = async (
     e?: FormEvent<HTMLFormElement>,
     messageContent?: string
   ) => {
     if (e) e.preventDefault();
-    //messageContent = audiotxt;
     const messageToSend = messageContent || currentMessage;
     if (!messageToSend.trim()) {
       alert("Please enter a message.");
@@ -65,7 +58,6 @@ export function ChatBox() {
     setLoading(true);
 
     try {
-      // Send the message to the chatbot endpoint
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/chat`,
         { message: messageToSend },
@@ -73,12 +65,11 @@ export function ChatBox() {
           headers: {
             'Content-Type': 'application/json',
           },
-          withCredentials: true, // Include cookies in the request
+          withCredentials: true,
         }
       );
 
       const assistantResponse = response.data.response;
-
       setMessages((prev) => [...prev, { role: "assistant", content: assistantResponse }]);
     } catch (error) {
       console.error('Error during chat:', error);
@@ -93,75 +84,173 @@ export function ChatBox() {
   }, [messages]);
 
   // Initialize WebSocket connection when entering microphone mode
-  useEffect( ()=> {
-    if (chatMode === 'microphone') {
+  useEffect(() => {
+    
+    async function decodePCM16Audio(payload) {
+      // Assume payload is base64 or ArrayBuffer
+      const audioContext = new AudioContext();
+      
+      try {
+        // Convert base64 to ArrayBuffer if needed
+        const audioBuffer = await audioContext.decodeAudioData(
+          base64ToArrayBuffer(payload)
+        );
+        
+        // Play or process the audio
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(audioContext.destination);
+        source.start();
+      } catch (error) {
+        console.error('Audio decoding failed:', error);
+      }
+    }
+
+    async function playAudio(payload) {
+      try {
+        await decodePCM16Audio(payload)
+      } catch (error) {
+        console.error('Error playing audio:', error);
+      }
+    }
+
+    function base64ToArrayBuffer(base64) {
+      const binaryString = atob(base64); // Decode base64 string
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len); // Create a Uint8Array
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i); // Convert each character to byte
+      }
+      return bytes.buffer; // Return the ArrayBuffer
+    }
+    
+    if (chatMode === 'microphone' && !wsRef.current) {
       if (!process.env.NEXT_PUBLIC_WEBSOCKET) {
         console.error('WEBSOCKET URL IS NOT DEFINED.');
         alert('WebSocket URL is not configured.');
         setChatMode('text');
         return;
       }
-    }
-  }, [chatMode]);
 
-  const websocketUrl = `${process.env.NEXT_PUBLIC_WEBSOCKET}/api/audio-chat`;
+      wsRef.current = new WebSocket(WSS_URL);
+      console.log('🔌 Initializing WebSocket connection...');
+
+      wsRef.current.onopen = () => {
+        console.log('✅ WebSocket connected');
+        setIsConnected(true);
+        setIsListening(true);
+      };
+      
+      wsRef.current.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        console.log('📩 Received server response:', data);
+        setMessages((prev) => [...prev, { 
+          role: 'assistant', 
+          content: event.data.type 
+        }]);
+
+        if (data.type === "audio") {
+          //const audioBuffer = base64ToArrayBuffer(data.payload)
+          playAudio(event.data.payload);
+        }
+      };
+      
+      wsRef.current.onerror = (error) => {
+        console.error('🔌❌ WebSocket error:', error);
+        setMessages((prev) => [...prev, { 
+          role: 'assistant', 
+          content: 'Connection error: Please try again later.' 
+        }]);
+      };
+      
+      wsRef.current.onclose = () => {
+        console.log('🔌 WebSocket disconnected');
+        wsRef.current = null;
+        setIsConnected(false);
+      };
+    }
+
+    return () => {
+      if (chatMode === 'text' && wsRef.current) {
+        console.log('🔌 Closing WebSocket connection - chat mode changed to text');
+        wsRef.current.close();
+        wsRef.current = null;
+        setIsConnected(false);
+      }
+    };
+  }, [chatMode, WSS_URL]);
+
   // Speech Recognition Effect
   useEffect(() => {
-    let recognition: any;
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    recognition = new SpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = 'en-US';
-
-    setIsListening(true);
+    let recognition: any = null;
+    
     if (chatMode === 'microphone' && isListening) {
-        if (!SpeechRecognition) {
-            alert('Speech recognition is not supported in this browser.');
-            setChatMode('text');
-            return;
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+      
+      console.log('🎤 Speech Recognition started');
+
+      recognition.onstart = () => {
+        console.log('🎙️ Listening...');
+      };
+
+      recognition.onend = () => {
+        console.log('🛑 Speech Recognition ended');
+        if (chatMode === 'microphone' && isListening && recognition) {
+          recognition.start();
         }
+      };
 
-
-        recognition.onresult = (event: any) => {
-          const result = event.results[event.results.length - 1];
+      recognition.onresult = (event: any) => {
+        const result = event.results[event.results.length - 1];
+        if (result.isFinal) {
           const transcript = result[0].transcript;
-          if (result.isFinal) {
-            setMessages((prev) => [...prev, { role: "user", content: transcript }]);
+          console.log('🗣️ Speech transcribed:', transcript);
+          
+          setMessages(prev => [...prev, { 
+            role: "user", 
+            content: transcript 
+          }]);
+
+          if (wsRef.current?.readyState === WebSocket.OPEN) {
+            console.log('📤 Sending message to server...');
+            const message = JSON.stringify({ 
+              content: transcript, 
+              source: "client"
+            });
+            wsRef.current.send(message);
+          } else {
+            console.error('❌ WebSocket not connected');
+            setMessages(prev => [...prev, { 
+              role: "assistant", 
+              content: "Error: Could not send message - WebSocket disconnected" 
+            }]);
           }
-          //setCurrentMessage(transcript);
-          console.log('WebSocket URL:', websocketUrl);
-        };
+        }
+      };
 
-        recognition.onend = (x) => {
-          if (isListening) {
-            x = new SpeechRecognition()
-            x.start();
-          }
-        };
+      recognition.onerror = (event: any) => {
+        console.error('🎤❌ Speech Recognition error:', event.error);
+        //setMessages(prev => [...prev, { 
+        //  role: "assistant", 
+        //  content: `Speech Recognition error: ${event.error}` 
+        //}]);
+      };
 
-        recognition.onerror = (event: any) => {
-            console.error('Speech recognition error', event);
-            setIsListening(false);
-            setChatMode('text');
-        };
+      recognition.start();
+    }
 
-        recognition.start();
-
-        return () => {
-            if (recognition) {
-                recognition.stop();
-                recognition = null;
-                setIsListening(false);
-            }
-        };
-    } 
-
-    if (chatMode === 'text') {
-      recognition.abort();
-      recognition = null;
-      setIsListening(false);
-    } 
+    return () => {
+      if (recognition) {
+        console.log('🎤 Cleaning up Speech Recognition');
+        recognition.abort();
+        setIsListening(false);
+        recognition = null;
+      }
+    };
   }, [chatMode, isListening]);
 
   return (
@@ -225,7 +314,6 @@ export function ChatBox() {
                 <Mic size={24} />
               </button>
             </div>
-            {/* Loading Indicator */}
             <div className="flex justify-end mt-2 items-center">
               {loading && (
                 <span className="ml-2 text-sm text-gray-600">Processing...</span>
@@ -241,8 +329,6 @@ export function ChatBox() {
             transition={{ duration: 0.3 }}
             className="flex flex-col items-center justify-center flex-grow p-4"
           >
-            {/* Microphone Chat UI */}
-            {/* Audio Wave-like UI */}
             <div className="mb-4">
               <div className="audio-wave flex">
                 <div></div>
@@ -283,7 +369,6 @@ const HideableChatbox = () => {
 
   return (
     <div className="relative z-0">
-      {/* Chatbox Tab */}
       <AnimatePresence>
         {!isChatOpen && (
           <motion.div
@@ -300,21 +385,18 @@ const HideableChatbox = () => {
         )}
       </AnimatePresence>
 
-      {/* Chatbox Popup and Background Overlay */}
       <AnimatePresence>
         {isChatOpen && (
           <>
-            {/* Background Overlay */}
             <motion.div
               className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              onClick={toggleChat} // Optional: Clicking outside closes the chat
+              onClick={toggleChat}
             />
 
-            {/* Chatbox Popup */}
             <motion.div
               className="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-md bg-white rounded-t-xl shadow-lg overflow-hidden z-20"
               initial={{ y: '100%' }}
@@ -332,7 +414,6 @@ const HideableChatbox = () => {
                     Close
                   </button>
                 </div>
-                {/* Chatbox Component */}
                 <ChatBox />
               </div>
             </motion.div>
