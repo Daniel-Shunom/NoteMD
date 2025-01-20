@@ -14,39 +14,37 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const websocket_intializer = () => {
-  v = new WebSocket.Server({noServer: true})
-  return v;
-}
+export const audioChatHandler = async (ws, userId) => {
+  ws.on('message', async (message) => {
+    try {
+      // Create OpenAI chat completion with streaming
+      const stream = await openai.chat.completions.create({
+        model: process.env.MODEL || 'gpt-3.5-turbo',
+        messages: [{ role: 'user', content: message.toString() }],
+        stream: true,
+      });
 
-export const audioChatHandler = (wss, request) => {
-  const token = request.headers['sec-websocket-protocol'];
-  if (!token) {
-    wss.close(1008, 'Authentication Error');
-    return;
-  }
+      // Process the stream
+      for await (const chunk of stream) {
+        const content = chunk.choices[0]?.delta?.content || '';
+        if (content) {
+          ws.send(content);
+        }
+      }
 
-  let userId;
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    userId = decoded.userId;
-  } catch (err) {
-    wss.close(1008, 'Authentication Error');
-    return;
-  }
-
-  const wsURL = `${process.env.WSS_URL}?model=${process.env.MODEL}`;
-
-  wss.on("open", function open() {
-    console.log("Connected to WebSocket Server");
+    } catch (error) {
+      console.error('OpenAI API Error:', error);
+      ws.send(JSON.stringify({
+        error: 'Error processing your message'
+      }));
+    }
   });
 
-  wss.on("open", function incoming(message) {
-    console.log(JSON.parse(message.data));
+  ws.on('error', (error) => {
+    console.error('WebSocket Error:', error);
   });
 
-  wss.close("close", function outgoing() {
-    console.log("WebSocket Connection is now closed");
+  ws.on('close', () => {
+    console.log(`Connection closed for user: ${userId}`);
   });
-
-}
+};
