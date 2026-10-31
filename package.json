@@ -1,0 +1,28 @@
+{
+  "name": "notemd",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "workspaces": [
+    "backend",
+    "frontend/app"
+  ],
+  "scripts": {
+    "dev": "node tools/dev.mjs",
+    "start": "node backend/server.js",
+    "build": "npm run build --workspace @notemd/app",
+    "check": "npm run check --workspace @notemd/app",
+    "test": "node --test backend/tests/*.test.js",
+    "test:e2e": "playwright test",
+    "format": "prettier --write backend/*.js backend/tests/*.js frontend/app/src frontend/app/*.json frontend/app/*.ts tools tests playwright.config.ts package.json",
+    "test:dev": "node tools/dev-smoke.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.56.1",
+    "prettier": "^3.9.10"
+  }
+}

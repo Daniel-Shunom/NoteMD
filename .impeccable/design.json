@@ -1,0 +1,539 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-31T12:51:06.279Z",
+  "title": "Design System: NoteMD",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Primary",
+        "tonalRamp": [
+          "oklch(15% 0.0520 262.4)",
+          "oklch(26% 0.1024 262.4)",
+          "oklch(38% 0.1420 262.4)",
+          "oklch(50% 0.1595 262.4)",
+          "oklch(62% 0.1522 262.4)",
+          "oklch(74% 0.1212 262.4)",
+          "oklch(86% 0.0715 262.4)",
+          "oklch(95% 0.0263 262.4)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Primary Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0520 262.4)",
+          "oklch(26% 0.1024 262.4)",
+          "oklch(38% 0.1420 262.4)",
+          "oklch(50% 0.1595 262.4)",
+          "oklch(62% 0.1522 262.4)",
+          "oklch(74% 0.1212 262.4)",
+          "oklch(86% 0.0715 262.4)",
+          "oklch(95% 0.0263 262.4)"
+        ]
+      },
+      "primary-soft": {
+        "role": "primary",
+        "displayName": "Primary Soft",
+        "tonalRamp": [
+          "oklch(15% 0.0056 264.5)",
+          "oklch(26% 0.0111 264.5)",
+          "oklch(38% 0.0154 264.5)",
+          "oklch(50% 0.0173 264.5)",
+          "oklch(62% 0.0165 264.5)",
+          "oklch(74% 0.0131 264.5)",
+          "oklch(86% 0.0077 264.5)",
+          "oklch(95% 0.0029 264.5)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0071 262.5)",
+          "oklch(26% 0.0140 262.5)",
+          "oklch(38% 0.0195 262.5)",
+          "oklch(50% 0.0219 262.5)",
+          "oklch(62% 0.0209 262.5)",
+          "oklch(74% 0.0166 262.5)",
+          "oklch(86% 0.0098 262.5)",
+          "oklch(95% 0.0036 262.5)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0090 259.8)",
+          "oklch(26% 0.0178 259.8)",
+          "oklch(38% 0.0247 259.8)",
+          "oklch(50% 0.0277 259.8)",
+          "oklch(62% 0.0265 259.8)",
+          "oklch(74% 0.0211 259.8)",
+          "oklch(86% 0.0124 259.8)",
+          "oklch(95% 0.0046 259.8)"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.9)",
+          "oklch(26% 0.0000 89.9)",
+          "oklch(38% 0.0000 89.9)",
+          "oklch(50% 0.0000 89.9)",
+          "oklch(62% 0.0000 89.9)",
+          "oklch(74% 0.0000 89.9)",
+          "oklch(86% 0.0000 89.9)",
+          "oklch(95% 0.0000 89.9)"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Faint",
+        "tonalRamp": [
+          "oklch(15% 0.0009 264.5)",
+          "oklch(26% 0.0018 264.5)",
+          "oklch(38% 0.0025 264.5)",
+          "oklch(50% 0.0029 264.5)",
+          "oklch(62% 0.0027 264.5)",
+          "oklch(74% 0.0022 264.5)",
+          "oklch(86% 0.0013 264.5)",
+          "oklch(95% 0.0005 264.5)"
+        ]
+      },
+      "navigation": {
+        "role": "neutral",
+        "displayName": "Navigation",
+        "tonalRamp": [
+          "oklch(15% 0.0009 264.5)",
+          "oklch(26% 0.0018 264.5)",
+          "oklch(38% 0.0025 264.5)",
+          "oklch(50% 0.0029 264.5)",
+          "oklch(62% 0.0027 264.5)",
+          "oklch(74% 0.0022 264.5)",
+          "oklch(86% 0.0013 264.5)",
+          "oklch(95% 0.0005 264.5)"
+        ]
+      },
+      "divider": {
+        "role": "neutral",
+        "displayName": "Divider",
+        "tonalRamp": [
+          "oklch(15% 0.0024 260.7)",
+          "oklch(26% 0.0048 260.7)",
+          "oklch(38% 0.0066 260.7)",
+          "oklch(50% 0.0074 260.7)",
+          "oklch(62% 0.0071 260.7)",
+          "oklch(74% 0.0057 260.7)",
+          "oklch(86% 0.0033 260.7)",
+          "oklch(95% 0.0012 260.7)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15% 0.0044 262.4)",
+          "oklch(26% 0.0086 262.4)",
+          "oklch(38% 0.0119 262.4)",
+          "oklch(50% 0.0134 262.4)",
+          "oklch(62% 0.0128 262.4)",
+          "oklch(74% 0.0102 262.4)",
+          "oklch(86% 0.0060 262.4)",
+          "oklch(95% 0.0022 262.4)"
+        ]
+      },
+      "field-hover": {
+        "role": "neutral",
+        "displayName": "Field Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0078 258.4)",
+          "oklch(26% 0.0154 258.4)",
+          "oklch(38% 0.0214 258.4)",
+          "oklch(50% 0.0241 258.4)",
+          "oklch(62% 0.0230 258.4)",
+          "oklch(74% 0.0183 258.4)",
+          "oklch(86% 0.0108 258.4)",
+          "oklch(95% 0.0040 258.4)"
+        ]
+      },
+      "secondary-border": {
+        "role": "neutral",
+        "displayName": "Secondary Border",
+        "tonalRamp": [
+          "oklch(15% 0.0039 259.8)",
+          "oklch(26% 0.0078 259.8)",
+          "oklch(38% 0.0108 259.8)",
+          "oklch(50% 0.0121 259.8)",
+          "oklch(62% 0.0116 259.8)",
+          "oklch(74% 0.0092 259.8)",
+          "oklch(86% 0.0054 259.8)",
+          "oklch(95% 0.0020 259.8)"
+        ]
+      },
+      "secondary-ink": {
+        "role": "neutral",
+        "displayName": "Secondary Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0092 260.6)",
+          "oklch(26% 0.0182 260.6)",
+          "oklch(38% 0.0252 260.6)",
+          "oklch(50% 0.0283 260.6)",
+          "oklch(62% 0.0270 260.6)",
+          "oklch(74% 0.0215 260.6)",
+          "oklch(86% 0.0127 260.6)",
+          "oklch(95% 0.0047 260.6)"
+        ]
+      },
+      "secondary-hover": {
+        "role": "neutral",
+        "displayName": "Secondary Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0015 258.3)",
+          "oklch(26% 0.0029 258.3)",
+          "oklch(38% 0.0040 258.3)",
+          "oklch(50% 0.0045 258.3)",
+          "oklch(62% 0.0043 258.3)",
+          "oklch(74% 0.0034 258.3)",
+          "oklch(86% 0.0020 258.3)",
+          "oklch(95% 0.0007 258.3)"
+        ]
+      },
+      "active-navigation": {
+        "role": "primary",
+        "displayName": "Active Navigation",
+        "tonalRamp": [
+          "oklch(15% 0.0056 264.5)",
+          "oklch(26% 0.0111 264.5)",
+          "oklch(38% 0.0154 264.5)",
+          "oklch(50% 0.0173 264.5)",
+          "oklch(62% 0.0165 264.5)",
+          "oklch(74% 0.0132 264.5)",
+          "oklch(86% 0.0078 264.5)",
+          "oklch(95% 0.0029 264.5)"
+        ]
+      },
+      "active-navigation-ink": {
+        "role": "primary",
+        "displayName": "Active Navigation Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0520 262.0)",
+          "oklch(26% 0.1024 262.0)",
+          "oklch(38% 0.1420 262.0)",
+          "oklch(50% 0.1595 262.0)",
+          "oklch(62% 0.1522 262.0)",
+          "oklch(74% 0.1212 262.0)",
+          "oklch(86% 0.0715 262.0)",
+          "oklch(95% 0.0263 262.0)"
+        ]
+      },
+      "neutral-status": {
+        "role": "neutral",
+        "displayName": "Neutral Status",
+        "tonalRamp": [
+          "oklch(15% 0.0015 258.3)",
+          "oklch(26% 0.0029 258.3)",
+          "oklch(38% 0.0040 258.3)",
+          "oklch(50% 0.0045 258.3)",
+          "oklch(62% 0.0043 258.3)",
+          "oklch(74% 0.0034 258.3)",
+          "oklch(86% 0.0020 258.3)",
+          "oklch(95% 0.0007 258.3)"
+        ]
+      },
+      "neutral-status-ink": {
+        "role": "neutral",
+        "displayName": "Neutral Status Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0108 259.6)",
+          "oklch(26% 0.0213 259.6)",
+          "oklch(38% 0.0296 259.6)",
+          "oklch(50% 0.0332 259.6)",
+          "oklch(62% 0.0317 259.6)",
+          "oklch(74% 0.0252 259.6)",
+          "oklch(86% 0.0149 259.6)",
+          "oklch(95% 0.0055 259.6)"
+        ]
+      },
+      "positive-status": {
+        "role": "neutral",
+        "displayName": "Positive Status",
+        "tonalRamp": [
+          "oklch(15% 0.0043 159.9)",
+          "oklch(26% 0.0085 159.9)",
+          "oklch(38% 0.0117 159.9)",
+          "oklch(50% 0.0132 159.9)",
+          "oklch(62% 0.0126 159.9)",
+          "oklch(74% 0.0100 159.9)",
+          "oklch(86% 0.0059 159.9)",
+          "oklch(95% 0.0022 159.9)"
+        ]
+      },
+      "positive-status-ink": {
+        "role": "neutral",
+        "displayName": "Positive Status Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0242 157.7)",
+          "oklch(26% 0.0478 157.7)",
+          "oklch(38% 0.0662 157.7)",
+          "oklch(50% 0.0744 157.7)",
+          "oklch(62% 0.0710 157.7)",
+          "oklch(74% 0.0566 157.7)",
+          "oklch(86% 0.0333 157.7)",
+          "oklch(95% 0.0123 157.7)"
+        ]
+      },
+      "draft-status": {
+        "role": "neutral",
+        "displayName": "Draft Status",
+        "tonalRamp": [
+          "oklch(15% 0.0070 83.3)",
+          "oklch(26% 0.0138 83.3)",
+          "oklch(38% 0.0192 83.3)",
+          "oklch(50% 0.0215 83.3)",
+          "oklch(62% 0.0205 83.3)",
+          "oklch(74% 0.0164 83.3)",
+          "oklch(86% 0.0097 83.3)",
+          "oklch(95% 0.0036 83.3)"
+        ]
+      },
+      "draft-status-ink": {
+        "role": "neutral",
+        "displayName": "Draft Status Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0307 79.6)",
+          "oklch(26% 0.0606 79.6)",
+          "oklch(38% 0.0839 79.6)",
+          "oklch(50% 0.0943 79.6)",
+          "oklch(62% 0.0900 79.6)",
+          "oklch(74% 0.0717 79.6)",
+          "oklch(86% 0.0423 79.6)",
+          "oklch(95% 0.0156 79.6)"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "Danger",
+        "tonalRamp": [
+          "oklch(15% 0.0501 24.6)",
+          "oklch(26% 0.0987 24.6)",
+          "oklch(38% 0.1368 24.6)",
+          "oklch(50% 0.1537 24.6)",
+          "oklch(62% 0.1467 24.6)",
+          "oklch(74% 0.1169 24.6)",
+          "oklch(86% 0.0689 24.6)",
+          "oklch(95% 0.0254 24.6)"
+        ]
+      },
+      "record-surface": {
+        "role": "neutral",
+        "displayName": "Record Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0013 271.4)",
+          "oklch(26% 0.0026 271.4)",
+          "oklch(38% 0.0037 271.4)",
+          "oklch(50% 0.0041 271.4)",
+          "oklch(62% 0.0039 271.4)",
+          "oklch(74% 0.0031 271.4)",
+          "oklch(86% 0.0018 271.4)",
+          "oklch(95% 0.0007 271.4)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Page heading",
+        "purpose": "Main destination heading."
+      },
+      "title": {
+        "displayName": "Section title",
+        "purpose": "Clinical work sections."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base document text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels and record names."
+      },
+      "metadata": {
+        "displayName": "Metadata",
+        "purpose": "Dates and secondary details."
+      },
+      "note-body": {
+        "displayName": "Clinical writing",
+        "purpose": "SOAP textarea content."
+      }
+    },
+    "shadows": [
+      {
+        "name": "selected-filter",
+        "value": "0 1px 3px rgba(27, 42, 66, 0.08)",
+        "purpose": "Selected segmented filter."
+      },
+      {
+        "name": "dialog",
+        "value": "0 18px 65px rgba(24, 37, 61, 0.18)",
+        "purpose": "Modal overlay."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Shared easing for pointer press and native dialog arrival."
+      },
+      {
+        "name": "button-feedback",
+        "value": "transform 120ms var(--ease-out), background-color 120ms ease",
+        "purpose": "Enabled pointer buttons press to scale(0.98) only with no reduced-motion preference. Keyboard input removes transitions and press scaling."
+      },
+      {
+        "name": "dialog-arrival",
+        "value": "200ms cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Pointer only: opacity 0 to 1 and scale(0.97) to scale(1), using native dialog WAAPI. Keyboard arrival and all closure are immediate; closure restores focus."
+      },
+      {
+        "name": "dialog-reduced-arrival",
+        "value": "100ms cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Reduced-motion pointer input uses opacity only; keyboard input remains immediate."
+      },
+      {
+        "name": "loading-pulse",
+        "value": "pulse 1.5s ease-in-out infinite",
+        "purpose": "Loading skeleton opacity; disabled by prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1550px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1250px"
+      },
+      {
+        "name": "stacked",
+        "value": "1000px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      },
+      {
+        "name": "small-mobile",
+        "value": "380px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary task action.",
+      "html": "<button class=\"ds-primary\">Save note</button>",
+      "css": ".ds-primary{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;min-height:38px;border:1px solid transparent;border-radius:var(--radius,6px);background:var(--blue,#235bce);color:white;font-size:13px;line-height:18px;font-weight:550;cursor:pointer;transition:transform 120ms var(--ease-out,cubic-bezier(0.23,1,0.32,1)),background-color 120ms ease}.ds-primary:hover{background:var(--blue-hover,#194aaf)}.ds-primary:disabled{opacity:.55;cursor:not-allowed}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-text:focus-visible,.ds-nav:focus-visible,.ds-field:focus-visible{outline:2px solid var(--focus,#235bce);outline-offset:3px;}@media(prefers-reduced-motion:no-preference){:host-context([data-input-modality=\"pointer\"]) .ds-primary:not(:disabled):active{transform:scale(0.98)}}:host-context([data-input-modality=\"keyboard\"]) .ds-primary{transition:none}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Supporting task action.",
+      "html": "<button class=\"ds-secondary\">Cancel</button>",
+      "css": ".ds-secondary{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;min-height:38px;border:1px solid #dce1e9;border-radius:var(--radius,6px);background:white;color:#394251;font-size:13px;line-height:18px;font-weight:550;cursor:pointer;transition:transform 120ms var(--ease-out,cubic-bezier(0.23,1,0.32,1)),background-color 120ms ease}.ds-secondary:hover{background:#f5f7fa;border-color:#bcc5d2}.ds-secondary:disabled{opacity:.55;cursor:not-allowed}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-text:focus-visible,.ds-nav:focus-visible,.ds-field:focus-visible{outline:2px solid var(--focus,#235bce);outline-offset:3px;}@media(prefers-reduced-motion:no-preference){:host-context([data-input-modality=\"pointer\"]) .ds-secondary:not(:disabled):active{transform:scale(0.98)}}:host-context([data-input-modality=\"keyboard\"]) .ds-secondary{transition:none}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Text action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Compact action alongside a clinical row.",
+      "html": "<button class=\"ds-text\">Continue note</button>",
+      "css": ".ds-text{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;display:inline-flex;gap:5px;background:none;border:0;padding:4px 0;color:var(--blue,#235bce);font-size:12px;font-weight:550;cursor:pointer}.ds-text:hover{text-decoration:underline;text-underline-offset:3px}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-text:focus-visible,.ds-nav:focus-visible,.ds-field:focus-visible{outline:2px solid var(--focus,#235bce);outline-offset:3px;}"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "A labeled clinical form field.",
+      "html": "<label class=\"ds-label\">Note title<input class=\"ds-field\" value=\"Follow-up visit\"></label>",
+      "css": ".ds-label{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;display:block;font-size:13px;font-weight:500;color:var(--ink,#252b36)}.ds-field{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;display:block;margin-top:7px;color:var(--ink,#252b36);background:white;border:1px solid #d9dee7;border-radius:var(--radius,6px);padding:9px 11px;font-size:14px;font-weight:400;line-height:1.4;max-width:100%;caret-color:var(--blue,#235bce)}.ds-field:hover{border-color:#acb6c5}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-text:focus-visible,.ds-nav:focus-visible,.ds-field:focus-visible{outline:2px solid var(--focus,#235bce);outline-offset:3px;}"
+    },
+    {
+      "name": "Active navigation",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "Selected clinician destination.",
+      "html": "<nav aria-label=\"Workspace\"><a class=\"ds-nav\" href=\"#patients\" aria-current=\"page\">Patients</a></nav>",
+      "css": ".ds-nav{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;display:flex;align-items:center;gap:11px;min-height:40px;padding:10px 12px;border-radius:6px;background:#eaf0fc;color:#2355b7;font-size:13px;font-weight:500;text-decoration:none}.ds-nav:hover{background:#eef1f6}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-text:focus-visible,.ds-nav:focus-visible,.ds-field:focus-visible{outline:2px solid var(--focus,#235bce);outline-offset:3px;}"
+    },
+    {
+      "name": "Draft status",
+      "kind": "chip",
+      "refersTo": "badge-draft",
+      "description": "Written status for an unfinished clinical note.",
+      "html": "<span class=\"ds-draft\">Draft</span>",
+      "css": ".ds-draft{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;display:inline-flex;align-items:center;gap:4px;padding:3px 7px;background:#faf2e3;color:#8c6825;border-radius:4px;font-size:11px;font-weight:500;white-space:nowrap;line-height:1.4}"
+    },
+    {
+      "name": "Patient details",
+      "kind": "card",
+      "refersTo": "record-details",
+      "description": "Quiet contextual record container.",
+      "html": "<aside class=\"ds-record\"><h2>Patient details</h2><dl><dt>Conditions</dt><dd>None recorded</dd></dl></aside>",
+      "css": ".ds-record{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;background:#f8f9fc;color:var(--ink,#252b36);border-radius:8px;padding:21px}.ds-record h2{font-size:13px;font-weight:600;line-height:1.4;margin:0 0 22px}.ds-record dl{margin:0}.ds-record dt{color:var(--muted,#667080);font-size:12px}.ds-record dd{font-size:12px;margin:5px 0 0;overflow-wrap:anywhere}"
+    },
+    {
+      "name": "SOAP writing section",
+      "kind": "custom",
+      "refersTo": "field",
+      "description": "Labeled clinical writing with a SOAP letter marker.",
+      "html": "<section class=\"ds-soap\"><label for=\"ds-subjective\"><span>S</span>Subjective</label><textarea id=\"ds-subjective\">Patient reports improvement.</textarea></section>",
+      "css": ".ds-soap{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink,#252b36);margin-bottom:26px}.ds-soap label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:550;margin-bottom:11px}.ds-soap label span{display:grid;place-items:center;width:23px;height:23px;color:#5e6d87;background:#f1f4f9;border-radius:4px;font-size:12px;font-weight:500}.ds-soap textarea{font-family:\"Segoe UI\",-apple-system,BlinkMacSystemFont,sans-serif;display:block;min-height:125px;width:100%;padding:13px 14px;color:var(--ink,#252b36);background:white;border:1px solid #e0e5ec;border-radius:var(--radius,6px);font-size:13px;line-height:1.7;resize:vertical}.ds-soap textarea:hover{border-color:#b1bdce}.ds-soap textarea:focus-visible{outline:2px solid var(--focus,#235bce);outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The clinician workspace",
+    "overview": "NoteMD is minimalist, functional, and simple. White working areas, quiet gray navigation, and one blue action accent let patient records and clinical writing carry the interface. This language records the implemented clinician application and the user's confirmed direction.\n\nCompact rows and fine dividers provide structure without decorative dashboard cards or charts. Segoe UI keeps the workspace familiar. Patient context accompanies the note editor, with a compact context strip replacing the desktop side panel on smaller screens.",
+    "keyCharacteristics": [
+      "White working surfaces and subdued gray navigation.",
+      "Blue for actions, focus, links, and selection.",
+      "Compact lists separated by fine dividers.",
+      "Familiar controls with gently curved corners.",
+      "Patient context beside or above clinical writing."
+    ],
+    "rules": [
+      {
+        "name": "The Action Blue Rule",
+        "body": "Use blue to identify an action, selection, or focus state.",
+        "section": "colors"
+      },
+      {
+        "name": "The Content Hierarchy Rule",
+        "body": "Establish hierarchy with size, weight, spacing, and muted metadata before adding another visual device.",
+        "section": "typography"
+      },
+      {
+        "name": "The Divider First Rule",
+        "body": "Separate ordinary clinical rows and sections with fine dividers; reserve elevation for the implemented selected filter and modal overlay.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** use blue for actions, selection, links, and keyboard focus.",
+      "**Do** group ordinary records with fine dividers.",
+      "**Do** keep patient context with the clinical note editor at every layout size.",
+      "**Do** retain written labels for every status.",
+      "**Do** honor input modality and reduced motion: keyboard interactions are immediate, reduced motion removes CSS animation and transitions, and pointer-triggered dialogs use only a short opacity arrival."
+    ],
+    "donts": [
+      "**Don't** add decorative dashboard cards or charts to this minimalist workspace.",
+      "**Don't** replace the confirmed Segoe UI stack with an unrelated display typeface.",
+      "**Don't** use color alone to communicate clinical record state.",
+      "**Don't** apply modal shadows to ordinary list rows."
+    ]
+  }
+}
